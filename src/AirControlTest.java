@@ -25,7 +25,6 @@ public class AirControlTest extends TestCase {
         assertNotNull(recstore);
     }
 
-
     // ----------------------------------------------------------
     /**
      * Test syntax: Sample Input/Output
@@ -147,24 +146,24 @@ public class AirControlTest extends TestCase {
         assertFalse(w.add(new Drone("d", 1, 1, 1, 1, 1, 1, "Droner", 0)));
         assertFalse(w.add(new Rocket("r", 1, 1, 1, 1, 1, 1, -1, 1.1)));
         assertFalse(w.add(new Rocket("r", 1, 1, 1, 1, 1, 1, 1, -1.1)));
-        assertFalse(w.add(
-            new AirPlane("a", 2000, 1, 1, 1, 1, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 2000, 1, 1, 1, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 1, 2000, 1, 1, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 1, 1, 2000, 1, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 1, 1, 1, 2000, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 1, 1, 1, 1, 2000, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1000, 1, 1, 1000, 1, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 1000, 1, 1, 1000, 1, "Alaska", 1, 1)));
-        assertFalse(w.add(
-            new AirPlane("a", 1, 1, 1000, 1, 1, 1000, "Alaska", 1, 1)));
+        assertFalse(w.add(new AirPlane("a", 2000, 1, 1, 1, 1, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 2000, 1, 1, 1, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 1, 2000, 1, 1, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 1, 1, 2000, 1, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 1, 1, 1, 2000, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 1, 1, 1, 1, 2000, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1000, 1, 1, 1000, 1, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 1000, 1, 1, 1000, 1, "Alaska", 1,
+            1)));
+        assertFalse(w.add(new AirPlane("a", 1, 1, 1000, 1, 1, 1000, "Alaska", 1,
+            1)));
         assertNull(w.delete(null));
         assertNull(w.print(null));
         assertNull(w.rangeprint(null, "a"));
@@ -197,18 +196,15 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(null);
         assertNull(w.delete("hello"));
         assertFuzzyEquals("SkipList is empty", w.printskiplist());
-        assertFuzzyEquals(
-            "E (0, 0, 0, 1024, 1024, 1024) 0\r\n"
-                + "1 Bintree nodes printed\r\n",
-                w.printbintree());
+        assertFuzzyEquals("E (0, 0, 0, 1024, 1024, 1024) 0\r\n"
+            + "1 Bintree nodes printed\r\n", w.printbintree());
         assertNull(w.print("hello"));
-        assertFuzzyEquals("Found these records in the range begin to end\n",
-            w.rangeprint("begin", "end"));
-        assertFuzzyEquals("The following collisions exist in the database:\n",
-            w.collisions());
-        assertFuzzyEquals(
-            "The following objects intersect (1, 1, 1, 1, 1, 1)\n" +
-                "1 nodes were visited in the bintree\n",
-                w.intersect(1, 1, 1, 1, 1, 1));
+        assertFuzzyEquals("Found these records in the range begin to end\n", w
+            .rangeprint("begin", "end"));
+        assertFuzzyEquals("The following collisions exist in the database:\n", w
+            .collisions());
+        assertFuzzyEquals("The following objects intersect (1, 1, 1, 1, 1, 1)\n"
+            + "1 nodes were visited in the bintree\n", w.intersect(1, 1, 1, 1,
+                1, 1));
     }
 }

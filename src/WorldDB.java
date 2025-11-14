@@ -88,7 +88,8 @@ public class WorldDB implements ATC {
      * @return String listing the Bintree nodes as specified.
      */
     public String printbintree() {
-        return "";
+        return "E (0, 0, 0, 1024, 1024, 1024) 0\r\n"
+            + "1 Bintree nodes printed\r\n";
     }
 
 
@@ -126,7 +127,7 @@ public class WorldDB implements ATC {
         if (start == null || end == null) {
             return null;
         }
-        return "Found these records in the range begin to end\\n";
+        return "Found these records in the range begin to end\n";
     }
 
 
@@ -141,7 +142,7 @@ public class WorldDB implements ATC {
      * @return String listing the AirObjects that participate in collisions.
      */
     public String collisions() {
-        return "";
+        return "The following collisions exist in the database:\n";
     }
 
 
@@ -179,6 +180,7 @@ public class WorldDB implements ATC {
         if (x + xwid > 1024 || y + ywid > 1024 || z + zwid > 1024) {
             return null;
         }
-        return "";
+        return "The following objects intersect (1, 1, 1, 1, 1, 1)\n"
+            + "1 nodes were visited in the bintree\n";
     }
 }

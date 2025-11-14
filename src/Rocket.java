@@ -4,27 +4,90 @@
  * Follow it with additional details about its purpose, what abstraction
  * it represents, and how to use it.
  * 
- * @author bluch
+ * @author benblucher, austink23
  * @version Nov 14, 2025
  */
 public class Rocket extends AirObject {
-
-    public Rocket(
-        String string,
-        int i,
-        int j,
-        int k,
-        int l,
-        int m,
-        int n,
-        int o,
-        double d) {
-        // TODO Auto-generated constructor stub
-    }
     // ~ Fields ................................................................
+    private int ascentRate;
+    private float trajectory;
 
     // ~ Constructors ..........................................................
+    // ----------------------------------------------------------
+    /**
+     * Create a new Rocket object.
+     * 
+     * @param name
+     * @param x
+     * @param y
+     * @param z
+     * @param xWidth
+     * @param yWidth
+     * @param zWidth
+     * @param ascentRate
+     * @param trajectory
+     */
+    public Rocket(
+        String name,
+        int x,
+        int y,
+        int z,
+        int xWidth,
+        int yWidth,
+        int zWidth,
+        int ascentRate,
+        float trajectory) {
 
+        super(name, x, y, z, xWidth, yWidth, zWidth);
+        this.ascentRate = ascentRate;
+        this.trajectory = trajectory;
+    }
     // ~Public Methods ........................................................
+
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of ascentRate.
+     * 
+     * @return The value of ascentRate for this object.
+     */
+    public int getAscentRate() {
+        return ascentRate;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Set the value of ascentRate for this object.
+     * 
+     * @param ascentRate
+     *            The new value for ascentRate.
+     */
+    public void setAscentRate(int ascentRate) {
+        this.ascentRate = ascentRate;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of trajectory.
+     * 
+     * @return The value of trajectory for this object.
+     */
+    public float getTrajectory() {
+        return trajectory;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Set the value of trajectory for this object.
+     * 
+     * @param trajectory
+     *            The new value for trajectory.
+     */
+    public void setTrajectory(float trajectory) {
+        this.trajectory = trajectory;
+    }
 
 }

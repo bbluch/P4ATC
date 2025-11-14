@@ -4,27 +4,88 @@
  * Follow it with additional details about its purpose, what abstraction
  * it represents, and how to use it.
  * 
- * @author bluch
+ * @author benblucher, austink23
  * @version Nov 14, 2025
  */
 public class Drone extends AirObject {
-
-    public Drone(
-        String string,
-        int i,
-        int j,
-        int k,
-        int l,
-        int m,
-        int n,
-        String string2,
-        int o) {
-        // TODO Auto-generated constructor stub
-    }
     // ~ Fields ................................................................
+    private String brand;
+    private int numEngines;
 
     // ~ Constructors ..........................................................
+    // ----------------------------------------------------------
+    /**
+     * Create a new Drone object.
+     * @param name
+     * @param x
+     * @param y
+     * @param z
+     * @param xWidth
+     * @param yWidth
+     * @param zWidth
+     * @param brand
+     * @param numEngines
+     */
+    public Drone(
+        String name,
+        int x,
+        int y,
+        int z,
+        int xWidth,
+        int yWidth,
+        int zWidth,
+        String brand,
+        int numEngines) {
 
+        super(name, x, y, z, xWidth, yWidth, zWidth);
+        this.brand = brand;
+        this.numEngines = numEngines;
+    }
     // ~Public Methods ........................................................
 
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of brand.
+     * 
+     * @return The value of brand for this object.
+     */
+    public String getBrand() {
+        return brand;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Set the value of brand for this object.
+     * 
+     * @param brand
+     *            The new value for brand.
+     */
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of numEngines.
+     * 
+     * @return The value of numEngines for this object.
+     */
+    public int getNumEngines() {
+        return numEngines;
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Set the value of numEngines for this object.
+     * 
+     * @param numEngines
+     *            The new value for numEngines.
+     */
+    public void setNumEngines(int numEngines) {
+        this.numEngines = numEngines;
+    }
 }

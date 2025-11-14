@@ -80,4 +80,25 @@ public class AirPlane extends AirObject {
     public int getNumEngines() {
         return numEngines;
     }
+
+
+    /**
+     * @return boolean based of Air Object isNotValid plus the airplane params
+     */
+    public boolean isNotValid() {
+        if (super.isNotValid()) {
+            return true;
+        }
+        if (flightNumber < 1) {
+            return true;
+        }
+        if (numEngines < 1) {
+            return true;
+        }
+        if (carrier == null) {
+            return true;
+        }
+        return false;
+    }
+
 }

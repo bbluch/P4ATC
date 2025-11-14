@@ -44,40 +44,67 @@ public class Balloon extends AirObject {
     }
     // ~Public Methods ........................................................
 
+
     // ----------------------------------------------------------
     /**
      * Get the current value of type.
+     * 
      * @return The value of type for this object.
      */
     public String getType() {
         return type;
     }
 
+
     // ----------------------------------------------------------
     /**
      * Set the value of type for this object.
-     * @param type The new value for type.
+     * 
+     * @param type
+     *            The new value for type.
      */
     public void setType(String type) {
         this.type = type;
     }
 
+
     // ----------------------------------------------------------
     /**
      * Get the current value of ascentRate.
+     * 
      * @return The value of ascentRate for this object.
      */
     public int getAscentRate() {
         return ascentRate;
     }
 
+
     // ----------------------------------------------------------
     /**
      * Set the value of ascentRate for this object.
-     * @param ascentRate The new value for ascentRate.
+     * 
+     * @param ascentRate
+     *            The new value for ascentRate.
      */
     public void setAscentRate(int ascentRate) {
         this.ascentRate = ascentRate;
+    }
+
+
+    /**
+     * @return boolean based of Air Object isNotValid plus the balloon params
+     */
+    public boolean isNotValid() {
+        if (super.isNotValid()) {
+            return true;
+        }
+        if (type == null) {
+            return true;
+        }
+        if (ascentRate < 0) {
+            return true;
+        }
+        return false;
     }
 
 }

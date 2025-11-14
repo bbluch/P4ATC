@@ -90,4 +90,21 @@ public class Rocket extends AirObject {
         this.trajectory = trajectory;
     }
 
+
+    /**
+     * @return boolean based of Air Object isNotValid plus the rocket params
+     */
+    public boolean isNotValid() {
+        if (super.isNotValid()) {
+            return true;
+        }
+        if (ascentRate < 0) {
+            return true;
+        }
+        if (trajectory < 0) {
+            return true;
+        }
+        return false;
+    }
+
 }

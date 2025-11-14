@@ -16,6 +16,7 @@ public class Drone extends AirObject {
     // ----------------------------------------------------------
     /**
      * Create a new Drone object.
+     * 
      * @param name
      * @param x
      * @param y
@@ -88,4 +89,22 @@ public class Drone extends AirObject {
     public void setNumEngines(int numEngines) {
         this.numEngines = numEngines;
     }
+
+
+    /**
+     * @return boolean based of Air Object isNotValid plus the drone params
+     */
+    public boolean isNotValid() {
+        if (super.isNotValid()) {
+            return true;
+        }
+        if (brand == null) {
+            return true;
+        }
+        if (numEngines < 1) {
+            return true;
+        }
+        return false;
+    }
+
 }

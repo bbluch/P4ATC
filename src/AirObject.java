@@ -118,4 +118,51 @@ public class AirObject {
     public String getName() {
         return name;
     }
+    
+    /**
+     * @return boolean if AiRObject isNotValid based off params
+     */
+    public boolean isNotValid() {
+        if(x < 0 || x > 1024) {
+            return true;
+        }
+        if(y < 0 || y > 1024) {
+            return true;
+        }
+        if(z < 0 || z > 1024) {
+            return true;
+        }
+        if(name == null) {
+            return true;
+        }
+        if(xWidth < 1 || xWidth > 1025) {
+            return true;
+        }
+        if(yWidth < 1 || yWidth > 1025) {
+            return true;
+        }
+        if(zWidth < 1 || zWidth > 1025) {
+            return true;
+        }
+        if(x + xWidth > 1024) {
+            return true;
+        }
+        if(y + yWidth > 1024) {
+            return true;
+        }
+        if(z + zWidth > 1024) {
+            return true;
+        }
+        return false;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }

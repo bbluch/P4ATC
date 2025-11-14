@@ -38,28 +38,7 @@ public class WorldDB implements ATC {
      * @return True iff the AirObject is successfully entered into the database
      */
     public boolean add(AirObject a) {
-        if(a == null) {
-            return false;
-        }
-        if(a.getName() == null) {
-            return false;
-        }
-        if(a.getXorig() < 0 || a.getXorig() > 1024){
-            return false;
-        }
-        if(a.getYorig() < 0 || a.getYorig() > 1024){
-            return false;
-        }
-        if(a.getZorig() < 0 || a.getZorig() > 1024){
-            return false;
-        }
-        if(a.getXwidth() < 1 || a.getXwidth() > 1025){
-            return false;
-        }
-        if(a.getYwidth() < 1 || a.getYwidth() > 1025){
-            return false;
-        }
-        if(a.getZwidth() < 1 || a.getZwidth() > 1025){
+        if(a.isNotValid()) {
             return false;
         }
         return true;
@@ -173,6 +152,9 @@ public class WorldDB implements ATC {
             return null;
         }
         if(x > 1024 || y > 1024 || z > 1024 || xwid > 1025 || ywid > 1025 || zwid > 1025) {
+            return null;
+        }
+        if(x + xwid > 1024 || y + ywid > 1024 || z + zwid > 1024) {
             return null;
         }
         return "";

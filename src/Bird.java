@@ -90,4 +90,22 @@ public class Bird extends AirObject {
         this.number = number;
     }
 
+
+    /**
+     * @return boolean based of Air Object isNotValid plus the bird params
+     */
+    public boolean isNotValid() {
+        if (super.isNotValid()) {
+            return true;
+        }
+        if (type == null) {
+            return true;
+        }
+        if (number < 1) {
+            return true;
+        }
+        return false;
+
+    }
+
 }

@@ -1,30 +1,83 @@
 // -------------------------------------------------------------------------
 /**
- *  Write a one-sentence summary of your class here.
- *  Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ * Write a one-sentence summary of your class here.
+ * Follow it with additional details about its purpose, what abstraction
+ * it represents, and how to use it.
  * 
- *  @author bluch
- *  @version Nov 14, 2025
+ * @author bluch
+ * @version Nov 14, 2025
  */
 public class Balloon extends AirObject {
+    // ~ Fields ................................................................
+    private String type;
+    private int ascentRate;
 
+    // ~ Constructors ..........................................................
+    // ----------------------------------------------------------
+    /**
+     * Create a new Balloon object.
+     * 
+     * @param name
+     * @param x
+     * @param y
+     * @param z
+     * @param xWidth
+     * @param yWidth
+     * @param zWidth
+     * @param type
+     * @param ascentRate
+     */
     public Balloon(
-        String string,
-        int i,
-        int j,
-        int k,
-        int l,
-        int m,
-        int n,
-        String string2,
-        int o) {
-        // TODO Auto-generated constructor stub
+        String name,
+        int x,
+        int y,
+        int z,
+        int xWidth,
+        int yWidth,
+        int zWidth,
+        String type,
+        int ascentRate) {
+
+        super(name, x, y, z, xWidth, yWidth, zWidth);
+        this.type = type;
+        this.ascentRate = ascentRate;
     }
-    //~ Fields ................................................................
+    // ~Public Methods ........................................................
 
-    //~ Constructors ..........................................................
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of type.
+     * @return The value of type for this object.
+     */
+    public String getType() {
+        return type;
+    }
 
-    //~Public  Methods ........................................................
+    // ----------------------------------------------------------
+    /**
+     * Set the value of type for this object.
+     * @param type The new value for type.
+     */
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Get the current value of ascentRate.
+     * @return The value of ascentRate for this object.
+     */
+    public int getAscentRate() {
+        return ascentRate;
+    }
+
+    // ----------------------------------------------------------
+    /**
+     * Set the value of ascentRate for this object.
+     * @param ascentRate The new value for ascentRate.
+     */
+    public void setAscentRate(int ascentRate) {
+        this.ascentRate = ascentRate;
+    }
 
 }

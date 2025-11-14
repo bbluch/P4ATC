@@ -10,7 +10,7 @@
 public class Rocket extends AirObject {
     // ~ Fields ................................................................
     private int ascentRate;
-    private float trajectory;
+    private double trajectory;
 
     // ~ Constructors ..........................................................
     // ----------------------------------------------------------
@@ -36,7 +36,7 @@ public class Rocket extends AirObject {
         int yWidth,
         int zWidth,
         int ascentRate,
-        float trajectory) {
+        double trajectory) {
 
         super(name, x, y, z, xWidth, yWidth, zWidth);
         this.ascentRate = ascentRate;
@@ -74,7 +74,7 @@ public class Rocket extends AirObject {
      * 
      * @return The value of trajectory for this object.
      */
-    public float getTrajectory() {
+    public double getTrajectory() {
         return trajectory;
     }
 

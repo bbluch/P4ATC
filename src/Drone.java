@@ -101,10 +101,7 @@ public class Drone extends AirObject {
         if (brand == null) {
             return true;
         }
-        if (numEngines < 1) {
-            return true;
-        }
-        return false;
+        return numEngines < 1;
     }
 
 }

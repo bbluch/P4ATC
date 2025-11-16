@@ -151,10 +151,7 @@ public class AirObject {
         if (y + yWidth > 1024) {
             return true;
         }
-        if (z + zWidth > 1024) {
-            return true;
-        }
-        return false;
+        return z + zWidth > 1024;
     }
 
 }

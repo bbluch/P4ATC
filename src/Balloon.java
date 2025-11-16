@@ -101,10 +101,7 @@ public class Balloon extends AirObject {
         if (type == null) {
             return true;
         }
-        if (ascentRate < 0) {
-            return true;
-        }
-        return false;
+        return ascentRate < 0;
     }
 
 }

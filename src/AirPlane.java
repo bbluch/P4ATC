@@ -95,10 +95,7 @@ public class AirPlane extends AirObject {
         if (numEngines < 1) {
             return true;
         }
-        if (carrier == null) {
-            return true;
-        }
-        return false;
+        return carrier == null;
     }
 
 }

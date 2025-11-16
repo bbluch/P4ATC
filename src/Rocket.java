@@ -101,10 +101,7 @@ public class Rocket extends AirObject {
         if (ascentRate < 0) {
             return true;
         }
-        if (trajectory < 0) {
-            return true;
-        }
-        return false;
+        return trajectory < 0;
     }
 
 }

@@ -43,10 +43,7 @@ public class WorldDB implements ATC {
      * @return True iff the AirObject is successfully entered into the database
      */
     public boolean add(AirObject a) {
-        if (a.isNotValid()) {
-            return false;
-        }
-        return true;
+        return !a.isNotValid();
     }
 
 

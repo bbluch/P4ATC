@@ -101,10 +101,7 @@ public class Bird extends AirObject {
         if (type == null) {
             return true;
         }
-        if (number < 1) {
-            return true;
-        }
-        return false;
+        return number < 1;
 
     }
 

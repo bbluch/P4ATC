@@ -9,6 +9,7 @@ import java.util.Random;
 public class WorldDB implements ATC {
     private final int worldSize = 1024;
     private Random rnd;
+    private SkipList recordsByName;
 
     /**
      * Create a brave new World.
@@ -31,6 +32,7 @@ public class WorldDB implements ATC {
      *
      */
     public void clear() {
+        recordsByName = new SkipList();
     }
 
 
@@ -43,7 +45,20 @@ public class WorldDB implements ATC {
      * @return True iff the AirObject is successfully entered into the database
      */
     public boolean add(AirObject a) {
-        return !a.isNotValid();
+        if (a.isNotValid()) {
+            return false;
+        }
+
+        if (recordsByName.find(a.getName()) != null) {
+            return false;
+        }
+
+        recordsByName.insert(a.getName(), a);
+
+        // 3. Insert into Bintree (You will add this later)
+        // bintree.insert(a);
+
+        return true;
     }
 
 
@@ -103,7 +118,15 @@ public class WorldDB implements ATC {
         if (name == null) {
             return null;
         }
-        return null;
+
+        // Use the SkipList's find method
+        AirObject foundObject = (AirObject)recordsByName.find(name);
+
+        if (foundObject == null) {
+            return null; // Not found
+        }
+        // Return the object's toString value
+        return foundObject.toString();
     }
 
 

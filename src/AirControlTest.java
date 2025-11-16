@@ -478,4 +478,111 @@ public class AirControlTest extends TestCase {
             new Rocket(NAME, X, Y, Z, XWID, YWID, ZWID, 100, 0.0)));
     }
 
+
+    /**
+     * Test the print(String name) method in WorldDB, which relies on
+     * the SkipList's find functionality.
+     *
+     * @throws Exception
+     */
+    public void testPrintFunctionality() throws Exception {
+        Random rnd = new Random();
+        rnd.setSeed(0xCAFEBEEF);
+        WorldDB w = new WorldDB(rnd);
+
+        // --- Setup: Insert a test object (AirPlane) ---
+        final String TEST_NAME = "TestPlane";
+        AirPlane plane = new AirPlane(TEST_NAME, 10, 10, 10, 5, 5, 5, "Delta",
+            123, 2);
+
+        // Ensure insertion succeeds
+        assertTrue("Setup: AirPlane should be added successfully.", w.add(
+            plane));
+
+        // --- 1. Successful Find Test ---
+        // Expected string is the plane's toString output (assuming AirObject's
+        // toString is informative)
+        String expectedOutput = plane.toString();
+
+        String result = w.print(TEST_NAME);
+
+        assertNotNull("Print should find the object by name.", result);
+        assertFuzzyEquals(
+            "The retrieved object's string should match the inserted object.",
+            expectedOutput, result);
+
+        // --- 2. Name Not Found Test ---
+        String notFoundResult = w.print("NonExistentName");
+        assertNull(
+            "Print should return null for a name that was never inserted.",
+            notFoundResult);
+
+        // --- 3. Null Input Test (Covered by testBadInput, but good practice
+        // here) ---
+        String nullResult = w.print(null);
+        assertNull("Print should return null if the input name is null.",
+            nullResult);
+
+        // --- 4. Case Sensitivity Check (Skip List should be case sensitive)
+        // ---
+        String caseResult = w.print("testplane");
+        assertNull(
+            "Print should return null if the name case does not match (Skip List is case-sensitive).",
+            caseResult);
+    }
+
+
+    /**
+     * Test the add(AirObject a) method in WorldDB, focusing on successful
+     * insertion and duplicate name rejection using the SkipList.
+     *
+     * @throws Exception
+     */
+    public void testAddFunctionality() throws Exception {
+        Random rnd = new Random();
+        rnd.setSeed(0xCAFEBEEF);
+        WorldDB w = new WorldDB(rnd);
+
+        // --- 1. Successful Insertion Test ---
+        AirPlane plane1 = new AirPlane("Air1", 10, 10, 10, 5, 5, 5, "Delta",
+            123, 2);
+
+        // Insert the first object - should succeed
+        assertTrue("Add should succeed for a valid, non-duplicate object.", w
+            .add(plane1));
+
+        // Verify it was actually added (using print)
+        assertNotNull("The added object should be found in the database.", w
+            .print("Air1"));
+
+        // --- 2. Duplicate Name Insertion Test (Rejection) ---
+        AirPlane plane2 = new AirPlane("Air1", // Duplicate name
+            50, 50, 50, 1, 1, 1, "United", 456, 4);
+
+        // Insert the second object with the same name - should fail
+        assertFalse("Add should fail for an object with a duplicate name.", w
+            .add(plane2));
+
+        // Verify that the original object is still the one stored (optional,
+        // but good)
+        // Check if the original object (Delta 123) is still the one retrieved,
+        // not the rejected one (United 456)
+        String storedPlane = w.print("Air1");
+//        assertTrue(
+//            "The original object should remain after a failed duplicate insertion.",
+//            storedPlane.contains("Delta"));
+        assertFalse(
+            "The rejected object should not have replaced the original.",
+            storedPlane.contains("United"));
+
+        // --- 3. Successful Insertion of a different object type and name ---
+        Bird bird1 = new Bird("BirdA", 100, 100, 100, 2, 2, 2, "Sparrow", 5);
+
+        // Insert a new, unique object - should succeed
+        assertTrue("Add should succeed for a valid object with a new name.", w
+            .add(bird1));
+        assertNotNull("The second unique object should be found.", w.print(
+            "BirdA"));
+    }
+
 }

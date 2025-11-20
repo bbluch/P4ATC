@@ -21,8 +21,7 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
      */
     public SkipList() {
         head = new SkipNode<K>(null, null, 0);
-        level = -1; // The snippet shows -1, but 0 is safer for immediate use. 
-                   // Let's stick to 0 for consistency with the loop logic in insert.
+        level = -1;
         size = 0;
     }
 
@@ -34,9 +33,12 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
     private int randomLevel() {
         int lev = 0;
         // The condition uses ran.nextInt() % 2 == 0 for a 50% chance of lev++
-        while (Math.abs(ran.nextInt()) % 2 == 0) { 
-            lev++;
-        }
+//        while (Math.abs(ran.nextInt()) % 2 == 0) { 
+//            lev++;
+//        }
+        for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) { // ran is random generator
+            ; // Do nothing
+          }
         return lev;
     }
 

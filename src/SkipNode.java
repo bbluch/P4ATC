@@ -46,7 +46,7 @@ public class SkipNode<K extends Comparable<K>> {
      * Get the forward array.
      * @return The forward array of SkipNode pointers.
      */
-    public SkipNode[] getForward() {
+    public SkipNode<K>[] getForward() {
         return forward;
     }
 

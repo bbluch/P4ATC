@@ -21,7 +21,7 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
      */
     public SkipList() {
         head = new SkipNode<K>(null, null, 0);
-        level = -1; // The snippet shows -1, but 0 is safer for immediate use. 
+        level = 0; // The snippet shows -1, but 0 is safer for immediate use. 
                    // Let's stick to 0 for consistency with the loop logic in insert.
         size = 0;
     }

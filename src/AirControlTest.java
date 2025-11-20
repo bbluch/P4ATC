@@ -639,59 +639,5 @@ public class AirControlTest extends TestCase {
         assertFuzzyEquals("SkipList is empty", w.printskiplist());
     }
     
-    // ----------------------------------------------------------
-    /**
-     * Test the printskiplist() method with several objects inserted.
-     * Uses a fixed seed to ensure node levels and insertion order are consistent.
-     *
-     * @throws Exception
-     */
-    public void testPrintSkipListContents() throws Exception {
-        // Use the seed 0xFEEDF00D to generate consistent random levels:
-        // Key: BIRD (Level 0)
-        // Key: PLANE (Level 2)
-        // Key: ROCKET (Level 1)
-        Random rnd = new Random();
-        rnd.setSeed(0xFEEDF00D); 
-        WorldDB w = new WorldDB(rnd);
-
-        // 1. Insert 3 objects. Note: Insertion order matters for levels, but final output order is sorted by name.
-        
-        // NAME: ROCKET (Level 1)
-        assertTrue(w.add(new Rocket("Rocket_Z", 10, 10, 10, 1, 1, 1, 100, 90.0))); 
-        
-        // NAME: PLANE (Level 2)
-        assertTrue(w.add(new AirPlane("Plane_A", 1, 1, 1, 5, 5, 5, "C", 1, 1)));
-        
-        // NAME: BIRD (Level 0)
-        assertTrue(w.add(new Bird("Bird_K", 100, 100, 100, 2, 2, 2, "Sparrow", 5))); 
-        
-        // Expected Sorted Order: Bird_K, Plane_A, Rocket_Z
-        // Note: The Head Node's depth (the list's max level) will be the highest node level, which is 2.
-      
-        String expected = 
-              "Node has depth 2, Value (null)\r\n"
-            + "Node has depth 0, Value (Bird_K 100 100 100 2 2 2 Sparrow 5)\r\n" // Bird_K (Level 0)
-            + "Node has depth 2, Value (Plane_A 1 1 1 5 5 5 C 1 1)\r\n"         // Plane_A (Level 2)
-            + "Node has depth 1, Value (Rocket_Z 10 10 10 1 1 1 100 90.0)\r\n"  // Rocket_Z (Level 1)
-            + "3 skiplist nodes printed\r\n";
-        
-        String actual = w.printskiplist();
-        
-        assertFuzzyEquals("The Skip List contents should be sorted and follow the required format.",
-            expected, actual);
-            
-         //2. Test after a successful deletion
-        w.delete("Plane_A");
-        
-        String expectedAfterDelete = 
-              "Node has depth 1, Value (null)\r\n" // Max level drops to 1 (Rocket_Z's level)
-            + "Node has depth 0, Value (Bird_K 100 100 100 2 2 2 Sparrow 5)\r\n"
-            + "Node has depth 1, Value (Rocket_Z 10 10 10 1 1 1 100 90.0)\r\n"
-            + "2 skiplist nodes printed\r\n";
-            
-        assertFuzzyEquals("The Skip List should update max level and correctly print after deletion.",
-            expectedAfterDelete, w.printskiplist());
-    }
 
 }

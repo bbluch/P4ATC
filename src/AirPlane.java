@@ -97,5 +97,16 @@ public class AirPlane extends AirObject {
         }
         return carrier == null;
     }
+    
+    /**
+     * Returns the full string representation of the AirPlane object:
+     * AirPlane {name} {x} {y} {z} {xwid} {ywid} {zwid} {carrier} {flight#} {#engines}
+     * @return Full AirPlane string
+     */
+    @Override
+    public String toString() {
+        return "Airplane " + super.toString() + " " 
+             + getCarrier() + " " + getFlightNumber() + " " + getNumEngines();
+    }
 
 }

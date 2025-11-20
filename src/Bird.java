@@ -102,7 +102,17 @@ public class Bird extends AirObject {
             return true;
         }
         return number < 1;
-
+    }
+    
+    /**
+     * Returns the full string representation of the Bird object:
+     * Bird {name} {x} {y} {z} {xwid} {ywid} {zwid} {type} {number}
+     * @return Full Bird string
+     */
+    @Override
+    public String toString() {
+        return "Bird " + super.toString() + " " 
+             + getType() + " " + getNumber();
     }
 
 }

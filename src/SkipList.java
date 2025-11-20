@@ -154,7 +154,58 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
         return size;
     }
     
-    // You will need a method to get all records in sorted order for printskiplist 
-    // and rangeprint. A simple approach is to traverse the level 0 chain.
-    // ...
+ // ----------------------------------------------------------
+    /**
+     * Deletes the node associated with the given key from the skip list.
+     * * @param key The comparable key to delete.
+     * @return The element (AirObject) of the deleted node, or null if not found.
+     */
+    @SuppressWarnings("unchecked")
+    public Object delete(K key) {
+        // Array to store the nodes preceding the node to be deleted at each level
+        SkipNode<K>[] update = new SkipNode[level + 1];
+        SkipNode<K> x = head;
+
+        // 1. Find deletion position and populate update array
+        // Traverse from the highest level (level) down to level 0
+        for (int i = level; i >= 0; i--) {
+            // Traverse forward until the next node is null or its key is >= the key to delete
+            while ((x.getForward()[i] != null)
+                && (x.getForward()[i].key().compareTo(key) < 0)) {
+                x = x.getForward()[i];
+            }
+            update[i] = x; // Store the node just before the potential deletion node
+        }
+
+        // Move x to the actual record node at level 0 (the potential match)
+        x = x.getForward()[0];
+
+        // 2. Check if a match was found and proceed with deletion
+        if (x != null && x.key().compareTo(key) == 0) {
+            // Match found. Rewire pointers from level 0 up to the node's level
+            for (int i = 0; i <= level; i++) {
+                // Check if the update node at level i points to the node to be deleted (x)
+                if (update[i].getForward()[i] == x) {
+                    // Rewire: update[i] bypasses x and points to what x points to
+                    update[i].getForward()[i] = x.getForward()[i];
+                }
+            }
+
+            // 3. Adjust max level (level) if the deleted node was the highest node
+            while (level > 0 && head.getForward()[level] == null) {
+                level--;
+            }
+
+            size--; // Decrement dictionary size
+            return x.element(); // Return the element of the deleted node
+        }
+
+        // 4. No match found
+        return null;
+    }
 }
+
+
+
+
+

@@ -73,9 +73,18 @@ public class WorldDB implements ATC {
      * @return A string representing the AirObject, or null if no such name.
      */
     public String delete(String name) {
-        if (name == null) {
-            return null;
+     // 1. Delete from Skip List
+        AirObject deletedObject = (AirObject)recordsByName.delete(name);
+
+        if (deletedObject != null) {
+            // 2. Delete from Bintree (You will add this later)
+            // bintree.delete(deletedObject); 
+
+            // 3. Return the string representation of the deleted object
+            return deletedObject.toString();
         }
+
+        // 4. Object not found
         return null;
     }
 

@@ -584,5 +584,54 @@ public class AirControlTest extends TestCase {
         assertNotNull("The second unique object should be found.", w.print(
             "BirdA"));
     }
+    
+ // ----------------------------------------------------------
+    /**
+     * Test the WorldDB.delete(String name) method, verifying successful deletion
+     * (and skip list removal) and rejection of non-existent names.
+     *
+     * @throws Exception
+     */
+    public void testDeleteFunctionality() throws Exception {
+        Random rnd = new Random();
+        rnd.setSeed(0xCAFEBEEF);
+        WorldDB w = new WorldDB(rnd);
+        
+        // --- Setup: Insert two objects ---
+        AirPlane plane1 = new AirPlane("PlaneA", 10, 10, 10, 5, 5, 5, "Delta", 123, 2);
+        Bird bird1 = new Bird("BirdB", 100, 100, 100, 2, 2, 2, "Sparrow", 5);
+        
+        assertTrue("Setup: PlaneA should be added successfully.", w.add(plane1));
+        assertTrue("Setup: BirdB should be added successfully.", w.add(bird1));
+        
+        // Sanity Check: Both should be present
+        assertNotNull("Sanity: PlaneA should be found before delete.", w.print("PlaneA"));
+        assertNotNull("Sanity: BirdB should be found before delete.", w.print("BirdB"));
+        
+        // --- 1. Successful Deletion Test (Middle/Non-Head) ---
+        String deletedOutput = w.delete("PlaneA");
+        
+        assertNotNull("Delete should return the object's string when found.", deletedOutput);
+        assertFuzzyEquals("The returned string should match the deleted object.", 
+                          plane1.toString(), deletedOutput);
+        
+        // Verify deletion by attempting to print
+        assertNull("Verify: PlaneA should be removed and not found after delete.", w.print("PlaneA"));
+        
+        // Verify other object remains
+        assertNotNull("Verify: BirdB should still be present after deleting PlaneA.", w.print("BirdB"));
+        
+        // --- 2. Deletion Not Found Test ---
+        String notFoundResult = w.delete("PlaneA"); // Attempt to delete again
+        assertNull("Delete should return null if the name is not found.", notFoundResult);
+
+        // --- 3. Delete Remaining Object ---
+        assertNotNull("Pre-check: BirdB should still be present.", w.print("BirdB"));
+        w.delete("BirdB");
+        assertNull("Verify: BirdB should be removed after final delete.", w.print("BirdB"));
+        
+        // --- 4. Null Input Check (Already in testBadInput, but good practice) ---
+        assertNull("Delete should return null if the input name is null.", w.delete(null));
+    }
 
 }

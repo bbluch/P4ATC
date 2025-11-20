@@ -97,7 +97,7 @@ public class WorldDB implements ATC {
      * @return String listing the AirObjects in the Skiplist as specified.
      */
     public String printskiplist() {
-        return "SkipList is empty";
+        return recordsByName.printSkipList();
     }
 
 

@@ -203,6 +203,67 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
         // 4. No match found
         return null;
     }
+    
+ // ----------------------------------------------------------
+    /**
+     * Traverses the level 0 chain to get all elements in sorted order.
+     * @return A String containing all SkipNodes, formatted for printing.
+     */
+    private String getSortedElements() {
+        StringBuilder sb = new StringBuilder();
+        SkipNode<K> curr = head.getForward()[0]; // Start at the first actual node (Level 0)
+        
+        // Traverse the level 0 chain until null is reached
+        while (curr != null) {
+            // --- Line 1: Node has depth X, ---
+            sb.append("Node has depth ").append(curr.getNodeLevel()); 
+            
+            // Append the required comma and space, THEN the line break
+            sb.append(", "); 
+            sb.append("\r\n");
+            
+            // --- Line 2:  Value (AirObject.toString())\r\n ---
+            // Start the line with a single space for indentation, as shown in the sample concatenation
+            sb.append(" Value ("); 
+            
+            sb.append(curr.toString()); // Calls KVPair.toString() -> AirObject.toString()
+            sb.append(")\r\n");
+            
+            curr = curr.getForward()[0];
+        }
+        
+        // Add the total count line
+        sb.append(size);
+        sb.append(" skiplist nodes printed\r\n");
+        
+        return sb.toString();
+    }
+    
+ // ----------------------------------------------------------
+    /**
+     * Returns a string representation of the Skip List, including the head node 
+     * and all elements in sorted order.
+     * @return String listing the Skip List contents in the required format.
+     */
+    public String printSkipList() {
+        if (size == 0) {
+            return "SkipList is empty";
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        
+        // 1. Append Head Node (Placeholder for Head's depth and Value)
+        // The head node is a sentinel, its key is null. The sample output shows 
+        // a head node with a depth (which is the current max list level)
+        sb.append("Node has depth ");
+        sb.append(level);
+        sb.append(", Value (null)\r\n"); 
+        
+        // 2. Append Sorted Elements
+        sb.append(getSortedElements()); 
+        
+        return sb.toString();
+    }
 }
 
 

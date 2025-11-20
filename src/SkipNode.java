@@ -6,6 +6,7 @@
 public class SkipNode<K extends Comparable<K>> {
     private KVPair<K> rec;
     private SkipNode<K>[] forward;
+    private final int nodeLevel;
 
     // ----------------------------------------------------------
     /**
@@ -34,6 +35,7 @@ public class SkipNode<K extends Comparable<K>> {
      */
     public SkipNode(K key, Object elem, int level) {
         rec = new KVPair<K>(key, elem);
+        this.nodeLevel = level;
         // forward array has size level + 1 (for levels 0 to level)
         forward = new SkipNode[level + 1];
         for (int i = 0; i <= level; i++) { // Corrected loop: level is max index
@@ -48,6 +50,11 @@ public class SkipNode<K extends Comparable<K>> {
      */
     public SkipNode<K>[] getForward() {
         return forward;
+    }
+    
+    // Add a getter for the level
+    public int getNodeLevel() {
+        return nodeLevel;
     }
 
     // ----------------------------------------------------------

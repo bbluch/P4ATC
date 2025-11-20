@@ -560,9 +560,9 @@ public class AirControlTest extends TestCase {
         // Check if the original object (Delta 123) is still the one retrieved,
         // not the rejected one (United 456)
         String storedPlane = w.print("Air1");
-//        assertTrue(
-//            "The original object should remain after a failed duplicate insertion.",
-//            storedPlane.contains("Delta"));
+        assertTrue(
+            "The original object should remain after a failed duplicate insertion.",
+            storedPlane.contains("Delta"));
         assertFalse(
             "The rejected object should not have replaced the original.",
             storedPlane.contains("United"));

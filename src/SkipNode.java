@@ -3,9 +3,9 @@
  * * @author benblucher, austink23
  * @version Nov 16, 2025
  */
-public class SkipNode {
-    private KVPair rec;
-    private SkipNode[] forward;
+public class SkipNode<K extends Comparable<K>> {
+    private KVPair<K> rec;
+    private SkipNode<K>[] forward;
 
     // ----------------------------------------------------------
     /**
@@ -21,19 +21,19 @@ public class SkipNode {
      * Get the key stored in the node.
      * @return The key (AirObject name)
      */
-    public Comparable key() {
+    public K key() {
         return rec.key();
     }
 
     // ----------------------------------------------------------
     /**
      * Constructor for a SkipNode.
-     * * @param key The comparable key (e.g., AirObject name)
+     * @param key The comparable key (e.g., AirObject name)
      * @param elem The element/value (e.g., AirObject)
      * @param level The level of the node
      */
-    public SkipNode(Comparable key, Object elem, int level) {
-        rec = new KVPair(key, elem);
+    public SkipNode(K key, Object elem, int level) {
+        rec = new KVPair<K>(key, elem);
         // forward array has size level + 1 (for levels 0 to level)
         forward = new SkipNode[level + 1];
         for (int i = 0; i <= level; i++) { // Corrected loop: level is max index

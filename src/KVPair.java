@@ -1,14 +1,14 @@
 // KVPair.java (You will need to implement this class)
-public class KVPair implements Comparable<KVPair> {
-    private Comparable key;
+public class KVPair<K extends Comparable<K>> implements Comparable<KVPair<K>> {
+    private K key;
     private Object value;
 
-    public KVPair(Comparable key, Object value) {
+    public KVPair(K key, Object value) {
         this.key = key;
         this.value = value;
     }
 
-    public Comparable key() {
+    public K key() {
         return key;
     }
 
@@ -19,7 +19,7 @@ public class KVPair implements Comparable<KVPair> {
     // Since the SkipList operates on the key, KVPair must implement Comparable
     // based on the key.
     @Override
-    public int compareTo(KVPair other) {
+    public int compareTo(KVPair<K> other) {
         // Assuming keys are comparable strings (AirObject names)
         return this.key.compareTo(other.key);
     }

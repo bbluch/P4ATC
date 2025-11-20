@@ -9,7 +9,7 @@ import java.util.Random;
 public class WorldDB implements ATC {
     private final int worldSize = 1024;
     private Random rnd;
-    private SkipList recordsByName;
+    private SkipList<String> recordsByName;
 
     /**
      * Create a brave new World.
@@ -32,7 +32,7 @@ public class WorldDB implements ATC {
      *
      */
     public void clear() {
-        recordsByName = new SkipList();
+        recordsByName = new SkipList<String>();
     }
 
 

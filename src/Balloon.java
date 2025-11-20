@@ -103,16 +103,18 @@ public class Balloon extends AirObject {
         }
         return ascentRate < 0;
     }
-    
+
+
     /**
      * Returns the full string representation of the Balloon object:
      * Balloon {name} {x} {y} {z} {xwid} {ywid} {zwid} {type} {ascentRate}
+     * 
      * @return Full Balloon string
      */
     @Override
     public String toString() {
-        return "Balloon " + super.toString() + " " 
-             + getType() + " " + getAscentRate();
+        return "Balloon " + super.toString() + " " + getType() + " "
+            + getAscentRate();
     }
 
 }

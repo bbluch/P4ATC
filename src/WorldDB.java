@@ -3,8 +3,8 @@ import java.util.Random;
 /**
  * The world for this project. We have a Skip List and a Bintree
  *
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author benblucher, austink23
+ * @version 11.20.2025
  */
 public class WorldDB implements ATC {
     private final int worldSize = 1024;
@@ -73,12 +73,12 @@ public class WorldDB implements ATC {
      * @return A string representing the AirObject, or null if no such name.
      */
     public String delete(String name) {
-     // 1. Delete from Skip List
+        // 1. Delete from Skip List
         AirObject deletedObject = (AirObject)recordsByName.delete(name);
 
         if (deletedObject != null) {
             // 2. Delete from Bintree (You will add this later)
-            // bintree.delete(deletedObject); 
+            // bintree.delete(deletedObject);
 
             // 3. Return the string representation of the deleted object
             return deletedObject.toString();

@@ -153,17 +153,19 @@ public class AirObject {
         }
         return z + zWidth > 1024;
     }
-    
+
+
     /**
      * Returns the string representation of the common AirObject fields:
      * name x y z xWidth yWidth zWidth
+     * 
      * @return String of common fields
      */
     @Override
     public String toString() {
         // Must match the order of initialization in the constructor
-        return name + " " + x + " " + y + " " + z + " "
-             + xWidth + " " + yWidth + " " + zWidth;
+        return name + " " + x + " " + y + " " + z + " " + xWidth + " " + yWidth
+            + " " + zWidth;
     }
 
 }

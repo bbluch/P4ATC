@@ -8,9 +8,10 @@ import java.util.Random;
  * 
  * @version Nov 16, 2025
  */
-public class SkipList<K extends Comparable<K>> { // Implement
-                                                 // Dictionary/appropriate
-                                                 // interface
+public class SkipList<K extends Comparable<K>> {
+    // Implement
+    // Dictionary/appropriate
+    // interface
 
     private SkipNode<K> head;
     private int level;
@@ -41,9 +42,10 @@ public class SkipList<K extends Comparable<K>> { // Implement
 // while (Math.abs(ran.nextInt()) % 2 == 0) {
 // lev++;
 // }
-        for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) { // ran is
-                                                                 // random
-                                                                 // generator
+        for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) {
+            // ran is
+            // random
+            // generator
             ; // Do nothing
         }
         return lev;
@@ -124,37 +126,6 @@ public class SkipList<K extends Comparable<K>> { // Implement
         size++; // Increment dictionary size
     }
 
-// /** Insert a key, element pair into the skip list */
-// public void insert(K key, E elem) {
-// int newLevel = randomLevel(); // New node's level
-// if (newLevel > level) // If new node is deeper
-// adjustHead(newLevel); // adjust the header
-// // Track end of level
-// SkipNode<K, E>[] update = new SkipNode[level + 1];
-// SkipNode<K, E> x = head; // Start at header node
-// for (int i = level; i >= 0; i--) { // Find insert position
-// while ((x.forward[i] != null) && (x.forward[i].key().compareTo(
-// key) < 0))
-// x = x.forward[i];
-// update[i] = x; // Track end at level i
-// }
-// x = new SkipNode<K, E>(key, elem, newLevel);
-// for (int i = 0; i <= newLevel; i++) { // Splice into list
-// x.forward[i] = update[i].forward[i]; // Who x points to
-// update[i].forward[i] = x; // Who points to x
-// }
-// size++; // Increment dictionary size
-// }
-//
-//
-// private void adjustHead(int newLevel) {
-// SkipNode<K, E> temp = head;
-// head = new SkipNode<K, E>(null, null, newLevel);
-// for (int i = 0; i <= level; i++)
-// head.forward[i] = temp.forward[i];
-// level = newLevel;
-// }
-
 
     // ----------------------------------------------------------
     /**
@@ -184,16 +155,17 @@ public class SkipList<K extends Comparable<K>> { // Implement
         if ((x != null) && (x.key().compareTo(key) == 0)) {
             return x.element(); // Got it
         }
-        else {
-            return null; // It's not there
-        }
+        return null; // It's not there
+
     }
 
-    // You will also need to implement delete, printskiplist, and rangeprint.
 
-
-    // You will need a getter for size to verify if the list is empty for
-    // methods like delete.
+    // ----------------------------------------------------------
+    /**
+     * Gets size of list
+     * 
+     * @return size of list
+     */
     public int size() {
         return size;
     }

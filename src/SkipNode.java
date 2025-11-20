@@ -3,6 +3,7 @@
  * * @author benblucher, austink23
  * 
  * @version Nov 16, 2025
+ * @param <K> Object in list
  */
 public class SkipNode<K extends Comparable<K>> {
     private KVPair<K> rec;
@@ -66,6 +67,11 @@ public class SkipNode<K extends Comparable<K>> {
 
 
     // Add a getter for the level
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     * @return Node Level
+     */
     public int getNodeLevel() {
         return nodeLevel;
     }

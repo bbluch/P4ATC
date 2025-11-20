@@ -103,16 +103,18 @@ public class Rocket extends AirObject {
         }
         return trajectory < 0;
     }
-    
+
+
     /**
      * Returns the full string representation of the Rocket object:
      * Rocket {name} {x} {y} {z} {xwid} {ywid} {zwid} {ascentRate} {trajectory}
+     * 
      * @return Full Rocket string
      */
     @Override
     public String toString() {
-        return "Rocket " + super.toString() + " " 
-             + getAscentRate() + " " + getTrajectory();
+        return "Rocket " + super.toString() + " " + getAscentRate() + " "
+            + getTrajectory();
     }
 
 }

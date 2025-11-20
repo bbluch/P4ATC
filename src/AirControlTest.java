@@ -2,8 +2,8 @@ import java.util.Random;
 import student.TestCase;
 
 /**
- * @author {Your Name Here}
- * @version {Put Something Here}
+ * @author benblucher, austink23
+ * @version 11.20.2025
  */
 public class AirControlTest extends TestCase {
 
@@ -24,6 +24,7 @@ public class AirControlTest extends TestCase {
         AirControl recstore = new AirControl();
         assertNotNull(recstore);
     }
+
 
     // ----------------------------------------------------------
     /**
@@ -56,17 +57,17 @@ public class AirControlTest extends TestCase {
             "Air1"));
         assertNull(w.print("air1"));
 
-//        assertFuzzyEquals("I (0, 0, 0, 1024, 1024, 1024) 0\r\n"
-//            + " I (0, 0, 0, 512, 1024, 1024) 1\r\n"
-//            + " Leaf with 3 objects (0, 0, 0, 512, 512, 1024) 2\r\n"
-//            + " (Airplane Air1 0 10 1 20 2 30 USAir 717 4)\r\n"
-//            + " (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
-//            + " (Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1)\r\n"
-//            + " Leaf with 1 objects (0, 512, 0, 512, 512, 1024) 2\r\n"
-//            + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
-//            + " Leaf with 1 objects (512, 0, 0, 512, 1024, 1024) 1\r\n"
-//            + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
-//            + "5 Bintree nodes printed\r\n", w.printbintree());
+// assertFuzzyEquals("I (0, 0, 0, 1024, 1024, 1024) 0\r\n"
+// + " I (0, 0, 0, 512, 1024, 1024) 1\r\n"
+// + " Leaf with 3 objects (0, 0, 0, 512, 512, 1024) 2\r\n"
+// + " (Airplane Air1 0 10 1 20 2 30 USAir 717 4)\r\n"
+// + " (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
+// + " (Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1)\r\n"
+// + " Leaf with 1 objects (0, 512, 0, 512, 512, 1024) 2\r\n"
+// + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
+// + " Leaf with 1 objects (512, 0, 0, 512, 1024, 1024) 1\r\n"
+// + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
+// + "5 Bintree nodes printed\r\n", w.printbintree());
 
         assertFuzzyEquals("Node has depth 3, Value (null)\r\n"
             + "Node has depth 3, "
@@ -79,34 +80,34 @@ public class AirControlTest extends TestCase {
             + "Value (Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1)\r\n"
             + "4 skiplist nodes printed\r\n", w.printskiplist());
 
-//        assertFuzzyEquals("Found these records in the range a to z\r\n"
-//            + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n", w.rangeprint(
-//                "a", "z"));
-//        assertFuzzyEquals("Found these records in the range a to l\r\n", w
-//            .rangeprint("a", "l"));
-//        assertNull(w.rangeprint("z", "a"));
+// assertFuzzyEquals("Found these records in the range a to z\r\n"
+// + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n", w.rangeprint(
+// "a", "z"));
+// assertFuzzyEquals("Found these records in the range a to l\r\n", w
+// .rangeprint("a", "l"));
+// assertNull(w.rangeprint("z", "a"));
 
-//        assertFuzzyEquals("The following collisions exist in the database:\r\n"
-//            + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
-//            + "(Airplane Air1 0 10 1 20 2 30 USAir 717 4) "
-//            + "and (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
-//            + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
-//            + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n", w
-//                .collisions());
+// assertFuzzyEquals("The following collisions exist in the database:\r\n"
+// + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
+// + "(Airplane Air1 0 10 1 20 2 30 USAir 717 4) "
+// + "and (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
+// + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
+// + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n", w
+// .collisions());
 //
-//        assertFuzzyEquals(
-//            "The following objects intersect (0 0 0 1024 1024 1024):\r\n"
-//                + "In Internal node (0, 0, 0, 1024, 1024, 1024) 0\r\n"
-//                + "In Internal node (0, 0, 0, 512, 1024, 1024) 1\r\n"
-//                + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
-//                + "Airplane Air1 0 10 1 20 2 30 USAir 717 4\r\n"
-//                + "Balloon B1 10 11 11 21 12 31 hot_air 15\r\n"
-//                + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n"
-//                + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
-//                + "Drone Air2 100 1010 101 924 2 900 Droners 3\r\n"
-//                + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n"
-//                + "5 nodes were visited in the bintree\r\n", w.intersect(0, 0,
-//                    0, 1024, 1024, 1024));
+// assertFuzzyEquals(
+// "The following objects intersect (0 0 0 1024 1024 1024):\r\n"
+// + "In Internal node (0, 0, 0, 1024, 1024, 1024) 0\r\n"
+// + "In Internal node (0, 0, 0, 512, 1024, 1024) 1\r\n"
+// + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
+// + "Airplane Air1 0 10 1 20 2 30 USAir 717 4\r\n"
+// + "Balloon B1 10 11 11 21 12 31 hot_air 15\r\n"
+// + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n"
+// + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
+// + "Drone Air2 100 1010 101 924 2 900 Droners 3\r\n"
+// + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n"
+// + "5 nodes were visited in the bintree\r\n", w.intersect(0, 0,
+// 0, 1024, 1024, 1024));
     }
 
 
@@ -576,66 +577,83 @@ public class AirControlTest extends TestCase {
         assertNotNull("The second unique object should be found.", w.print(
             "BirdA"));
     }
-    
- // ----------------------------------------------------------
+
+
+    // ----------------------------------------------------------
     /**
-     * Test the SkipList.insert() method exclusively by verifying correct sorting, 
-     * item insertion, and list leveling using only the add and printskiplist 
+     * Test the SkipList.insert() method exclusively by verifying correct
+     * sorting,
+     * item insertion, and list leveling using only the add and printskiplist
      * WorldDB methods.
      * Uses a fixed seed (0xCAFEBABE) to ensure repeatable SkipNode levels:
-     * Alpha (Level 0), Bravo (Level 2), Charlie (Level 1), Delta (Level 0), Echo (Level 1).
+     * Alpha (Level 0), Bravo (Level 2), Charlie (Level 1), Delta (Level 0),
+     * Echo (Level 1).
      *
      * @throws Exception
      */
     public void testSkipListInsertOnly() throws Exception {
         // Use a fixed seed to ensure repeatable SkipNode levels:
         Random rnd = new Random();
-        rnd.setSeed(0xCAFEBABE); 
+        rnd.setSeed(0xCAFEBABE);
         WorldDB w = new WorldDB(rnd);
-        
+
         // Create objects to insert (names chosen to check sorting)
         // Draw 1: Alpha (Level 0)
-        Bird birdA = new Bird("Alpha", 1, 1, 1, 1, 1, 1, "TypeA", 1); 
+        Bird birdA = new Bird("Alpha", 1, 1, 1, 1, 1, 1, "TypeA", 1);
         // Draw 2: Bravo (Level 2 - becomes Max Level)
-        Bird birdB = new Bird("Bravo", 2, 2, 2, 1, 1, 1, "TypeB", 1); 
+        Bird birdB = new Bird("Bravo", 2, 2, 2, 1, 1, 1, "TypeB", 1);
         // Draw 3: Charlie (Level 1)
-        Bird birdC = new Bird("Charlie", 3, 3, 3, 1, 1, 1, "TypeC", 1); 
+        Bird birdC = new Bird("Charlie", 3, 3, 3, 1, 1, 1, "TypeC", 1);
         // Draw 4: Delta (Level 0)
-        Bird birdD = new Bird("Delta", 4, 4, 4, 1, 1, 1, "TypeD", 1); 
+        Bird birdD = new Bird("Delta", 4, 4, 4, 1, 1, 1, "TypeD", 1);
         // Draw 5: Echo (Level 1)
-        Bird birdE = new Bird("Echo", 5, 5, 5, 1, 1, 1, "TypeE", 1); 
+        Bird birdE = new Bird("Echo", 5, 5, 5, 1, 1, 1, "TypeE", 1);
         // Draw 6: Foxtrot (Level 3 - New Max Level)
         Bird birdF = new Bird("Foxtrot", 6, 6, 6, 1, 1, 1, "TypeF", 1);
 
         // --- 1. Insertion ---
-        assertTrue(w.add(birdC));   // Insert Charlie (C)
-        assertTrue(w.add(birdE));   // Insert Echo (E)
-        assertTrue(w.add(birdA));   // Insert Alpha (A)
-        assertTrue(w.add(birdD));   // Insert Delta (D)
-        assertTrue(w.add(birdB));   // Insert Bravo (B)
-        assertTrue(w.add(birdF));   // Insert Foxtrot (F) - Should trigger max level adjustment to 3
+        assertTrue(w.add(birdC)); // Insert Charlie (C)
+        assertTrue(w.add(birdE)); // Insert Echo (E)
+        assertTrue(w.add(birdA)); // Insert Alpha (A)
+        assertTrue(w.add(birdD)); // Insert Delta (D)
+        assertTrue(w.add(birdB)); // Insert Bravo (B)
+        assertTrue(w.add(birdF)); // Insert Foxtrot (F) - Should trigger max
+                                  // level adjustment to 3
 
         // --- 2. Verification (Sorted Order, Levels, and Format) ---
         // Expected Sorted Order: Alpha, Bravo, Charlie, Delta, Echo, Foxtrot
         // Final Max List Level = 3 (from Foxtrot)
-        
-        String expected = 
-              "Node has depth 3, Value (null)\r\n"
-            + "Node has depth 0, \r\n Value (" + birdA.toString() + ")\r\n"   // Alpha (Level 0)
-            + "Node has depth 2, \r\n Value (" + birdB.toString() + ")\r\n"   // Bravo (Level 2)
-            + "Node has depth 1, \r\n Value (" + birdC.toString() + ")\r\n"   // Charlie (Level 1)
-            + "Node has depth 0, \r\n Value (" + birdD.toString() + ")\r\n"   // Delta (Level 0)
-            + "Node has depth 1, \r\n Value (" + birdE.toString() + ")\r\n"   // Echo (Level 1)
-            + "Node has depth 3, \r\n Value (" + birdF.toString() + ")\r\n"   // Foxtrot (Level 3)
+
+        String expected = "Node has depth 3, Value (null)\r\n"
+            + "Node has depth 0, \r\n Value (" + birdA.toString() + ")\r\n" // Alpha
+                                                                            // (Level
+                                                                            // 0)
+            + "Node has depth 2, \r\n Value (" + birdB.toString() + ")\r\n" // Bravo
+                                                                            // (Level
+                                                                            // 2)
+            + "Node has depth 1, \r\n Value (" + birdC.toString() + ")\r\n" // Charlie
+                                                                            // (Level
+                                                                            // 1)
+            + "Node has depth 0, \r\n Value (" + birdD.toString() + ")\r\n" // Delta
+                                                                            // (Level
+                                                                            // 0)
+            + "Node has depth 1, \r\n Value (" + birdE.toString() + ")\r\n" // Echo
+                                                                            // (Level
+                                                                            // 1)
+            + "Node has depth 3, \r\n Value (" + birdF.toString() + ")\r\n" // Foxtrot
+                                                                            // (Level
+                                                                            // 3)
             + "6 skiplist nodes printed\r\n";
-            
+
         String actual = w.printskiplist();
-        
-        assertFuzzyEquals("SkipList insertion failed: sorted order, leveling, or formatting is incorrect.",
+
+        assertFuzzyEquals(
+            "SkipList insertion failed: sorted order, leveling, or formatting is incorrect.",
             expected, actual);
     }
-    
- // ----------------------------------------------------------
+
+
+    // ----------------------------------------------------------
     /**
      * Test the SkipList.insert() method exclusively by verifying item presence
      * after insertion using only the add() and print() WorldDB methods.
@@ -644,19 +662,20 @@ public class AirControlTest extends TestCase {
      * @throws Exception
      */
     public void testSkipListInsertPresence() throws Exception {
-        // Use a fixed seed for consistency, although levels are not asserted here.
+        // Use a fixed seed for consistency, although levels are not asserted
+        // here.
         Random rnd = new Random();
-        rnd.setSeed(0xCAFEBABE); 
+        rnd.setSeed(0xCAFEBABE);
         WorldDB w = new WorldDB(rnd);
-        
+
         // Create objects to insert (mixed names and types)
         Bird birdA = new Bird("Alpha", 1, 1, 1, 1, 1, 1, "TypeA", 1);
         AirPlane planeB = new AirPlane("Bravo", 2, 2, 2, 1, 1, 1, "C", 1, 1);
         Rocket rocketC = new Rocket("Charlie", 3, 3, 3, 1, 1, 1, 10, 1.0);
         Drone droneD = new Drone("Delta", 4, 4, 4, 1, 1, 1, "DJI", 4);
-        
+
         // Names inserted in mixed order: C, B, D, A
-        
+
         // --- 1. Insertion ---
         assertTrue("Insert failed for Charlie (Rocket).", w.add(rocketC));
         assertTrue("Insert failed for Bravo (AirPlane).", w.add(planeB));
@@ -664,32 +683,38 @@ public class AirControlTest extends TestCase {
         assertTrue("Insert failed for Alpha (Bird).", w.add(birdA));
 
         // --- 2. Verification (Check presence of ALL inserted items) ---
-        
+
         // If the item exists, print() returns a non-null string.
-        
+
         // Check Alpha (Bird)
-        assertNotNull("Alpha was inserted but cannot be found (SkipList.insert failure).", 
+        assertNotNull(
+            "Alpha was inserted but cannot be found (SkipList.insert failure).",
             w.print("Alpha"));
-            
+
         // Check Bravo (AirPlane)
-        assertNotNull("Bravo was inserted but cannot be found (SkipList.insert failure).", 
+        assertNotNull(
+            "Bravo was inserted but cannot be found (SkipList.insert failure).",
             w.print("Bravo"));
-            
+
         // Check Charlie (Rocket)
-        assertNotNull("Charlie was inserted but cannot be found (SkipList.insert failure).", 
+        assertNotNull(
+            "Charlie was inserted but cannot be found (SkipList.insert failure).",
             w.print("Charlie"));
-            
+
         // Check Delta (Drone)
-        assertNotNull("Delta was inserted but cannot be found (SkipList.insert failure).", 
+        assertNotNull(
+            "Delta was inserted but cannot be found (SkipList.insert failure).",
             w.print("Delta"));
-            
+
         // --- 3. Negative Check ---
         assertNull("Non-existent item found incorrectly.", w.print("Foxtrot"));
     }
-    
- // ----------------------------------------------------------
+
+
+    // ----------------------------------------------------------
     /**
-     * Test the WorldDB.delete(String name) method, verifying successful deletion
+     * Test the WorldDB.delete(String name) method, verifying successful
+     * deletion
      * (and skip list removal) and rejection of non-existent names.
      *
      * @throws Exception
@@ -698,45 +723,61 @@ public class AirControlTest extends TestCase {
         Random rnd = new Random();
         rnd.setSeed(0xCAFEBEEF);
         WorldDB w = new WorldDB(rnd);
-        
+
         // --- Setup: Insert two objects ---
-        AirPlane plane1 = new AirPlane("PlaneA", 10, 10, 10, 5, 5, 5, "Delta", 123, 2);
+        AirPlane plane1 = new AirPlane("PlaneA", 10, 10, 10, 5, 5, 5, "Delta",
+            123, 2);
         Bird bird1 = new Bird("BirdB", 100, 100, 100, 2, 2, 2, "Sparrow", 5);
-        
-        assertTrue("Setup: PlaneA should be added successfully.", w.add(plane1));
+
+        assertTrue("Setup: PlaneA should be added successfully.", w.add(
+            plane1));
         assertTrue("Setup: BirdB should be added successfully.", w.add(bird1));
-        
+
         // Sanity Check: Both should be present
-        assertNotNull("Sanity: PlaneA should be found before delete.", w.print("PlaneA"));
-        assertNotNull("Sanity: BirdB should be found before delete.", w.print("BirdB"));
-        
+        assertNotNull("Sanity: PlaneA should be found before delete.", w.print(
+            "PlaneA"));
+        assertNotNull("Sanity: BirdB should be found before delete.", w.print(
+            "BirdB"));
+
         // --- 1. Successful Deletion Test (Middle/Non-Head) ---
         String deletedOutput = w.delete("PlaneA");
-        
-        assertNotNull("Delete should return the object's string when found.", deletedOutput);
-        assertFuzzyEquals("The returned string should match the deleted object.", 
-                          plane1.toString(), deletedOutput);
-        
+
+        assertNotNull("Delete should return the object's string when found.",
+            deletedOutput);
+        assertFuzzyEquals(
+            "The returned string should match the deleted object.", plane1
+                .toString(), deletedOutput);
+
         // Verify deletion by attempting to print
-        assertNull("Verify: PlaneA should be removed and not found after delete.", w.print("PlaneA"));
-        
+        assertNull(
+            "Verify: PlaneA should be removed and not found after delete.", w
+                .print("PlaneA"));
+
         // Verify other object remains
-        assertNotNull("Verify: BirdB should still be present after deleting PlaneA.", w.print("BirdB"));
-        
+        assertNotNull(
+            "Verify: BirdB should still be present after deleting PlaneA.", w
+                .print("BirdB"));
+
         // --- 2. Deletion Not Found Test ---
         String notFoundResult = w.delete("PlaneA"); // Attempt to delete again
-        assertNull("Delete should return null if the name is not found.", notFoundResult);
+        assertNull("Delete should return null if the name is not found.",
+            notFoundResult);
 
         // --- 3. Delete Remaining Object ---
-        assertNotNull("Pre-check: BirdB should still be present.", w.print("BirdB"));
+        assertNotNull("Pre-check: BirdB should still be present.", w.print(
+            "BirdB"));
         w.delete("BirdB");
-        assertNull("Verify: BirdB should be removed after final delete.", w.print("BirdB"));
-        
-        // --- 4. Null Input Check (Already in testBadInput, but good practice) ---
-        assertNull("Delete should return null if the input name is null.", w.delete(null));
+        assertNull("Verify: BirdB should be removed after final delete.", w
+            .print("BirdB"));
+
+        // --- 4. Null Input Check (Already in testBadInput, but good practice)
+        // ---
+        assertNull("Delete should return null if the input name is null.", w
+            .delete(null));
     }
-    
- // ----------------------------------------------------------
+
+
+    // ----------------------------------------------------------
     /**
      * Test the printskiplist() method when the database is empty.
      *
@@ -744,12 +785,14 @@ public class AirControlTest extends TestCase {
      */
     public void testPrintSkipListEmpty() throws Exception {
         WorldDB w = new WorldDB(null);
-        
-        // This assertion is already in testEmpty(), but we include it for clarity
+
+        // This assertion is already in testEmpty(), but we include it for
+        // clarity
         assertFuzzyEquals("SkipList is empty", w.printskiplist());
     }
-    
- // ----------------------------------------------------------
+
+
+    // ----------------------------------------------------------
     /**
      * Test the full set of SkipList operations (insert, find, delete)
      * by manipulating AirObjects through the WorldDB interface.
@@ -758,21 +801,22 @@ public class AirControlTest extends TestCase {
      * @throws Exception
      */
     public void testSkipListOperationsIntegration() throws Exception {
-        // Seed 0xCAFEBABE is chosen to generate specific, repeatable SkipNode levels.
+        // Seed 0xCAFEBABE is chosen to generate specific, repeatable SkipNode
+        // levels.
         Random rnd = new Random();
-        rnd.setSeed(0xCAFEBABE); 
+        rnd.setSeed(0xCAFEBABE);
         WorldDB w = new WorldDB(rnd);
 
         // --- 1. Insertion Setup ---
         // A. Rocket (R1) - Level 0
         Rocket r1 = new Rocket("RocketA", 1, 1, 1, 10, 10, 10, 100, 45.0);
         // B. AirPlane (P1) - Level 2
-        AirPlane p1 = new AirPlane("PlaneB", 50, 50, 50, 20, 20, 20, "UA", 400, 4);
+        AirPlane p1 = new AirPlane("PlaneB", 50, 50, 50, 20, 20, 20, "UA", 400,
+            4);
         // C. Drone (D1) - Level 1
         Drone d1 = new Drone("DroneC", 100, 100, 100, 5, 5, 5, "DJI", 2);
         // D. Bird (B1) - Level 0
         Bird b1 = new Bird("BirdD", 200, 200, 200, 1, 1, 1, "Eagle", 1);
-
 
         assertTrue("Insertion failed for RocketA.", w.add(r1));
         assertTrue("Insertion failed for PlaneB.", w.add(p1));
@@ -780,49 +824,63 @@ public class AirControlTest extends TestCase {
         assertTrue("Insertion failed for BirdD.", w.add(b1));
 
         // --- 2. Find and Sorted Order Check ---
-        // Expected Sorted Order (Alphabetical by name): BirdD, DroneC, PlaneB, RocketA
-        
+        // Expected Sorted Order (Alphabetical by name): BirdD, DroneC, PlaneB,
+        // RocketA
+
         // Max list level = 2 (from PlaneB)
-        String expectedInitialPrint = 
-              "Node has depth 2, Value (null)\r\n"
-            + "Node has depth 0, \r\n Value (" + b1.toString() + ")\r\n"   // BirdD (Level 0)
-            + "Node has depth 1, \r\n Value (" + d1.toString() + ")\r\n"   // DroneC (Level 1)
-            + "Node has depth 2, \r\n Value (" + p1.toString() + ")\r\n"   // PlaneB (Level 2)
-            + "Node has depth 0, \r\n Value (" + r1.toString() + ")\r\n"   // RocketA (Level 0)
+        String expectedInitialPrint = "Node has depth 2, Value (null)\r\n"
+            + "Node has depth 0, \r\n Value (" + b1.toString() + ")\r\n" // BirdD
+                                                                         // (Level
+                                                                         // 0)
+            + "Node has depth 1, \r\n Value (" + d1.toString() + ")\r\n" // DroneC
+                                                                         // (Level
+                                                                         // 1)
+            + "Node has depth 2, \r\n Value (" + p1.toString() + ")\r\n" // PlaneB
+                                                                         // (Level
+                                                                         // 2)
+            + "Node has depth 0, \r\n Value (" + r1.toString() + ")\r\n" // RocketA
+                                                                         // (Level
+                                                                         // 0)
             + "4 skiplist nodes printed\r\n";
-            
+
         String actualInitialPrint = w.printskiplist();
-        
-        assertFuzzyEquals("Initial SkipList print failed (Order/Format/Levels).", 
+
+        assertFuzzyEquals(
+            "Initial SkipList print failed (Order/Format/Levels).",
             expectedInitialPrint, actualInitialPrint);
-            
+
         // Check finding an item
         assertNotNull("Find failed for PlaneB.", w.print("PlaneB"));
-        assertNull("Find incorrectly found non-existent item.", w.print("NotFound"));
+        assertNull("Find incorrectly found non-existent item.", w.print(
+            "NotFound"));
 
-
-        // --- 3. Deletion Test (Delete a node with a high level - PlaneB/Level 2) ---
+        // --- 3. Deletion Test (Delete a node with a high level - PlaneB/Level
+        // 2) ---
         // Deleting the highest level node forces adjustHead logic check.
         String deletedItem = w.delete("PlaneB");
         assertNotNull("Deletion failed for PlaneB.", deletedItem);
-        assertFuzzyEquals("Deleted string mismatch.", p1.toString(), deletedItem);
-        
+        assertFuzzyEquals("Deleted string mismatch.", p1.toString(),
+            deletedItem);
+
         // Verify delete succeeded
-        assertNull("PlaneB should be deleted and not found.", w.print("PlaneB"));
+        assertNull("PlaneB should be deleted and not found.", w.print(
+            "PlaneB"));
 
         // --- 4. Final Sorted Order and Level Adjustment Check ---
         // Remaining: BirdD, DroneC, RocketA
         // New Max Level should be 1 (from DroneC)
-        String expectedFinalPrint = 
-              "Node has depth 1, Value (null)\r\n" // New Max Level = 1
+        String expectedFinalPrint = "Node has depth 1, Value (null)\r\n" // New
+                                                                         // Max
+                                                                         // Level
+                                                                         // = 1
             + "Node has depth 0, \r\n Value (" + b1.toString() + ")\r\n"
             + "Node has depth 1, \r\n Value (" + d1.toString() + ")\r\n"
             + "Node has depth 0, \r\n Value (" + r1.toString() + ")\r\n"
             + "3 skiplist nodes printed\r\n";
-            
-        assertFuzzyEquals("Final SkipList print failed after high-level deletion.", 
+
+        assertFuzzyEquals(
+            "Final SkipList print failed after high-level deletion.",
             expectedFinalPrint, w.printskiplist());
     }
-    
 
 }

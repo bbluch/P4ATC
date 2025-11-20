@@ -89,8 +89,8 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
             update[i] = x; 
         }
 
-        // 3. Check for duplicates (at level 0) - Project requirement likely prohibits duplicates
-        // Move x one step forward (x.forward[0] is the potential duplicate)
+//        // 3. Check for duplicates (at level 0) - Project requirement likely prohibits duplicates
+//        // Move x one step forward (x.forward[0] is the potential duplicate)
         x = x.getForward()[0];
         
         // Skip List logic often assumes no duplicates for simplicity; 

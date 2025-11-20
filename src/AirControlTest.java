@@ -26,11 +26,11 @@ public class AirControlTest extends TestCase {
     }
 
     // ----------------------------------------------------------
-//    /**
-//     * Test syntax: Sample Input/Output
-//     *
-//     * @throws Exception
-//     */
+    /**
+     * Test syntax: Sample Input/Output
+     *
+     * @throws Exception
+     */
 //    public void testSampleInput() throws Exception {
 //        Random rnd = new Random();
 //        rnd.setSeed(0xCAFEBEEF);
@@ -578,15 +578,15 @@ public class AirControlTest extends TestCase {
     }
     
  // ----------------------------------------------------------
-//    /**
-//     * Test the SkipList.insert() method exclusively by verifying correct sorting, 
-//     * item insertion, and list leveling using only the add and printskiplist 
-//     * WorldDB methods.
-//     * Uses a fixed seed (0xCAFEBABE) to ensure repeatable SkipNode levels:
-//     * Alpha (Level 0), Bravo (Level 2), Charlie (Level 1), Delta (Level 0), Echo (Level 1).
-//     *
-//     * @throws Exception
-//     */
+    /**
+     * Test the SkipList.insert() method exclusively by verifying correct sorting, 
+     * item insertion, and list leveling using only the add and printskiplist 
+     * WorldDB methods.
+     * Uses a fixed seed (0xCAFEBABE) to ensure repeatable SkipNode levels:
+     * Alpha (Level 0), Bravo (Level 2), Charlie (Level 1), Delta (Level 0), Echo (Level 1).
+     *
+     * @throws Exception
+     */
 //    public void testSkipListInsertOnly() throws Exception {
 //        // Use a fixed seed to ensure repeatable SkipNode levels:
 //        Random rnd = new Random();
@@ -750,13 +750,13 @@ public class AirControlTest extends TestCase {
     }
     
  // ----------------------------------------------------------
-//    /**
-//     * Test the full set of SkipList operations (insert, find, delete)
-//     * by manipulating AirObjects through the WorldDB interface.
-//     * Uses a fixed seed to ensure repeatable SkipNode levels.
-//     *
-//     * @throws Exception
-//     */
+    /**
+     * Test the full set of SkipList operations (insert, find, delete)
+     * by manipulating AirObjects through the WorldDB interface.
+     * Uses a fixed seed to ensure repeatable SkipNode levels.
+     *
+     * @throws Exception
+     */
 //    public void testSkipListOperationsIntegration() throws Exception {
 //        // Seed 0xCAFEBABE is chosen to generate specific, repeatable SkipNode levels.
 //        Random rnd = new Random();

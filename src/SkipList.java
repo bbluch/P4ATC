@@ -8,6 +8,8 @@ import java.util.Random;
  * @author benblucher, austink23
  * 
  * @version Nov 16, 2025
+ * @param <K>
+ *            object being compared
  */
 public class SkipList<K extends Comparable<K>> {
     // Implement

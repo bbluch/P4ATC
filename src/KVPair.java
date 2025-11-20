@@ -30,7 +30,7 @@ public class KVPair<K extends Comparable<K>> implements Comparable<KVPair<K>> {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets key of pair.
      * 
      * @return Key
      */
@@ -41,9 +41,9 @@ public class KVPair<K extends Comparable<K>> implements Comparable<KVPair<K>> {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets value of pair.
      * 
-     * @return Key
+     * @return value of pair
      */
     public Object value() {
         return value;

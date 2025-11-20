@@ -8,7 +8,12 @@
 public class AirObject {
     // ~ Fields ................................................................
     private String name;
-    private int x, y, z, xWidth, yWidth, zWidth;
+    private int x;
+    private int y;
+    private int z;
+    private int xWidth;
+    private int yWidth;
+    private int zWidth;
 
     // ~ Constructors ..........................................................
     // ----------------------------------------------------------
@@ -16,12 +21,19 @@ public class AirObject {
      * Create a new AirObject object.
      * 
      * @param x
+     *            X coordinate
      * @param y
+     *            Y coordinate
      * @param z
+     *            Z coordinate
      * @param xWidth
+     *            xWidth of object
      * @param yWidth
+     *            yWidth of object
      * @param zWidth
+     *            zWidth of object
      * @param name
+     *            Name of object
      */
     public AirObject(
         String name,
@@ -44,7 +56,7 @@ public class AirObject {
     // ~Public Methods ........................................................
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets x value
      * 
      * @return x of object
      */
@@ -55,7 +67,7 @@ public class AirObject {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets y value
      * 
      * @return y of object
      */
@@ -66,7 +78,7 @@ public class AirObject {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets z value
      * 
      * @return z of object
      */
@@ -78,7 +90,7 @@ public class AirObject {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets x width.
      * 
      * @return xWidth of object
      */
@@ -89,7 +101,7 @@ public class AirObject {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets y width.
      * 
      * @return yWidth of object
      */
@@ -100,7 +112,7 @@ public class AirObject {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets z width.
      * 
      * @return zWidth of object
      */
@@ -111,7 +123,7 @@ public class AirObject {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Gets name.
      * 
      * @return name of object
      */
@@ -121,6 +133,8 @@ public class AirObject {
 
 
     /**
+     * Determines if object is valid.
+     * 
      * @return boolean if AiRObject isNotValid based off params
      */
     public boolean isNotValid() {

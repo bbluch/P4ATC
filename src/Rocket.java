@@ -17,15 +17,24 @@ public class Rocket extends AirObject {
     /**
      * Create a new Rocket object.
      * 
-     * @param name
      * @param x
+     *            X coordinate
      * @param y
+     *            Y coordinate
      * @param z
+     *            Z coordinate
      * @param xWidth
+     *            xWidth of object
      * @param yWidth
+     *            yWidth of object
      * @param zWidth
+     *            zWidth of object
+     * @param name
+     *            Name of object
      * @param ascentRate
+     *            ascent rate of rocket
      * @param trajectory
+     *            Trajectory of rocket
      */
     public Rocket(
         String name,

@@ -4,7 +4,8 @@ import java.util.Random;
 // -------------------------------------------------------------------------
 /**
  * Implements a Skip List data structure.
- * * @author benblucher, austink23
+ * 
+ * @author benblucher, austink23
  * 
  * @version Nov 16, 2025
  */
@@ -46,7 +47,7 @@ public class SkipList<K extends Comparable<K>> {
             // ran is
             // random
             // generator
-            ; // Do nothing
+            // Do nothing
         }
         return lev;
     }

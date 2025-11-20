@@ -17,15 +17,24 @@ public class Bird extends AirObject {
     /**
      * Create a new Bird object.
      * 
-     * @param name
      * @param x
+     *            X coordinate
      * @param y
+     *            Y coordinate
      * @param z
+     *            Z coordinate
      * @param xWidth
+     *            xWidth of object
      * @param yWidth
+     *            yWidth of object
      * @param zWidth
+     *            zWidth of object
+     * @param name
+     *            Name of object
      * @param type
+     *            Type of bird
      * @param number
+     *            Number of bird
      */
     public Bird(
         String name,
@@ -103,16 +112,17 @@ public class Bird extends AirObject {
         }
         return number < 1;
     }
-    
+
+
     /**
      * Returns the full string representation of the Bird object:
      * Bird {name} {x} {y} {z} {xwid} {ywid} {zwid} {type} {number}
+     * 
      * @return Full Bird string
      */
     @Override
     public String toString() {
-        return "Bird " + super.toString() + " " 
-             + getType() + " " + getNumber();
+        return "Bird " + super.toString() + " " + getType() + " " + getNumber();
     }
 
 }

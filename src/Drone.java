@@ -17,15 +17,24 @@ public class Drone extends AirObject {
     /**
      * Create a new Drone object.
      * 
-     * @param name
      * @param x
+     *            X coordinate
      * @param y
+     *            Y coordinate
      * @param z
+     *            Z coordinate
      * @param xWidth
+     *            xWidth of object
      * @param yWidth
+     *            yWidth of object
      * @param zWidth
+     *            zWidth of object
+     * @param name
+     *            Name of object
      * @param brand
+     *            Brand of drone
      * @param numEngines
+     *            Number of engines
      */
     public Drone(
         String name,

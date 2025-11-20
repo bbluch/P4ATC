@@ -101,8 +101,6 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
             // Assuming no replacement or insertion for duplicates, just return:
             return; 
         }
-        
-        
 
         // 4. Create new node and splice into the list
         x = new SkipNode<K>(key, elem, newLevel);

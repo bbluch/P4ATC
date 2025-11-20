@@ -75,7 +75,7 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
 
         // 2. Find insertion position and track update pointers
         // update[i] will store the node whose forward[i] pointer needs to be updated.
-        SkipNode<K>[] update = new SkipNode[level + 1];
+        SkipNode<K>[] update = (SkipNode<K>[]) new SkipNode[level + 1];
         SkipNode<K> x = head;
         
         // Iterate from the top level down to level 0

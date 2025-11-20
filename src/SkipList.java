@@ -89,19 +89,6 @@ public class SkipList<K extends Comparable<K>> { // Implement Dictionary/appropr
             update[i] = x; 
         }
 
-//        // 3. Check for duplicates (at level 0) - Project requirement likely prohibits duplicates
-//        // Move x one step forward (x.forward[0] is the potential duplicate)
-        x = x.getForward()[0];
-        
-        // Skip List logic often assumes no duplicates for simplicity; 
-        // if duplicates are allowed, the following check is skipped.
-        // Given your project tracks AirObjects by Name, it is likely that duplicate names are NOT allowed.
-        if (x != null && x.key().compareTo(key) == 0) {
-            // Duplicate found, replace or do nothing. For this project, likely skip/fail insert.
-            // Assuming no replacement or insertion for duplicates, just return:
-            return; 
-        }
-
         // 4. Create new node and splice into the list
         x = new SkipNode<K>(key, elem, newLevel);
         

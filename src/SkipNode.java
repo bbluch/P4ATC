@@ -33,6 +33,7 @@ public class SkipNode<K extends Comparable<K>> {
      * @param elem The element/value (e.g., AirObject)
      * @param level The level of the node
      */
+    @SuppressWarnings("unchecked")
     public SkipNode(K key, Object elem, int level) {
         rec = new KVPair<K>(key, elem);
         this.nodeLevel = level;

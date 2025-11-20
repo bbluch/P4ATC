@@ -84,6 +84,7 @@ public class SkipList<K extends Comparable<K>> { // Implement
      * @param elem
      *            The element to store (e.g., AirObject).
      */
+    @SuppressWarnings("unchecked")
     public void insert(K key, Object elem) {
         // 1. Determine level and adjust head if necessary
         int newLevel = randomLevel();
@@ -122,7 +123,6 @@ public class SkipList<K extends Comparable<K>> { // Implement
 
         size++; // Increment dictionary size
     }
-
 
 // /** Insert a key, element pair into the skip list */
 // public void insert(K key, E elem) {

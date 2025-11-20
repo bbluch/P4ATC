@@ -1,6 +1,7 @@
 /**
  * Represents a node in the Skip List.
  * * @author benblucher, austink23
+ * 
  * @version Nov 16, 2025
  */
 public class SkipNode<K extends Comparable<K>> {
@@ -11,27 +12,35 @@ public class SkipNode<K extends Comparable<K>> {
     // ----------------------------------------------------------
     /**
      * Get the element (value) stored in the node.
+     * 
      * @return The element (AirObject)
      */
     public Object element() {
         return rec.value();
     }
 
+
     // ----------------------------------------------------------
     /**
      * Get the key stored in the node.
+     * 
      * @return The key (AirObject name)
      */
     public K key() {
         return rec.key();
     }
 
+
     // ----------------------------------------------------------
     /**
      * Constructor for a SkipNode.
-     * @param key The comparable key (e.g., AirObject name)
-     * @param elem The element/value (e.g., AirObject)
-     * @param level The level of the node
+     * 
+     * @param key
+     *            The comparable key (e.g., AirObject name)
+     * @param elem
+     *            The element/value (e.g., AirObject)
+     * @param level
+     *            The level of the node
      */
     @SuppressWarnings("unchecked")
     public SkipNode(K key, Object elem, int level) {
@@ -44,19 +53,23 @@ public class SkipNode<K extends Comparable<K>> {
         }
     }
 
+
     // ----------------------------------------------------------
     /**
      * Get the forward array.
+     * 
      * @return The forward array of SkipNode pointers.
      */
     public SkipNode<K>[] getForward() {
         return forward;
     }
-    
+
+
     // Add a getter for the level
     public int getNodeLevel() {
         return nodeLevel;
     }
+
 
     // ----------------------------------------------------------
     /**

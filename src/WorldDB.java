@@ -32,7 +32,7 @@ public class WorldDB implements ATC {
      *
      */
     public void clear() {
-        recordsByName = new SkipList<String>();
+        recordsByName = new SkipList<String>(rnd);
     }
 
 

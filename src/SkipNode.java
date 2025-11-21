@@ -51,7 +51,7 @@ public class SkipNode<K extends Comparable<K>> {
         this.nodeLevel = level;
         // forward array has size level + 1 (for levels 0 to level)
         forward = new SkipNode[level + 1];
-        for (int i = 0; i < level; i++) { // Corrected loop: level is max index
+        for (int i = 0; i <= level; i++) { // Corrected loop: level is max index
             forward[i] = null;
         }
     }

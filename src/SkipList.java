@@ -20,16 +20,17 @@ public class SkipList<K extends Comparable<K>> {
     private int level;
     private int size;
     // ran needs to be static if used this way, as shown in the snippet
-    static private Random ran = new Random();
+    static private Random ran;
 
     // ----------------------------------------------------------
     /**
      * Initializes a new SkipList.
      */
-    public SkipList() {
+    public SkipList(Random ran) {
         head = new SkipNode<K>(null, null, 0);
-        level = -1;
+        level = 0;
         size = 0;
+        this.ran = ran;
     }
 
 

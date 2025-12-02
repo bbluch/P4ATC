@@ -57,17 +57,17 @@ public class AirControlTest extends TestCase {
             "Air1"));
         assertNull(w.print("air1"));
 
-//        assertFuzzyEquals("I (0, 0, 0, 1024, 1024, 1024) 0\r\n"
-//            + " I (0, 0, 0, 512, 1024, 1024) 1\r\n"
-//            + " Leaf with 3 objects (0, 0, 0, 512, 512, 1024) 2\r\n"
-//            + " (Airplane Air1 0 10 1 20 2 30 USAir 717 4)\r\n"
-//            + " (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
-//            + " (Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1)\r\n"
-//            + " Leaf with 1 objects (0, 512, 0, 512, 512, 1024) 2\r\n"
-//            + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
-//            + " Leaf with 1 objects (512, 0, 0, 512, 1024, 1024) 1\r\n"
-//            + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
-//            + "5 Bintree nodes printed\r\n", w.printbintree());
+// assertFuzzyEquals("I (0, 0, 0, 1024, 1024, 1024) 0\r\n"
+// + " I (0, 0, 0, 512, 1024, 1024) 1\r\n"
+// + " Leaf with 3 objects (0, 0, 0, 512, 512, 1024) 2\r\n"
+// + " (Airplane Air1 0 10 1 20 2 30 USAir 717 4)\r\n"
+// + " (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
+// + " (Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1)\r\n"
+// + " Leaf with 1 objects (0, 512, 0, 512, 512, 1024) 2\r\n"
+// + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
+// + " Leaf with 1 objects (512, 0, 0, 512, 1024, 1024) 1\r\n"
+// + " (Drone Air2 100 1010 101 924 2 900 Droners 3)\r\n"
+// + "5 Bintree nodes printed\r\n", w.printbintree());
 
         assertFuzzyEquals("Node has depth 3, Value (null)\r\n"
             + "Node has depth 3, "
@@ -80,34 +80,34 @@ public class AirControlTest extends TestCase {
             + "Value (Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1)\r\n"
             + "4 skiplist nodes printed\r\n", w.printskiplist());
 
-//        assertFuzzyEquals("Found these records in the range a to z\r\n"
-//            + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n", w.rangeprint(
-//                "a", "z"));
-//        assertFuzzyEquals("Found these records in the range a to l\r\n", w
-//            .rangeprint("a", "l"));
-//        assertNull(w.rangeprint("z", "a"));
+// assertFuzzyEquals("Found these records in the range a to z\r\n"
+// + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n", w.rangeprint(
+// "a", "z"));
+// assertFuzzyEquals("Found these records in the range a to l\r\n", w
+// .rangeprint("a", "l"));
+// assertNull(w.rangeprint("z", "a"));
 //
-//        assertFuzzyEquals("The following collisions exist in the database:\r\n"
-//            + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
-//            + "(Airplane Air1 0 10 1 20 2 30 USAir 717 4) "
-//            + "and (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
-//            + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
-//            + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n", w
-//                .collisions());
+// assertFuzzyEquals("The following collisions exist in the database:\r\n"
+// + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
+// + "(Airplane Air1 0 10 1 20 2 30 USAir 717 4) "
+// + "and (Balloon B1 10 11 11 21 12 31 hot_air 15)\r\n"
+// + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
+// + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n", w
+// .collisions());
 //
-//        assertFuzzyEquals(
-//            "The following objects intersect (0 0 0 1024 1024 1024):\r\n"
-//                + "In Internal node (0, 0, 0, 1024, 1024, 1024) 0\r\n"
-//                + "In Internal node (0, 0, 0, 512, 1024, 1024) 1\r\n"
-//                + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
-//                + "Airplane Air1 0 10 1 20 2 30 USAir 717 4\r\n"
-//                + "Balloon B1 10 11 11 21 12 31 hot_air 15\r\n"
-//                + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n"
-//                + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
-//                + "Drone Air2 100 1010 101 924 2 900 Droners 3\r\n"
-//                + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n"
-//                + "5 nodes were visited in the bintree\r\n", w.intersect(0, 0,
-//                    0, 1024, 1024, 1024));
+// assertFuzzyEquals(
+// "The following objects intersect (0 0 0 1024 1024 1024):\r\n"
+// + "In Internal node (0, 0, 0, 1024, 1024, 1024) 0\r\n"
+// + "In Internal node (0, 0, 0, 512, 1024, 1024) 1\r\n"
+// + "In leaf node (0, 0, 0, 512, 512, 1024) 2\r\n"
+// + "Airplane Air1 0 10 1 20 2 30 USAir 717 4\r\n"
+// + "Balloon B1 10 11 11 21 12 31 hot_air 15\r\n"
+// + "Bird pterodactyl 0 100 20 10 50 50 Dinosaur 1\r\n"
+// + "In leaf node (0, 512, 0, 512, 512, 1024) 2\r\n"
+// + "Drone Air2 100 1010 101 924 2 900 Droners 3\r\n"
+// + "In leaf node (512, 0, 0, 512, 1024, 1024) 1\r\n"
+// + "5 nodes were visited in the bintree\r\n", w.intersect(0, 0,
+// 0, 1024, 1024, 1024));
     }
 
 
@@ -591,65 +591,66 @@ public class AirControlTest extends TestCase {
      *
      * @throws Exception
      */
- public void testSkipListInsertOnly() throws Exception {
- // Use a fixed seed to ensure repeatable SkipNode levels:
- Random rnd = new Random();
- rnd.setSeed(0xCAFEBABE);
- WorldDB w = new WorldDB(rnd);
+    public void testSkipListInsertOnly() throws Exception {
+        // Use a fixed seed to ensure repeatable SkipNode levels:
+        Random rnd = new Random();
+        rnd.setSeed(0xCAFEBABE);
+        WorldDB w = new WorldDB(rnd);
 
- // Create objects to insert (names chosen to check sorting)
- // Draw 1: Alpha (Level 0)
- Bird birdA = new Bird("Alpha", 1, 1, 1, 1, 1, 1, "TypeA", 1);
- // Draw 2: Bravo (Level 2 - becomes Max Level)
- Bird birdB = new Bird("Bravo", 2, 2, 2, 1, 1, 1, "TypeB", 1);
- // Draw 3: Charlie (Level 1)
- Bird birdC = new Bird("Charlie", 3, 3, 3, 1, 1, 1, "TypeC", 1);
- // Draw 4: Delta (Level 0)
- Bird birdD = new Bird("Delta", 4, 4, 4, 1, 1, 1, "TypeD", 1);
- // Draw 5: Echo (Level 1)
- Bird birdE = new Bird("Echo", 5, 5, 5, 1, 1, 1, "TypeE", 1);
- // Draw 6: Foxtrot (Level 3 - New Max Level)
- Bird birdF = new Bird("Foxtrot", 6, 6, 6, 1, 1, 1, "TypeF", 1);
+        // Create objects to insert (names chosen to check sorting)
+        // Draw 1: Alpha (Level 0)
+        Bird birdA = new Bird("Alpha", 1, 1, 1, 1, 1, 1, "TypeA", 1);
+        // Draw 2: Bravo (Level 2 - becomes Max Level)
+        Bird birdB = new Bird("Bravo", 2, 2, 2, 1, 1, 1, "TypeB", 1);
+        // Draw 3: Charlie (Level 1)
+        Bird birdC = new Bird("Charlie", 3, 3, 3, 1, 1, 1, "TypeC", 1);
+        // Draw 4: Delta (Level 0)
+        Bird birdD = new Bird("Delta", 4, 4, 4, 1, 1, 1, "TypeD", 1);
+        // Draw 5: Echo (Level 1)
+        Bird birdE = new Bird("Echo", 5, 5, 5, 1, 1, 1, "TypeE", 1);
+        // Draw 6: Foxtrot (Level 3 - New Max Level)
+        Bird birdF = new Bird("Foxtrot", 6, 6, 6, 1, 1, 1, "TypeF", 1);
 
- // --- 1. Insertion ---
- assertTrue(w.add(birdC)); // Insert Charlie (C)
- assertTrue(w.add(birdE)); // Insert Echo (E)
- assertTrue(w.add(birdA)); // Insert Alpha (A)
- assertTrue(w.add(birdD)); // Insert Delta (D)
- assertTrue(w.add(birdB)); // Insert Bravo (B)
- assertTrue(w.add(birdF)); // Insert Foxtrot (F) - Should trigger max
- // level adjustment to 3
+        // --- 1. Insertion ---
+        assertTrue(w.add(birdC)); // Insert Charlie (C)
+        assertTrue(w.add(birdE)); // Insert Echo (E)
+        assertTrue(w.add(birdA)); // Insert Alpha (A)
+        assertTrue(w.add(birdD)); // Insert Delta (D)
+        assertTrue(w.add(birdB)); // Insert Bravo (B)
+        assertTrue(w.add(birdF)); // Insert Foxtrot (F) - Should trigger max
+        // level adjustment to 3
 
- // --- 2. Verification (Sorted Order, Levels, and Format) ---
- // Expected Sorted Order: Alpha, Bravo, Charlie, Delta, Echo, Foxtrot
- // Final Max List Level = 3 (from Foxtrot)
+        // --- 2. Verification (Sorted Order, Levels, and Format) ---
+        // Expected Sorted Order: Alpha, Bravo, Charlie, Delta, Echo, Foxtrot
+        // Final Max List Level = 3 (from Foxtrot)
 
- String expected = "Node has depth 3, Value (null)\r\n"
- + "Node has depth 0, \r\n Value (" + birdA.toString() + ")\r\n" // Alpha
- // (Level
- // 0)
- + "Node has depth 2, \r\n Value (" + birdB.toString() + ")\r\n" // Bravo
- // (Level
- // 2)
- + "Node has depth 1, \r\n Value (" + birdC.toString() + ")\r\n" // Charlie
- // (Level
- // 1)
- + "Node has depth 0, \r\n Value (" + birdD.toString() + ")\r\n" // Delta
- // (Level
- // 0)
- + "Node has depth 1, \r\n Value (" + birdE.toString() + ")\r\n" // Echo
- // (Level
- // 1)
- + "Node has depth 3, \r\n Value (" + birdF.toString() + ")\r\n" // Foxtrot
- // (Level
- // 3)
- + "6 skiplist nodes printed\r\n";
+        String expected = "Node has depth 3, Value (null)\r\n"
+            + "Node has depth 0, \r\n Value (" + birdA.toString() + ")\r\n" // Alpha
+            // (Level
+            // 0)
+            + "Node has depth 2, \r\n Value (" + birdB.toString() + ")\r\n" // Bravo
+            // (Level
+            // 2)
+            + "Node has depth 1, \r\n Value (" + birdC.toString() + ")\r\n" // Charlie
+            // (Level
+            // 1)
+            + "Node has depth 0, \r\n Value (" + birdD.toString() + ")\r\n" // Delta
+            // (Level
+            // 0)
+            + "Node has depth 1, \r\n Value (" + birdE.toString() + ")\r\n" // Echo
+            // (Level
+            // 1)
+            + "Node has depth 3, \r\n Value (" + birdF.toString() + ")\r\n" // Foxtrot
+            // (Level
+            // 3)
+            + "6 skiplist nodes printed\r\n";
 
- String actual = w.printskiplist();
+        String actual = w.printskiplist();
 
- assertFuzzyEquals("SkipList insertion failed: sorted order, leveling, or formatting is incorrect.",
- expected, actual);
- }
+        assertFuzzyEquals(
+            "SkipList insertion failed: sorted order, leveling, or formatting is incorrect.",
+            expected, actual);
+    }
 
 
     // ----------------------------------------------------------

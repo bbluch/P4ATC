@@ -250,9 +250,6 @@ public class SkipList<K extends Comparable<K>> {
             // --- Line 1: Node has depth X, ---
             sb.append("Node has depth ").append(curr.getNodeLevel());
 
-            // Append the required comma and space, THEN the line break
-            sb.append(", ");
-            sb.append("\r\n");
 
             // --- Line 2: Value (AirObject.toString())\r\n ---
             // Start the line with a single space for indentation, as shown in

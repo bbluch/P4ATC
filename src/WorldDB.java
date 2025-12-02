@@ -10,6 +10,7 @@ public class WorldDB implements ATC {
     private final int worldSize = 1024;
     private Random rnd;
     private SkipList<String> recordsByName;
+    private Bintree bintree;
 
     /**
      * Create a brave new World.
@@ -33,6 +34,7 @@ public class WorldDB implements ATC {
      */
     public void clear() {
         recordsByName = new SkipList<String>(rnd);
+        bintree = new Bintree();
     }
 
 
@@ -55,8 +57,8 @@ public class WorldDB implements ATC {
 
         recordsByName.insert(a.getName(), a);
 
-        // 3. Insert into Bintree (You will add this later)
-        // bintree.insert(a);
+        // 3. Insert into Bintree
+        bintree.insert(a);
 
         return true;
     }
@@ -78,7 +80,7 @@ public class WorldDB implements ATC {
 
         if (deletedObject != null) {
             // 2. Delete from Bintree (You will add this later)
-            // bintree.delete(deletedObject);
+            bintree.delete(deletedObject);
 
             // 3. Return the string representation of the deleted object
             return deletedObject.toString();
@@ -109,8 +111,7 @@ public class WorldDB implements ATC {
      * @return String listing the Bintree nodes as specified.
      */
     public String printbintree() {
-        return "E (0, 0, 0, 1024, 1024, 1024) 0\r\n"
-            + "1 Bintree nodes printed\r\n";
+        return bintree.print();
     }
 
 
@@ -171,7 +172,7 @@ public class WorldDB implements ATC {
      * @return String listing the AirObjects that participate in collisions.
      */
     public String collisions() {
-        return "The following collisions exist in the database:\n";
+        return bintree.collisions();
     }
 
 
@@ -209,7 +210,6 @@ public class WorldDB implements ATC {
         if (x + xwid > 1024 || y + ywid > 1024 || z + zwid > 1024) {
             return null;
         }
-        return "The following objects intersect (1, 1, 1, 1, 1, 1)\n"
-            + "1 nodes were visited in the bintree\n";
+        return bintree.intersect(x, y, z, xwid, ywid, zwid);
     }
 }

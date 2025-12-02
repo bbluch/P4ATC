@@ -200,6 +200,9 @@ public class WorldDB implements ATC {
      *         Return null if any input parameters are bad
      */
     public String intersect(int x, int y, int z, int xwid, int ywid, int zwid) {
+        if(recordsByName == null) {
+            return null;
+        }
         if (x < 0 || y < 0 || z < 0 || xwid < 1 || ywid < 1 || zwid < 1) {
             return null;
         }

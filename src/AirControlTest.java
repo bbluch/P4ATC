@@ -625,22 +625,22 @@ public class AirControlTest extends TestCase {
         // Final Max List Level = 3 (from Foxtrot)
 
         String expected = "Node has depth 3, Value (null)\r\n"
-            + "Node has depth 0, \r\n Value (" + birdA.toString() + ")\r\n" // Alpha
+            + "Node has depth 0 Value (" + birdA.toString() + ")\r\n" // Alpha
             // (Level
             // 0)
-            + "Node has depth 2, \r\n Value (" + birdB.toString() + ")\r\n" // Bravo
+            + "Node has depth 2 Value (" + birdB.toString() + ")\r\n" // Bravo
             // (Level
             // 2)
-            + "Node has depth 1, \r\n Value (" + birdC.toString() + ")\r\n" // Charlie
+            + "Node has depth 1 Value (" + birdC.toString() + ")\r\n" // Charlie
             // (Level
             // 1)
-            + "Node has depth 0, \r\n Value (" + birdD.toString() + ")\r\n" // Delta
+            + "Node has depth 0 Value (" + birdD.toString() + ")\r\n" // Delta
             // (Level
             // 0)
-            + "Node has depth 1, \r\n Value (" + birdE.toString() + ")\r\n" // Echo
+            + "Node has depth 1 Value (" + birdE.toString() + ")\r\n" // Echo
             // (Level
             // 1)
-            + "Node has depth 3, \r\n Value (" + birdF.toString() + ")\r\n" // Foxtrot
+            + "Node has depth 3 Value (" + birdF.toString() + ")\r\n" // Foxtrot
             // (Level
             // 3)
             + "6 skiplist nodes printed\r\n";
@@ -829,16 +829,16 @@ public class AirControlTest extends TestCase {
 
         // Max list level = 2 (from PlaneB)
         String expectedInitialPrint = "Node has depth 2, Value (null)\r\n"
-            + "Node has depth 0, \r\n Value (" + b1.toString() + ")\r\n" // BirdD
+            + "Node has depth 0 Value (" + b1.toString() + ")\r\n" // BirdD
             // (Level
             // 0)
-            + "Node has depth 1, \r\n Value (" + d1.toString() + ")\r\n" // DroneC
+            + "Node has depth 1 Value (" + d1.toString() + ")\r\n" // DroneC
             // (Level
             // 1)
-            + "Node has depth 2, \r\n Value (" + p1.toString() + ")\r\n" // PlaneB
+            + "Node has depth 2 Value (" + p1.toString() + ")\r\n" // PlaneB
             // (Level
             // 2)
-            + "Node has depth 0, \r\n Value (" + r1.toString() + ")\r\n" // RocketA
+            + "Node has depth 0  Value (" + r1.toString() + ")\r\n" // RocketA
             // (Level
             // 0)
             + "4 skiplist nodes printed\r\n";
@@ -873,9 +873,9 @@ public class AirControlTest extends TestCase {
             // Max
             // Level
             // = 1
-            + "Node has depth 0, \r\n Value (" + b1.toString() + ")\r\n"
-            + "Node has depth 1, \r\n Value (" + d1.toString() + ")\r\n"
-            + "Node has depth 0, \r\n Value (" + r1.toString() + ")\r\n"
+            + "Node has depth 0 Value (" + b1.toString() + ")\r\n"
+            + "Node has depth 1 Value (" + d1.toString() + ")\r\n"
+            + "Node has depth 0 Value (" + r1.toString() + ")\r\n"
             + "3 skiplist nodes printed\r\n";
 
         assertFuzzyEquals(

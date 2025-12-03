@@ -47,7 +47,7 @@ public class Bintree {
     public String print() {
         StringBuilder sb = new StringBuilder();
         int count = traversePrint(root, 0, 0, 0, worldSize, 0, sb);
-        sb.append(count).append(" Bintree nodes printed\n");
+        sb.append(count).append(" Bintree nodes printed\r\n");
         return sb.toString();
     }
 
@@ -63,36 +63,65 @@ public class Bintree {
         // Indentation logic matching previous pattern
         for (int i = 0; i < level; i++)
             sb.append("  ");
+        
+//        int width = 1024;
+//        int height = 1024;
+//        int depth = 1024;
+//        
+//        // Reconstruct the node's true dimensions by tracing the splits (Level to 0)
+//        for (int currentLevel = 0; currentLevel <= level; currentLevel++) {
+//            int dim = currentLevel % 3;
+//            int currentSize = 1024 / (1 << currentLevel);
+//            
+//            if (dim == 0) { // Split on X
+//                width = currentSize;
+//            } else if (dim == 1) { // Split on Y
+//                height = currentSize;
+//            } else if (dim == 2) { // Split on Z
+//                depth = currentSize;
+//            }
+//        }
+        int currentW = 1024, currentH = 1024, currentD = 1024;
 
+        for (int k = 0; k < level; k++) {
+            int dim = k % 3;
+            if (dim == 0) {
+                currentW /= 2;
+            } else if (dim == 1) {
+                currentH /= 2;
+            } else {
+                currentD /= 2;
+            }
+        }
+        
         if (node instanceof BinEmpty) {
             sb.append("E (").append(x).append(", ").append(y).append(", ")
-                .append(z).append(", ").append(size).append(", ").append(size)
-                .append(", ").append(size).append(") ").append(level).append(
-                    "\n");
+                .append(z).append(", ").append(currentW).append(", ").append(currentH)
+                .append(", ").append(currentD).append(") ").append(level).append("\r\n");
             return 1;
         }
         else if (node instanceof BinLeaf) {
             BinLeaf leaf = (BinLeaf)node;
             sb.append("Leaf with ").append(leaf.getObjects().size()).append(
                 " objects (").append(x).append(", ").append(y).append(", ")
-                .append(z).append(", ").append(size).append(", ").append(size)
-                .append(", ").append(size).append(") ").append(level).append(
+                .append(z).append(", ").append(currentW).append(", ").append(currentH)
+                .append(", ").append(currentD).append(") ").append(level).append(
                     "\n");
 
             LinkedList<AirObject> objs = leaf.getObjects();
             for (int i = 0; i < objs.size(); i++) {
                 for (int k = 0; k < level; k++)
                     sb.append("  ");
-                sb.append("(").append(objs.get(i).toString()).append(")\n");
+                sb.append("(").append(objs.get(i).toString()).append(")\r\n");
             }
             return 1;
         }
         else {
             // Internal
             sb.append("I (").append(x).append(", ").append(y).append(", ")
-                .append(z).append(", ").append(size).append(", ").append(size)
-                .append(", ").append(size).append(") ").append(level).append(
-                    "\n");
+                .append(z).append(", ").append(currentW).append(", ").append(currentH)
+                .append(", ").append(currentD).append(") ").append(level).append(
+                    "\r\n");
 
             BinInternal internal = (BinInternal)node;
             int half = size / 2;

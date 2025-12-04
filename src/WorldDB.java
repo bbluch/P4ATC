@@ -20,9 +20,9 @@ public class WorldDB implements ATC {
      *
      */
     public WorldDB(Random r) {
-        rnd = r;
-        if (rnd == null) {
-            rnd = new Random();
+        this.rnd = r;
+        if (this.rnd == null) {
+            this.rnd = new Random();
         }
         clear();
     }

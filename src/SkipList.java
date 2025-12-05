@@ -29,7 +29,7 @@ public class SkipList<K extends Comparable<K>> {
      */
     public SkipList(Random r) {
         head = new SkipNode<K>(null, null, 0);
-        level = 0;
+        level = -1;
         size = 0;
         ran = r;
     }
@@ -42,17 +42,17 @@ public class SkipList<K extends Comparable<K>> {
      * @return The new level for a node.
      */
     private int randomLevel() {
-        int lev;
+        int lev = 1;
         // The condition uses ran.nextInt() % 2 == 0 for a 50% chance of lev++
-// while (Math.abs(ran.nextInt()) % 2 == 0) {
-// lev++;
-// }
-        for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) {
-            // ran is
-            // random
-            // generator
-            // Do nothing
+        while (Math.abs(ran.nextInt()) % 2 == 0) {
+            lev++;
         }
+//        for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) {
+//            // ran is
+//            // random
+//            // generator
+//            // Do nothing
+//        }
         return lev;
     }
 

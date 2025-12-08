@@ -104,13 +104,10 @@ public class Rocket extends AirObject {
      * @return boolean based of Air Object isNotValid plus the rocket params
      */
     public boolean isNotValid() {
-        if (super.isNotValid()) {
+        if (ascentRate < 0 || trajectory < 0) {
             return true;
         }
-        if (ascentRate < 0) {
-            return true;
-        }
-        return trajectory < 0;
+        return super.isNotValid();
     }
 
 

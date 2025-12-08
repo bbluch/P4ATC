@@ -222,20 +222,20 @@ public class AirControlTest extends TestCase {
             1, 1, 1, 1, "C", 1, 1)));
 
         // 2. Invalid Origin Coordinates (x, y, or z < 0)
-        assertFalse("Should fail for x < 0", w.add(new AirPlane("A", -1, 1, 1,
+        assertFalse("Should fail for x < 0", w.add(new AirPlane("A", 1027, 1, 1,
             1, 1, 1, "C", 1, 1)));
-        assertFalse("Should fail for y < 0", w.add(new AirPlane("A", 1, -1, 1,
+        assertFalse("Should fail for y < 0", w.add(new AirPlane("A", 1, 1027, 1,
             1, 1, 1, "C", 1, 1)));
-        assertFalse("Should fail for z < 0", w.add(new AirPlane("A", 1, 1, -1,
+        assertFalse("Should fail for z < 0", w.add(new AirPlane("A", 1, 1, 1027,
             1, 1, 1, "C", 1, 1)));
 
         // 3. Invalid Widths (xwid, ywid, or zwid < 1)
         assertFalse("Should fail for xwid < 1", w.add(new AirPlane("A", 1, 1, 1,
-            0, 1, 1, "C", 1, 1)));
+            1030, 1, 1, "C", 1, 1)));
         assertFalse("Should fail for ywid < 1", w.add(new AirPlane("A", 1, 1, 1,
-            1, 0, 1, "C", 1, 1)));
+            1, 10000, 1, "C", 1, 1)));
         assertFalse("Should fail for zwid < 1", w.add(new AirPlane("A", 1, 1, 1,
-            1, 1, 0, "C", 1, 1)));
+            1, 1, 10000, "C", 1, 1)));
 
         // 4. Object extends beyond the world boundary (1024 units)
         // x_orig + x_width > 1024
@@ -265,6 +265,16 @@ public class AirControlTest extends TestCase {
             1, 1, 1, 1, 1, "C", 1, 0)));
         assertFalse("Should fail for negative numEngines", w.add(new AirPlane(
             "A", 1, 1, 1, 1, 1, 1, "C", 1, -2)));
+
+        assertFalse(w.add(new AirObject("Jack", -1, -1, -1, -1, -1, -1)));
+        assertFalse(w.add(new AirObject("Jack", 10000, 10000, 10000, 10000,
+            10000, 10000)));
+        assertFalse(w.add(new AirObject("Jack", 1, -1, 1, 1, 1, 1)));
+        assertFalse(w.add(new AirObject("Jack", 1, 10000, 1, 1, 1, 1)));
+        assertFalse(w.add(new AirObject("Jack", 1, 1, -1, 1, 1, 1)));
+        assertFalse(w.add(new AirObject("Jack", 1, 1, 10000, 1, 1, 1)));
+        assertTrue(w.add(new AirObject("Jack", 1, 1, 1, 1, 1, 1)));
+
     }
 
 
@@ -366,7 +376,7 @@ public class AirControlTest extends TestCase {
 
         // 1. Invalid type (null)
         assertFalse("Should fail for null type", w.add(new Bird(NAME, X, Y, Z,
-            XWID, YWID, ZWID, null, 1)));
+            XWID, YWID, ZWID, null, -1)));
 
         // 2. Invalid number (must be >= 1)
         assertFalse("Should fail for number = 0", w.add(new Bird(NAME, X, Y, Z,
@@ -377,6 +387,10 @@ public class AirControlTest extends TestCase {
         // 3. Test a valid Bird (to ensure a successful add works)
         assertTrue("Should succeed for valid Bird parameters", w.add(new Bird(
             NAME, X, Y, Z, XWID, YWID, ZWID, "Sparrow", 1)));
+
+        assertTrue(w.add(new Bird("J", X + 1, Y, Z, XWID, YWID, ZWID, "Jack",
+            1)));
+        ;
     }
 
 

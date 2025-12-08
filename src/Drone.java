@@ -104,13 +104,10 @@ public class Drone extends AirObject {
      * @return boolean based of Air Object isNotValid plus the drone params
      */
     public boolean isNotValid() {
-        if (super.isNotValid()) {
+        if (brand == null || numEngines < 1) {
             return true;
         }
-        if (brand == null) {
-            return true;
-        }
-        return numEngines < 1;
+        return super.isNotValid();
     }
 
 

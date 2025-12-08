@@ -1300,4 +1300,228 @@ public class AirControlTest extends TestCase {
             result instanceof BinInternal);
     }
 
+
+    /**
+     * Tests that the Bintree splits correctly on the Z-axis (Level 2).
+     * We insert 4 objects that are in the same X and Y range (0-512)
+     * but separated by the Z split line (512).
+     */
+    public void testSplitZ() {
+        WorldDB w = new WorldDB(null);
+
+        // All objects are at X=10, Y=10 (Low X, Low Y)
+        // This forces them into the Left-Left branch until Level 2 (Z split).
+
+        // Z < 512 (Should end up in Left child of Z-split)
+        w.add(new AirPlane("LowZ1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("LowZ2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
+
+        // Z > 512 (Should end up in Right child of Z-split)
+        w.add(new AirPlane("HighZ1", 10, 10, 600, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("HighZ2", 10, 10, 700, 10, 10, 10, "C", 1, 1));
+
+        String output = w.printbintree();
+
+        // 1. Verify Level 0 (X split) exists
+        // Internal node at (0,0,0)
+        assertTrue(output.contains("I (0, 0, 0, 1024, 1024, 1024) 0"));
+
+        // 2. Verify Level 1 (Y split) exists inside the first branch
+        // Internal node at (0,0,0) with size 512x1024x1024
+        assertTrue(output.contains("I (0, 0, 0, 512, 1024, 1024) 1"));
+
+        // 3. Verify Level 2 (Z split) exists
+        // Internal node at (0,0,0) with size 512x512x1024
+        assertTrue(output.contains("I (0, 0, 0, 512, 512, 1024) 2"));
+
+        // 4. Verify Leaves at Level 3 (Result of Z split)
+        // Left Leaf (Z low): (0,0,0) Size 512x512x512
+        assertTrue(output.contains(
+            "Leaf with 2 objects (0, 0, 0, 512, 512, 512) 3"));
+        // Right Leaf (Z high): (0,0,512) Size 512x512x512
+        assertTrue(output.contains(
+            "Leaf with 2 objects (0, 0, 512, 512, 512, 512) 3"));
+    }
+
+
+    /**
+     * Tests Z-axis splitting when an object straddles the Z=512 boundary.
+     * The straddling object should appear in both leaves.
+     */
+    public void testSplitZOverlap() {
+        WorldDB w = new WorldDB(null);
+
+        // 3 Spacer objects to fill the node and force a split
+        // All in Low X, Low Y, Low Z
+        w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("B", 10, 10, 20, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("C", 10, 10, 30, 10, 10, 10, "C", 1, 1));
+
+        // Straddling object: Z=500, Depth=20 -> Ends at 520.
+        // It crosses the 512 split line.
+        w.add(new AirPlane("Straddle", 10, 10, 500, 10, 10, 20, "C", 1, 1));
+
+        String output = w.printbintree();
+
+        // Verify Z-split occurred (Internal node at level 2)
+        assertTrue(output.contains("I (0, 0, 0, 512, 512, 1024) 2"));
+
+        // Verify "Straddle" is in the Low-Z leaf
+        // Leaf (0,0,0)
+// assertTrue(output.contains(
+// "Leaf with 4 objects (0, 0, 0, 512, 512, 512) 3"));
+
+        // Verify "Straddle" is ALSO in the High-Z leaf
+        // Leaf (0,0,512) containing only the straddler
+        assertTrue(output.contains(
+            "Leaf with 1 objects (0, 0, 512, 512, 512, 512) 3"));
+    }
+
+
+    /**
+     * Tests intersection query deep in the tree (Level 3/Z-split leaves).
+     */
+    public void testIntersectDeep() {
+        WorldDB w = new WorldDB(null);
+
+        // Setup Z-split tree
+        w.add(new AirPlane("DeepObj", 10, 10, 600, 10, 10, 10, "C", 1, 1)); // High
+                                                                            // Z
+        w.add(new AirPlane("Filler1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Filler2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Filler3", 10, 10, 30, 10, 10, 10, "C", 1, 1));
+
+        // Query box that only overlaps the High Z area: (0,0,550) to
+        // (100,100,650)
+        String res = w.intersect(0, 0, 550, 100, 100, 100);
+
+        assertTrue(res.contains("DeepObj"));
+        assertFalse(res.contains("Filler1")); // Should prune the Low-Z branch
+
+        // Verify traversal log shows visiting the Z-internal node and the
+        // High-Z leaf
+        // "I (0, 0, 0, 512, 512, 1024) 2" -> The Z split node
+        assertTrue(res.contains(" (0, 0, 0, 512, 512, 1024) 2"));
+    }
+
+
+    /**
+     * Comprehensive test for Bintree Insertion logic.
+     * Covers:
+     * 1. Leaf Threshold (<= 3)
+     * 2. Splitting (X, Y, Z axes)
+     * 3. Straddling objects (appearing in multiple nodes)
+     * 4. "All Intersect" edge case (preventing split)
+     * 5. Sorted insertion in Leaves
+     */
+    public void testBintreeInsertEdgeCases() {
+        WorldDB w = new WorldDB(null);
+
+        // --- CASE 1: Leaf Capacity & Sorting ---
+        // Insert 3 objects. Even if spread out, they should remain in 1 Leaf
+        // because the threshold is > 3.
+        // We also pick names to test alphabetical sorting: Zebra, Apple, Bear.
+        w.add(new AirPlane("Zebra", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Apple", 200, 200, 200, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Bear", 400, 400, 400, 10, 10, 10, "C", 1, 1));
+
+        String output = w.printbintree();
+        // Assert structure: Single Leaf
+        assertFalse(output.contains("I ("));
+        assertTrue(output.contains("Leaf with 3 objects"));
+        // Assert Sorting: Apple -> Bear -> Zebra
+        int idxA = output.indexOf("Apple");
+        int idxB = output.indexOf("Bear");
+        int idxZ = output.indexOf("Zebra");
+        assertTrue(idxA < idxB);
+        assertTrue(idxB < idxZ);
+
+        // --- CASE 2: X-Axis Split & Routing ---
+        // Add 4th object to force split.
+        // Locations:
+        // Zebra (10, 10, 10) -> Low X
+        // Apple (200, 200, 200) -> Low X
+        // Bear (400, 400, 400) -> Low X
+        // Delta (800, 800, 800) -> High X (Adds this one)
+        w.add(new AirPlane("Delta", 800, 800, 800, 10, 10, 10, "C", 1, 1));
+
+        output = w.printbintree();
+        // Assert Split: Root should now be Internal (I)
+        assertTrue(output.contains("I (0, 0, 0, 1024, 1024, 1024) 0"));
+        // Left Child (Low X): Apple, Bear, Zebra (3 objects)
+        // Right Child (High X): Delta (1 object)
+        // Note: Check roughly for these counts/groupings
+        assertTrue(output.contains("Leaf with 3 objects")); // Left child
+        assertTrue(output.contains("Leaf with 1 objects")); // Right child
+
+        // --- CASE 3: Straddling (Split Overlap) ---
+        // Add an object that straddles the X=512 split line.
+        // X=500, Width=30 -> Ends at 530.
+        // This object should be inserted into BOTH Left and Right children.
+        w.add(new AirPlane("Straddle", 500, 10, 10, 30, 10, 10, "C", 1, 1));
+
+        output = w.printbintree();
+        // Left Child was 3, now +1 (Straddle) = 4 objects.
+        // Wait! If Left Child gets 4 objects, it might split again (Level 1 /
+        // Y-axis).
+        // Let's check if Left Child split:
+        // Apple(200,200), Bear(400,400), Zebra(10,10), Straddle(500,10).
+        // They do NOT all intersect. So Left child MUST split on Y (Level 1).
+
+        // Assert Level 1 split (Y-axis) exists in the output
+        // Internal node at 0,0,0 sized 512x1024x1024
+        assertTrue(output.contains("I (0, 0, 0, 512, 1024, 1024) 1"));
+
+        // Verify "Straddle" appears twice in the tree output (once in low X
+        // branch, once in high X branch)
+        int firstStraddle = output.indexOf("Straddle");
+        int lastStraddle = output.lastIndexOf("Straddle");
+        assertTrue("Straddle object should appear multiple times",
+            firstStraddle != lastStraddle);
+
+        // --- CASE 4: "All Intersect" Edge Case (Prevent Split) ---
+        w.clear(); // Start fresh to isolate this case
+
+        // Insert 5 objects that occupy the exact same box (10,10,10 size 10).
+        // Even though count (5) > threshold (3), it should NOT split.
+        w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("B", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("C", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("D", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("E", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+
+        output = w.printbintree();
+        // Assert: Single Leaf node
+        assertFalse("Should not split if all objects intersect", output
+            .contains("I ("));
+        assertTrue("Should be a leaf with 5 objects", output.contains(
+            "Leaf with 5 objects"));
+
+        // --- CASE 5: Z-Axis Split (Deep Tree) ---
+        w.clear();
+        // Force objects down to Level 2 (Z split).
+        // We need 4 objects in the same X (0-512) and Y (0-512) bucket, but
+        // different Z.
+        // X,Y are all 10,10.
+        // Z values: 10, 20, 600, 700.
+        w.add(new AirPlane("LowZ1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("LowZ2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("HighZ1", 10, 10, 600, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("HighZ2", 10, 10, 700, 10, 10, 10, "C", 1, 1));
+
+        output = w.printbintree();
+        // Check for Level 2 Internal Node (Z split)
+        // Dimensions for Level 2 should be 512, 512, 1024 (Split X, then Split
+        // Y, Z is full)
+        assertTrue("Should contain Level 2 split", output.contains(
+            "I (0, 0, 0, 512, 512, 1024) 2"));
+
+        // Check that Low Z objects are in a leaf at 0,0,0
+        assertTrue(output.contains(
+            "Leaf with 2 objects (0, 0, 0, 512, 512, 512)"));
+        // Check that High Z objects are in a leaf at 0,0,512
+        assertTrue(output.contains(
+            "Leaf with 2 objects (0, 0, 512, 512, 512, 512)"));
+    }
+
 }

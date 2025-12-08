@@ -2,7 +2,7 @@
 /**
  * Interface for Bintree nodes (Composite Pattern).
  * 
- * @author benblucher
+ * @author benblucher, austink23
  * 
  * @author austink23
  * @version Nov 20, 2025
@@ -13,39 +13,75 @@ public interface BinNode {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Insert method for bintree.
      * 
      * @param obj
+     *            object inserted
      * @param x
+     *            Node x origin
      * @param y
+     *            Node y origin
      * @param z
-     * @param size
+     *            Node z origin
+     * @param w
+     *            width
+     * @param h
+     *            height
+     * @param d
+     *            depth
+     *            Node size
      * @param level
-     * @return
+     * @return node inserted
      */
-    BinNode insert(AirObject obj, int x, int y, int z, int size, int level);
+    BinNode insert(
+        AirObject obj,
+        int x,
+        int y,
+        int z,
+        int w,
+        int h,
+        int d,
+        int level);
+
+
+    // ----------------------------------------------------------
+    /**
+     * Deletes a node from the Bintree.
+     * 
+     * @param obj
+     *            object inserted
+     * @param x
+     *            Node x origin
+     * @param y
+     *            Node y origin
+     * @param z
+     *            Node z origin
+     * @param w
+     *            width
+     * @param h
+     *            height
+     * @param d
+     *            depth
+     *            Node size
+     * @param level
+     * @return node deleted
+     */
+    BinNode delete(
+        AirObject obj,
+        int x,
+        int y,
+        int z,
+        int w,
+        int h,
+        int d,
+        int level);
 
 
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
      * 
-     * @param obj
-     * @param x
-     * @param y
-     * @param z
-     * @param size
-     * @param level
-     * @return
-     */
-    BinNode delete(AirObject obj, int x, int y, int z, int size, int level);
-
-
-    // ----------------------------------------------------------
-    /**
-     * Place a description of your method here.
-     * 
-     * @return
+     * @return result of check
      */
     boolean isLeaf();
 
@@ -54,7 +90,7 @@ public interface BinNode {
     /**
      * Place a description of your method here.
      * 
-     * @return
+     * @return count of nodes
      */
     int countNodes();
 
@@ -70,12 +106,25 @@ public interface BinNode {
      *            Node y origin
      * @param z
      *            Node z origin
-     * @param size
+     * @param w
+     *            width
+     * @param h
+     *            height
+     * @param d
+     *            depth
      *            Node size
      * @param level
      *            Node level
      */
-    void collisions(StringBuilder sb, int x, int y, int z, int size, int level);
+    void collisions(
+        StringBuilder sb,
+        int x,
+        int y,
+        int z,
+        int w,
+        int h,
+        int d,
+        int level);
 
 
     /**
@@ -91,8 +140,12 @@ public interface BinNode {
      *            Node y origin
      * @param z
      *            Node z origin
-     * @param size
-     *            Node size
+     * @param w
+     *            width
+     * @param h
+     *            height
+     * @param d
+     *            depth
      * @param level
      *            Node level
      * @return Number of nodes visited
@@ -103,6 +156,8 @@ public interface BinNode {
         int x,
         int y,
         int z,
-        int size,
+        int w,
+        int h,
+        int d,
         int level);
 }

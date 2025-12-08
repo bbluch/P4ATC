@@ -157,7 +157,22 @@ public class WorldDB implements ATC {
         if (start == null || end == null) {
             return null;
         }
-        return "Found these records in the range begin to end\n";
+        if (start.compareTo(end) > 0) {
+            return null;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Found these records in the range ").append(start).append(
+            " to ").append(end).append("\n");
+
+        // Fetch results from SkipList
+        LinkedList<Object> results = recordsByName.rangeSearch(start, end);
+
+        for (int i = 0; i < results.size(); i++) {
+            sb.append(results.get(i).toString()).append("\n");
+        }
+
+        return sb.toString();
     }
 
 

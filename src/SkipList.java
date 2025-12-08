@@ -25,7 +25,9 @@ public class SkipList<K extends Comparable<K>> {
     // ----------------------------------------------------------
     /**
      * Initializes a new SkipList.
-     * @param r RNG
+     * 
+     * @param r
+     *            RNG
      */
     public SkipList(Random r) {
         head = new SkipNode<K>(null, null, 0);
@@ -47,12 +49,12 @@ public class SkipList<K extends Comparable<K>> {
         while (Math.abs(ran.nextInt()) % 2 == 0) {
             lev++;
         }
-//        for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) {
-//            // ran is
-//            // random
-//            // generator
-//            // Do nothing
-//        }
+// for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) {
+// // ran is
+// // random
+// // generator
+// // Do nothing
+// }
         return lev;
     }
 
@@ -165,6 +167,40 @@ public class SkipList<K extends Comparable<K>> {
     }
 
 
+    /**
+     * Searches for elements within the range [start, end] inclusive.
+     * * @param start
+     * The start key
+     * 
+     * @param end
+     *            The end key
+     * @return A list of objects in the range
+     */
+    public LinkedList<Object> rangeSearch(K start, K end) {
+        LinkedList<Object> list = new LinkedList<>();
+        SkipNode<K> x = head;
+
+        // Find the first node >= start
+        for (int i = level; i >= 0; i--) {
+            while ((x.getForward()[i] != null) && (x.getForward()[i].key()
+                .compareTo(start) < 0)) {
+                x = x.getForward()[i];
+            }
+        }
+
+        // x is currently the node *before* the start of the range
+        x = x.getForward()[0]; // Move to the first node >= start
+
+        // Traverse forward while x is not null and x.key <= end
+        while (x != null && x.key().compareTo(end) <= 0) {
+            list.append(x.element());
+            x = x.getForward()[0];
+        }
+
+        return list;
+    }
+
+
     // ----------------------------------------------------------
     /**
      * Gets size of list
@@ -250,7 +286,6 @@ public class SkipList<K extends Comparable<K>> {
         while (curr != null) {
             // --- Line 1: Node has depth X, ---
             sb.append("Node has depth ").append(curr.getNodeLevel());
-
 
             // --- Line 2: Value (AirObject.toString())\r\n ---
             // Start the line with a single space for indentation, as shown in

@@ -532,9 +532,9 @@ public class BinInternal implements BinNode {
         }
 
         // 2. Visit this internal node (add "I" to the output)
-        sb.append("I (").append(x).append(", ").append(y).append(", ").append(z)
-            .append(", ").append(w).append(", ").append(h).append(", ").append(
-                d).append(") ").append(level).append("\n");
+        sb.append("in internal node (").append(x).append(", ").append(y).append(
+            ", ").append(z).append(", ").append(w).append(", ").append(h)
+            .append(", ").append(d).append(") ").append(level).append("\n");
 
         int dim = level % 3;
         int count = 1; // Count this node

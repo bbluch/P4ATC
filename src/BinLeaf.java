@@ -120,6 +120,27 @@ public class BinLeaf implements BinNode {
     }
 
 
+    /**
+     * Traverse for collisions.
+     * * @param sb
+     * StringBuilder for output
+     * 
+     * @param x
+     *            Node x origin
+     * @param y
+     *            Node y origin
+     * @param z
+     *            Node z origin
+     * @param w
+     *            width
+     * @param h
+     *            height
+     * @param d
+     *            depth
+     *            Node size
+     * @param level
+     *            Node level
+     */
     @Override
     public void collisions(
         StringBuilder sb,
@@ -131,12 +152,14 @@ public class BinLeaf implements BinNode {
         int d,
         int level) {
 
-        // FIX: Print header unconditionally for every leaf node visited
+        // FIX: Print the header unconditionally for every leaf node visited.
+        // This matches the reference output where leaves without collisions are
+        // listed.
         sb.append("In leaf node (").append(x).append(", ").append(y).append(
             ", ").append(z).append(", ").append(w).append(", ").append(h)
             .append(", ").append(d).append(") ").append(level).append("\n");
 
-        // Compare every pair
+        // Check for collisions between objects in this leaf
         for (int i = 0; i < objects.size(); i++) {
             for (int j = i + 1; j < objects.size(); j++) {
                 AirObject a = objects.get(i);
@@ -149,6 +172,8 @@ public class BinLeaf implements BinNode {
                     int iz = Math.max(a.getZorig(), b.getZorig());
 
                     // Check if origin is within this node's bounds
+                    // This ensures duplicates are avoided if objects span
+                    // multiple nodes
                     if (containsPoint(x, y, z, w, h, d, ix, iy, iz)) {
                         sb.append("(").append(a.toString()).append(") and (")
                             .append(b.toString()).append(")\n");

@@ -190,7 +190,7 @@ public class BinInternal implements BinNode {
             if (oz < z + half)
                 left = left.delete(obj, x, y, z, w, h, half, level + 1);
             if (oz + od > z + half)
-                left = left.delete(obj, x, y, z + half, w, h, half, level + 1);
+                right = right.delete(obj, x, y, z + half, w, h, half, level + 1);
 
 // if (goLeft)
 // left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);

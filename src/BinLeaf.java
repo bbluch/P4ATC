@@ -107,8 +107,8 @@ public class BinLeaf implements BinNode {
         int d,
         int level) {
         objects.remove(obj);
-//        if (objects.size() == 0)
-//            return BinEmpty.getInstance();
+        if (objects.size() == 0)
+            return BinEmpty.getInstance();
         return this;
     }
 

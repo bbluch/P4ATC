@@ -975,4 +975,128 @@ public class AirControlTest extends TestCase {
             expectedBintree, w.printbintree());
     }
 
+
+    // ----------------------------------------------------------
+    /**
+     * Tests the "Split" logic of the Bintree.
+     * The Bintree should split a leaf node when it contains > 3 objects
+     * that do NOT all intersect.
+     */
+    public void testBintreeSplit() {
+        WorldDB w = new WorldDB(null);
+
+        // 1. Insert 3 non-overlapping objects (Threshold is 3, so no split yet)
+        // Placing them in different quadrants to ensure they separate when
+        // split happens
+        assertTrue(w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "Carrier", 1,
+            1)));
+        assertTrue(w.add(new AirPlane("B", 600, 10, 10, 10, 10, 10, "Carrier",
+            1, 1)));
+        assertTrue(w.add(new AirPlane("C", 10, 600, 10, 10, 10, 10, "Carrier",
+            1, 1)));
+
+        // Assert it is still a single Leaf node
+        String output3 = w.printbintree();
+        assertTrue(output3.contains("Leaf with 3 objects"));
+        assertFalse(output3.contains("I (")); // Should not have internal nodes
+                                              // yet
+
+        // 2. Insert 4th object to force a split
+        assertTrue(w.add(new AirPlane("D", 600, 600, 10, 10, 10, 10, "Carrier",
+            1, 1)));
+
+        // Assert the tree has split into Internal nodes
+        String output4 = w.printbintree();
+        assertFalse(output4.contains("Leaf with 4 objects"));
+        assertTrue(output4.contains("I (")); // Should now contain internal
+                                             // nodes
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Tests the "Merge" logic of the Bintree.
+     * When objects are removed, if the siblings can be combined into a single
+     * leaf with <= 3 objects, they should merge.
+     */
+    public void testBintreeMerge() {
+        WorldDB w = new WorldDB(null);
+
+        // Setup: Create a split tree (4 objects)
+        w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("B", 600, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("C", 10, 600, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("D", 600, 600, 10, 10, 10, 10, "C", 1, 1));
+
+        // Verify we are starting with a split tree
+        assertTrue(w.printbintree().contains("I ("));
+
+        // 1. Delete "D" -> Remaining: A, B, C (Size 3)
+        // This should trigger a merge because 3 <= 3
+        w.delete("D");
+
+        String outputMerge = w.printbintree();
+
+        // Assert the Internal nodes are gone and we are back to a single leaf
+        assertFalse(outputMerge.contains("I ("));
+        assertTrue(outputMerge.contains("Leaf with 3 objects"));
+
+        // Verify contents
+        assertTrue(outputMerge.contains("A"));
+        assertTrue(outputMerge.contains("B"));
+        assertTrue(outputMerge.contains("C"));
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Tests the "No Split" rule when objects heavily overlap.
+     * The spec says a leaf splits if > 3 objects UNLESS all objects intersect.
+     */
+    public void testNoSplitOnIntersection() {
+        WorldDB w = new WorldDB(null);
+
+        // 1. Insert 5 objects that all occupy the exact same space
+        // (intersecting)
+        w.add(new AirPlane("A", 100, 100, 100, 50, 50, 50, "C", 1, 1));
+        w.add(new AirPlane("B", 100, 100, 100, 50, 50, 50, "C", 1, 1));
+        w.add(new AirPlane("C", 100, 100, 100, 50, 50, 50, "C", 1, 1));
+        w.add(new AirPlane("D", 100, 100, 100, 50, 50, 50, "C", 1, 1));
+        w.add(new AirPlane("E", 100, 100, 100, 50, 50, 50, "C", 1, 1));
+
+        String output = w.printbintree();
+
+        // 2. Assert that despite having 5 objects, it is still a single Leaf
+        // because they all intersect.
+        assertFalse(output.contains("I ("));
+        assertTrue(output.contains("Leaf with 5 objects"));
+    }
+
+
+    // ----------------------------------------------------------
+    /**
+     * Tests the "Intersect" command on boundaries and empty space.
+     * Ensures checking a region with no objects works, and checking
+     * partial overlaps works.
+     */
+    public void testRegionIntersection() {
+        WorldDB w = new WorldDB(null);
+
+        // Add object at [10, 10, 10] with size 10
+        w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+
+        // 1. Intersect query completely missing the object
+        String miss = w.intersect(500, 500, 500, 100, 100, 100);
+        assertFalse(miss.contains("A")); // Should not find A
+
+        // 2. Intersect query partially overlapping the object
+        // Box at 15,15,15 overlaps A (which ends at 20,20,20)
+        String hit = w.intersect(15, 15, 15, 100, 100, 100);
+        assertTrue(hit.contains("A"));
+
+        // 3. Intersect query enveloping the object
+        String envelope = w.intersect(0, 0, 0, 100, 100, 100);
+        assertTrue(envelope.contains("A"));
+    }
+
 }

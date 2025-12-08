@@ -60,10 +60,10 @@ public class BinEmpty implements BinNode {
     }
 
 
-    @Override
-    public int countNodes() {
-        return 1;
-    }
+// @Override
+// public int countNodes() {
+// return 1;
+// }
 
 
     @Override

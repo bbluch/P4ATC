@@ -256,10 +256,9 @@ public class BinInternal implements BinNode {
      * 
      * @return num of nodes in Bintree.
      */
-    @Override
-    public int countNodes() {
-        return 1 + left.countNodes() + right.countNodes();
-    }
+// public int countNodes() {
+// return 1 + left.countNodes() + right.countNodes();
+// }
 
 
     // ----------------------------------------------------------

@@ -92,7 +92,7 @@ public interface BinNode {
      * 
      * @return count of nodes
      */
-    int countNodes();
+// int countNodes();
 
 
     /**

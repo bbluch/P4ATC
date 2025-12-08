@@ -266,8 +266,8 @@ public class AirControlTest extends TestCase {
         assertFalse("Should fail for negative numEngines", w.add(new AirPlane(
             "A", 1, 1, 1, 1, 1, 1, "C", 1, -2)));
 
-        assertFalse(w.add(new AirObject("Jack", -1, -1, -1, -1, -1, -1)));
-        assertFalse(w.add(new AirObject("Jack", 10000, 10000, 10000, 10000,
+        assertFalse(w.add(new AirObject("Jack", 1, -1, -1, -1, -1, -1)));
+        assertFalse(w.add(new AirObject("Jack", 1, 10000, 10000, 10000,
             10000, 10000)));
         assertFalse(w.add(new AirObject("Jack", 1, -1, 1, 1, 1, 1)));
         assertFalse(w.add(new AirObject("Jack", 1, 10000, 1, 1, 1, 1)));

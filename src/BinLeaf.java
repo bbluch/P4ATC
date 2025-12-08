@@ -19,6 +19,11 @@ public class BinLeaf implements BinNode {
     }
 
 
+    // ----------------------------------------------------------
+    /**
+     * Place a description of your method here.
+     * @return
+     */
     public LinkedList<AirObject> getObjects() {
         return objects;
     }

@@ -71,11 +71,11 @@ public class BinInternal implements BinNode {
         int od = obj.getZwidth();
 
         if (dim == 0) { // Splitting X
-            // int half = w / 2;
-            if (ox < x + w / 2)
-                left = left.insert(obj, x, y, z, w / 2, h, d, level + 1);
-            if (ox + ow > x + w / 2)
-                right = right.insert(obj, x + w / 2, y, z, w / 2, h, d, level
+            int half = w / 2;
+            if (ox < x + half)
+                left = left.insert(obj, x, y, z, half, h, d, level + 1);
+            if (ox + ow > x + half)
+                right = right.insert(obj, x + half, y, z, half, h, d, level
                     + 1);
 
 // if (goLeft)
@@ -85,11 +85,11 @@ public class BinInternal implements BinNode {
 // + 1);
         }
         else if (dim == 1) { // Splitting Y
-            // int half = h / 2;
-            if (oy < y + h / 2)
-                left = left.insert(obj, x, y, z, w, h / 2, d, level + 1);
+            int half = h / 2;
+            if (oy < y + half)
+                left = left.insert(obj, x, y, z, w, half, d, level + 1);
             if (oy + oh > y + h / 2)
-                right = right.insert(obj, x, y + h / 2, z, w, h / 2, d, level
+                right = right.insert(obj, x, y + half, z, w, half, d, level
                     + 1);
 
 // if (goLeft)
@@ -99,11 +99,11 @@ public class BinInternal implements BinNode {
 // + 1);
         }
         else { // Splitting Z
-            //int half = d / 2;
-            if (oz < z + d / 2)
-                left = left.insert(obj, x, y, z, w, h, d / 2, level + 1);
-            if (oz + od > z + d / 2)
-                right = right.insert(obj, x, y, z + d / 2, w, h, d / 2, level
+               int half = d / 2;
+            if (oz < z + half)
+                left = left.insert(obj, x, y, z, w, h, half, level + 1);
+            if (oz + od > z + half)
+                right = right.insert(obj, x, y, z + half, w, h, half, level
                     + 1);
 
 // if (goLeft)
@@ -158,11 +158,11 @@ public class BinInternal implements BinNode {
         int od = obj.getZwidth();
 
         if (dim == 0) { // Split X
-            // int half = w / 2;
-            if (ox < x + w / 2)
-                left = left.delete(obj, x, y, z, w / 2, h, d, level + 1);
-            if (ox + ow > x + w / 2)
-                right = right.delete(obj, x + w / 2, y, z, w / 2, h, d, level
+            int half = w / 2;
+            if (ox < x + half)
+                left = left.delete(obj, x, y, z, half, h, d, level + 1);
+            if (ox + ow > x + half)
+                right = right.delete(obj, x + half, y, z, half, h, d, level
                     + 1);
 
 // if (goLeft)
@@ -172,11 +172,11 @@ public class BinInternal implements BinNode {
 // + 1);
         }
         else if (dim == 1) { // Split Y
-// int half = h / 2;
-            if (oy < y + h / 2)
-                left = left.delete(obj, x, y, z, w, h / 2, d, level + 1);
-            if (oy + oh > y + h / 2)
-                right = right.delete(obj, x, y + h / 2, z, w, h / 2, d, level
+            int half = h / 2;
+            if (oy < y + half)
+                left = left.delete(obj, x, y, z, w, half, d, level + 1);
+            if (oy + oh > y + half)
+                right = right.delete(obj, x, y + half, z, w, half, d, level
                     + 1);
 
 // if (goLeft)
@@ -186,11 +186,11 @@ public class BinInternal implements BinNode {
 // + 1);
         }
         else { // Split Z
-               // int half = d / 2;
-            if (oz < z + d / 2)
-                left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);
-            if (oz + od > z + d / 2)
-                left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);
+            int half = d / 2;
+            if (oz < z + half)
+                left = left.delete(obj, x, y, z, w, h, half, level + 1);
+            if (oz + od > z + half)
+                left = left.delete(obj, x, y, z + half, w, h, half, level + 1);
 
 // if (goLeft)
 // left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);
@@ -320,20 +320,20 @@ public class BinInternal implements BinNode {
         int dim = level % 3;
 
         if (dim == 0) {
-            // int half = w / 2;
-            left.collisions(sb, x, y, z, w / 2, h, d, level + 1);
-            right.collisions(sb, x + w / 2, y, z, w / 2, h, d, level + 1);
+            int half = w / 2;
+            left.collisions(sb, x, y, z, half, h, d, level + 1);
+            right.collisions(sb, x + half, y, z, half, h, d, level + 1);
         }
         else if (dim == 1) {
-            // int half = h / 2;
-            left.collisions(sb, x, y, z, w, h / 2, d, level + 1);
-            right.collisions(sb, x, y + h / 2, z, w, h / 2, d, level + 1);
+            int half = h / 2;
+            left.collisions(sb, x, y, z, w, half, d, level + 1);
+            right.collisions(sb, x, y + half, z, w, half, d, level + 1);
         }
-//        else {
-//            // int half = d / 2;
-//            left.collisions(sb, x, y, z, w, h, d / 2, level + 1);
-//            right.collisions(sb, x, y, z + d / 2, w, h, d / 2, level + 1);
-//        }
+        else {
+            int half = d / 2;
+            left.collisions(sb, x, y, z, w, h, half, level + 1);
+            right.collisions(sb, x, y, z + half, w, h, half, level + 1);
+        }
     }
 
 
@@ -390,21 +390,21 @@ public class BinInternal implements BinNode {
         // The children will handle finding the actual objects if they are
         // leaves.
         if (dim == 0) { // Split X
-            // int half = w / 2;
-            count += left.intersect(sb, query, x, y, z, w / 2, h, d, level + 1);
-            count += right.intersect(sb, query, x + w / 2, y, z, w / 2, h, d,
+            int half = w / 2;
+            count += left.intersect(sb, query, x, y, z, half, h, d, level + 1);
+            count += right.intersect(sb, query, x + half, y, z, half, h, d,
                 level + 1);
         }
         else if (dim == 1) { // Split Y
-            // int half = h / 2;
-            count += left.intersect(sb, query, x, y, z, w, h / 2, d, level + 1);
-            count += right.intersect(sb, query, x, y + h / 2, z, w, h / 2, d,
+            int half = h / 2;
+            count += left.intersect(sb, query, x, y, z, w, half, d, level + 1);
+            count += right.intersect(sb, query, x, y + half, z, w, half, d,
                 level + 1);
         }
         else { // Split Z
-               // int half = d / 2;
-            count += left.intersect(sb, query, x, y, z, w, h, d / 2, level + 1);
-            count += right.intersect(sb, query, x, y, z + d / 2, w, h, d / 2,
+            int half = d / 2;
+            count += left.intersect(sb, query, x, y, z, w, h, half, level + 1);
+            count += right.intersect(sb, query, x, y, z + half, w, h, half,
                 level + 1);
         }
         return count;

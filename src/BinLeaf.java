@@ -2,8 +2,8 @@
 /**
  * Leaf Node for Bintree.
  * * @author benblucher
+ * * @author austink23
  * 
- * @author austink23
  * @version Nov 20, 2025
  */
 public class BinLeaf implements BinNode {
@@ -38,8 +38,6 @@ public class BinLeaf implements BinNode {
         int index = 0;
         while (index < objects.size()) {
             AirObject curr = objects.get(index);
-            // Compare names case-sensitively (or adjust if specs require ignore
-            // case)
             if (obj.getName().compareTo(curr.getName()) < 0) {
                 break;
             }
@@ -132,35 +130,31 @@ public class BinLeaf implements BinNode {
         int h,
         int d,
         int level) {
-        StringBuilder nodeCollisions = new StringBuilder();
-        boolean foundCollision = false;
 
+        // FIX: Print header unconditionally for every leaf node visited
+        sb.append("In leaf node (").append(x).append(", ").append(y).append(
+            ", ").append(z).append(", ").append(w).append(", ").append(h)
+            .append(", ").append(d).append(") ").append(level).append("\n");
+
+        // Compare every pair
         for (int i = 0; i < objects.size(); i++) {
             for (int j = i + 1; j < objects.size(); j++) {
                 AirObject a = objects.get(i);
                 AirObject b = objects.get(j);
 
                 if (objsIntersect(a, b)) {
+                    // Calculate Intersection Origin
                     int ix = Math.max(a.getXorig(), b.getXorig());
                     int iy = Math.max(a.getYorig(), b.getYorig());
                     int iz = Math.max(a.getZorig(), b.getZorig());
 
-                    // Check if the intersection origin is within this node's
-                    // bounds
+                    // Check if origin is within this node's bounds
                     if (containsPoint(x, y, z, w, h, d, ix, iy, iz)) {
-                        nodeCollisions.append("(").append(a.toString()).append(
-                            ") and (").append(b.toString()).append(")\n");
-                        foundCollision = true;
+                        sb.append("(").append(a.toString()).append(") and (")
+                            .append(b.toString()).append(")\n");
                     }
                 }
             }
-        }
-
-        if (foundCollision) {
-            sb.append("In leaf node (").append(x).append(", ").append(y).append(
-                ", ").append(z).append(", ").append(w).append(", ").append(h)
-                .append(", ").append(d).append(") ").append(level).append("\n");
-            sb.append(nodeCollisions);
         }
     }
 

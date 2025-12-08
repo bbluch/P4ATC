@@ -390,7 +390,6 @@ public class AirControlTest extends TestCase {
 
         assertTrue(w.add(new Bird("J", X + 1, Y, Z, XWID, YWID, ZWID, "Jack",
             1)));
-        ;
     }
 
 

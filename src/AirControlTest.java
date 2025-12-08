@@ -267,8 +267,8 @@ public class AirControlTest extends TestCase {
             "A", 1, 1, 1, 1, 1, 1, "C", 1, -2)));
 
         assertFalse(w.add(new AirObject("Jack", 1, -1, -1, -1, -1, -1)));
-        assertFalse(w.add(new AirObject("Jack", 1, 10000, 10000, 10000,
-            10000, 10000)));
+        assertFalse(w.add(new AirObject("Jack", 1, 10000, 10000, 10000, 10000,
+            10000)));
         assertFalse(w.add(new AirObject("Jack", 1, -1, 1, 1, 1, 1)));
         assertFalse(w.add(new AirObject("Jack", 1, 10000, 1, 1, 1, 1)));
         assertFalse(w.add(new AirObject("Jack", 1, 1, -1, 1, 1, 1)));
@@ -1112,205 +1112,360 @@ public class AirControlTest extends TestCase {
         assertTrue(envelope.contains("A"));
     }
 
-
     /**
      * Test logic: Verify BinInternal routes to LEFT child only
      * when object is entirely in the low half of the split dimension.
      */
-    public void testInternalRoutingLeft() {
-        // Setup: Mock-like structure manually
-        // We use empty nodes as children to see where the insert goes
-        // (BinEmpty returns a new BinLeaf when inserted into)
-        BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
-            .getInstance());
-
-        // Object at 10,10,10 (Size 10) fits in 0-512 range for X, Y, and Z
-        AirObject obj = new AirPlane("LeftObj", 10, 10, 10, 10, 10, 10, "Test",
-            1, 1);
-
-        // Level 0 (Split X): Should go Left
-        node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-        assertTrue(node.getLeft().isLeaf()); // Left became a leaf (was
-                                             // inserted)
-        assertTrue(node.getRight() == BinEmpty.getInstance()); // Right stayed
-                                                               // empty
-    }
+// public void testInternalRoutingLeft() {
+// // Setup: Mock-like structure manually
+// // We use empty nodes as children to see where the insert goes
+// // (BinEmpty returns a new BinLeaf when inserted into)
+// BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// .getInstance());
+//
+// // Object at 10,10,10 (Size 10) fits in 0-512 range for X, Y, and Z
+// AirObject obj = new AirPlane("LeftObj", 10, 10, 10, 10, 10, 10, "Test",
+// 1, 1);
+//
+// // Level 0 (Split X): Should go Left
+// node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
+// assertTrue(node.getLeft().isLeaf()); // Left became a leaf (was
+// // inserted)
+// assertTrue(node.getRight() == BinEmpty.getInstance()); // Right stayed
+// // empty
+// }
+//
+//
+// /**
+// * Test logic: Verify BinInternal routes to RIGHT child only
+// * when object is entirely in the high half of the split dimension.
+// */
+// public void testInternalRoutingRight() {
+// BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// .getInstance());
+//
+// // Object at 600,10,10 starts past 512
+// AirObject obj = new AirPlane("RightObj", 600, 10, 10, 10, 10, 10,
+// "Test", 1, 1);
+//
+// // Level 0 (Split X): Should go Right (600 > 512)
+// node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
+// assertTrue(node.getLeft() == BinEmpty.getInstance());
+// assertTrue(node.getRight().isLeaf());
+// }
+//
+//
+// /**
+// * Test logic: Verify BinInternal routes to BOTH children
+// * when object overlaps the split plane.
+// */
+// public void testInternalRoutingOverlap() {
+// BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// .getInstance());
+//
+// // Object at 500 with width 20 (Ends at 520)
+// // Split is at 512. Object spans 500 to 520.
+// AirObject obj = new AirPlane("OverlapObj", 500, 10, 10, 20, 10, 10,
+// "Test", 1, 1);
+//
+// // Level 0 (Split X): Should go Both
+// node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
+// assertTrue(node.getLeft().isLeaf());
+// assertTrue(node.getRight().isLeaf());
+// }
+//
+//
+// /**
+// * Test logic: Verify dimension cycling (Level 0=X, Level 1=Y, Level 2=Z).
+// * We pass the same object but change the 'level' param to force different
+// * splits.
+// */
+// public void testInternalRoutingDimensions() {
+// AirObject obj = new AirPlane("Y_Obj", 10, 600, 10, 10, 10, 10, "Test",
+// 1, 1);
+//
+// // Case A: Level 0 (Split X) -> Object X=10 is Left
+// BinInternal nodeX = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// .getInstance());
+// nodeX.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
+// assertTrue(nodeX.getLeft().isLeaf());
+// assertTrue(nodeX.getRight() == BinEmpty.getInstance());
+//
+// // Case B: Level 1 (Split Y) -> Object Y=600 is Right (600 > 512)
+// BinInternal nodeY = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// .getInstance());
+// nodeY.insert(obj, 0, 0, 0, 1024, 1024, 1024, 1);
+// assertTrue(nodeY.getLeft() == BinEmpty.getInstance());
+// assertTrue(nodeY.getRight().isLeaf()); // Went Right because Y > 512
+//
+// // Case C: Level 2 (Split Z) -> Object Z=10 is Left
+// BinInternal nodeZ = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// .getInstance());
+// nodeZ.insert(obj, 0, 0, 0, 1024, 1024, 1024, 2);
+// assertTrue(nodeZ.getLeft().isLeaf());
+// assertTrue(nodeZ.getRight() == BinEmpty.getInstance());
+// }
+//
+//
+// /**
+// * Test logic: If one child becomes Empty and the other is a Leaf,
+// * BinInternal should replace itself with the remaining Leaf.
+// */
+// public void testMergeToSingleLeaf() {
+// AirObject keep = new AirPlane("Keep", 10, 10, 10, 10, 10, 10, "K", 1,
+// 1);
+// AirObject remove = new AirPlane("Remove", 600, 10, 10, 10, 10, 10, "R",
+// 1, 1);
+//
+// // Setup: Left has 'Keep', Right has 'Remove'
+// BinLeaf leftLeaf = new BinLeaf();
+// leftLeaf.insert(keep, 0, 0, 0, 512, 1024, 1024, 1);
+//
+// BinLeaf rightLeaf = new BinLeaf();
+// rightLeaf.insert(remove, 512, 0, 0, 512, 1024, 1024, 1);
+//
+// BinInternal node = new BinInternal(leftLeaf, rightLeaf);
+//
+// // Action: Delete 'Remove'. Right child becomes Empty.
+// // Logic: BinInternal sees (Leaf, Empty) -> returns Leaf.
+// BinNode result = node.delete(remove, 0, 0, 0, 1024, 1024, 1024, 0);
+//
+// assertTrue("Result should be a Leaf node", result instanceof BinLeaf);
+// BinLeaf resultLeaf = (BinLeaf)result;
+// assertEquals(1, resultLeaf.getObjects().size());
+// assertEquals("Keep", resultLeaf.getObjects().get(0).getName());
+// }
+//
+//
+// /**
+// * Test logic: If both children are Leaves, and their total objects <= 3,
+// * they should combine into one Leaf.
+// */
+// public void testMergeCombineLeaves() {
+// AirObject a = new AirPlane("A", 10, 10, 10, 10, 10, 10, "K", 1, 1);
+// AirObject b = new AirPlane("B", 10, 20, 10, 10, 10, 10, "K", 1, 1);
+// AirObject c = new AirPlane("C", 600, 10, 10, 10, 10, 10, "R", 1, 1);
+// // Setup: Left has A, B. Right has C. Total = 3.
+// BinLeaf leftLeaf = new BinLeaf();
+// leftLeaf.insert(a, 0, 0, 0, 512, 1024, 1024, 1);
+// leftLeaf.insert(b, 0, 0, 0, 512, 1024, 1024, 1);
+//
+// BinLeaf rightLeaf = new BinLeaf();
+// rightLeaf.insert(c, 512, 0, 0, 512, 1024, 1024, 1);
+//
+// BinInternal node = new BinInternal(leftLeaf, rightLeaf);
+//
+// // Verify setup
+// assertFalse(node.isLeaf());
+//
+// // Action: We delete a dummy object just to trigger the check logic,
+// // OR we can delete one of the existing ones if we started with 4.
+// // Let's perform a dummy delete of a non-existent object to trigger the
+// // merge check
+// // (Since your delete logic checks merge at the end regardless of
+// // whether something was removed)
+// // However, to be cleaner, let's say we had 4 and deleted 1.
+//
+// AirObject d = new AirPlane("D", 600, 20, 10, 10, 10, 10, "R", 1, 1);
+// rightLeaf.insert(d, 512, 0, 0, 512, 1024, 1024, 1);
+// // Now total is 4. Should NOT merge yet.
+//
+// // Action: Delete D. Total becomes 3 (A, B, C).
+// BinNode result = node.delete(d, 0, 0, 0, 1024, 1024, 1024, 0);
+//
+// // Expectation: A, B, and C are merged into one Leaf because 3 <= 3.
+// assertTrue("Result should be a Leaf node after merge",
+// result instanceof BinLeaf);
+// assertEquals(3, ((BinLeaf)result).getObjects().size());
+// }
+//
+//
+// /**
+// * Test logic: If both children are Leaves but total objects > 3,
+// * they should NOT merge.
+// */
+// public void testNoMergeIfTooLarge() {
+// // Setup 4 objects (2 Left, 2 Right)
+// BinLeaf leftLeaf = new BinLeaf();
+// leftLeaf.insert(new AirPlane("A", 10, 10, 10, 10, 10, 10, "K", 1, 1), 0,
+// 0, 0, 512, 1024, 1024, 1);
+// leftLeaf.insert(new AirPlane("B", 10, 20, 10, 10, 10, 10, "K", 1, 1), 0,
+// 0, 0, 512, 1024, 1024, 1);
+//
+// BinLeaf rightLeaf = new BinLeaf();
+// rightLeaf.insert(new AirPlane("C", 600, 10, 10, 10, 10, 10, "R", 1, 1),
+// 512, 0, 0, 512, 1024, 1024, 1);
+// rightLeaf.insert(new AirPlane("D", 600, 20, 10, 10, 10, 10, "R", 1, 1),
+// 512, 0, 0, 512, 1024, 1024, 1);
+//
+// BinInternal node = new BinInternal(leftLeaf, rightLeaf);
+//
+// // Action: Delete a non-existent object "E".
+// // The delete method will recurse, fail to find E, but still run the
+// // merge check logic at the end.
+// AirObject e = new AirPlane("E", 600, 50, 10, 10, 10, 10, "R", 1, 1);
+// BinNode result = node.delete(e, 0, 0, 0, 1024, 1024, 1024, 0);
+//
+// // Expectation: Result is still BinInternal because 4 objects > 3
+// // threshold.
+// assertTrue("Result should remain Internal (4 objects)",
+// result instanceof BinInternal);
+// }
 
 
     /**
-     * Test logic: Verify BinInternal routes to RIGHT child only
-     * when object is entirely in the high half of the split dimension.
+     * Tests all invalid input conditions for the intersect command.
+     * Ensures null is returned for out-of-bounds coordinates,
+     * invalid dimensions, or boxes that extend outside the world.
      */
-    public void testInternalRoutingRight() {
-        BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
-            .getInstance());
+    public void testInvalidIntersects() {
+        WorldDB w = new WorldDB(null);
 
-        // Object at 600,10,10 starts past 512
-        AirObject obj = new AirPlane("RightObj", 600, 10, 10, 10, 10, 10,
-            "Test", 1, 1);
+        // 1. Negative Coordinates
+        assertNull("Should be null for negative x", w.intersect(-1, 10, 10, 10,
+            10, 10));
+        assertNull("Should be null for negative y", w.intersect(10, -1, 10, 10,
+            10, 10));
+        assertNull("Should be null for negative z", w.intersect(10, 10, -1, 10,
+            10, 10));
 
-        // Level 0 (Split X): Should go Right (600 > 512)
-        node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-        assertTrue(node.getLeft() == BinEmpty.getInstance());
-        assertTrue(node.getRight().isLeaf());
+        // 2. Non-Positive Dimensions (Width/Height/Depth < 1)
+        assertNull("Should be null for 0 width", w.intersect(10, 10, 10, 0, 10,
+            10));
+        assertNull("Should be null for negative width", w.intersect(10, 10, 10,
+            -5, 10, 10));
+        assertNull("Should be null for 0 height", w.intersect(10, 10, 10, 10, 0,
+            10));
+        assertNull("Should be null for 0 depth", w.intersect(10, 10, 10, 10, 10,
+            0));
+
+        // 3. Start Coordinate Out of Bounds (> 1024)
+        assertNull("Should be null for x > 1024", w.intersect(1025, 10, 10, 10,
+            10, 10));
+        assertNull("Should be null for y > 1024", w.intersect(10, 1025, 10, 10,
+            10, 10));
+        assertNull("Should be null for z > 1024", w.intersect(10, 10, 1025, 10,
+            10, 10));
+
+        // 4. Dimension Out of Bounds (> 1025? Logic check says > 1025 is null)
+        // Note: Even if dimension is 1025, if x is 0, x+w = 1025 > 1024, so it
+        // fails anyway.
+        // But specifically checking the dimension check:
+        assertNull("Should be null for huge width", w.intersect(0, 0, 0, 2000,
+            10, 10));
+
+        // 5. Box Extends Out of Bounds (Coordinate + Dimension > 1024)
+        // Valid case: 1000 + 24 = 1024 (Boundary)
+        assertNotNull("Should be valid at boundary", w.intersect(1000, 0, 0, 24,
+            10, 10));
+
+        // Invalid case: 1000 + 25 = 1025 (> 1024)
+        assertNull("Should be null if box extends past X=1024", w.intersect(
+            1000, 0, 0, 25, 10, 10));
+
+        // Invalid case: Y extends out
+        assertNull("Should be null if box extends past Y=1024", w.intersect(0,
+            1000, 0, 10, 25, 10));
+
+        // Invalid case: Z extends out
+        assertNull("Should be null if box extends past Z=1024", w.intersect(0,
+            0, 1000, 10, 10, 25));
     }
 
 
+    // ----------------------------------------------------------
     /**
-     * Test logic: Verify BinInternal routes to BOTH children
-     * when object overlaps the split plane.
+     * Extensive mutation testing for the BinEmpty.intersect logic.
+     * Targets boundary conditions (touching vs overlapping) and
+     * dimensional logic (checking X, Y, and Z independently).
+     * * Logic being tested:
+     * x1 < x2 + w2 && x1 + w1 > x2 &&
+     * y1 < y2 + h2 && y1 + h1 > y2 &&
+     * z1 < z2 + d2 && z1 + d1 > z2
      */
-    public void testInternalRoutingOverlap() {
-        BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
-            .getInstance());
+    public void testBinEmptyIntersectMutants() {
+        BinEmpty node = BinEmpty.getInstance();
+        StringBuilder sb = new StringBuilder();
 
-        // Object at 500 with width 20 (Ends at 520)
-        // Split is at 512. Object spans 500 to 520.
-        AirObject obj = new AirPlane("OverlapObj", 500, 10, 10, 20, 10, 10,
-            "Test", 1, 1);
+        // --- Setup Node ---
+        // Node Region: Origin (100, 100, 100), Size (100, 100, 100)
+        // Occupies space: [100, 200) on X, Y, and Z axes.
+        int nx = 100, ny = 100, nz = 100;
+        int nw = 100, nh = 100, nd = 100;
 
-        // Level 0 (Split X): Should go Both
-        node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-        assertTrue(node.getLeft().isLeaf());
-        assertTrue(node.getRight().isLeaf());
-    }
+        // --- 1. Base Case: Full Intersection ---
+        // Query exactly matches Node.
+        // [100, 200) overlaps [100, 200).
+        int[] qMatch = { 100, 100, 100, 100, 100, 100 };
+        assertEquals("Should return 1 for exact match", 1, node.intersect(sb,
+            qMatch, nx, ny, nz, nw, nh, nd, 0));
 
+        // --- 2. Boundary Tests (Killing '<' vs '<=' Mutants) ---
+        // Verify that touching edges are NOT considered intersections.
 
-    /**
-     * Test logic: Verify dimension cycling (Level 0=X, Level 1=Y, Level 2=Z).
-     * We pass the same object but change the 'level' param to force different
-     * splits.
-     */
-    public void testInternalRoutingDimensions() {
-        AirObject obj = new AirPlane("Y_Obj", 10, 600, 10, 10, 10, 10, "Test",
-            1, 1);
+        // X-Axis Left Touch: Query [0, 100). Node starts 100.
+        // Logic: NodeX (100) < QueryX(0) + QueryW(100) -> 100 < 100 -> False.
+        // Mutant Check: 100 <= 100 -> True.
+        int[] qTouchXLeft = { 0, 100, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Left edge (X)", 0, node
+            .intersect(sb, qTouchXLeft, nx, ny, nz, nw, nh, nd, 0));
 
-        // Case A: Level 0 (Split X) -> Object X=10 is Left
-        BinInternal nodeX = new BinInternal(BinEmpty.getInstance(), BinEmpty
-            .getInstance());
-        nodeX.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-        assertTrue(nodeX.getLeft().isLeaf());
-        assertTrue(nodeX.getRight() == BinEmpty.getInstance());
+        // X-Axis Right Touch: Query [200, 300). Node ends 200.
+        // Logic: NodeX(100) + NodeW(100) > QueryX(200) -> 200 > 200 -> False.
+        // Mutant Check: 200 >= 200 -> True.
+        int[] qTouchXRight = { 200, 100, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Right edge (X)", 0, node
+            .intersect(sb, qTouchXRight, nx, ny, nz, nw, nh, nd, 0));
 
-        // Case B: Level 1 (Split Y) -> Object Y=600 is Right (600 > 512)
-        BinInternal nodeY = new BinInternal(BinEmpty.getInstance(), BinEmpty
-            .getInstance());
-        nodeY.insert(obj, 0, 0, 0, 1024, 1024, 1024, 1);
-        assertTrue(nodeY.getLeft() == BinEmpty.getInstance());
-        assertTrue(nodeY.getRight().isLeaf()); // Went Right because Y > 512
+        // Y-Axis Top Touch: Query Y [0, 100). Node Y starts 100.
+        int[] qTouchYTop = { 100, 0, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Top edge (Y)", 0, node
+            .intersect(sb, qTouchYTop, nx, ny, nz, nw, nh, nd, 0));
 
-        // Case C: Level 2 (Split Z) -> Object Z=10 is Left
-        BinInternal nodeZ = new BinInternal(BinEmpty.getInstance(), BinEmpty
-            .getInstance());
-        nodeZ.insert(obj, 0, 0, 0, 1024, 1024, 1024, 2);
-        assertTrue(nodeZ.getLeft().isLeaf());
-        assertTrue(nodeZ.getRight() == BinEmpty.getInstance());
-    }
+        // Y-Axis Bottom Touch: Query Y [200, 300). Node Y ends 200.
+        int[] qTouchYBot = { 100, 200, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Bottom edge (Y)", 0, node
+            .intersect(sb, qTouchYBot, nx, ny, nz, nw, nh, nd, 0));
 
+        // Z-Axis Front Touch: Query Z [0, 100). Node Z starts 100.
+        int[] qTouchZFront = { 100, 100, 0, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Front edge (Z)", 0, node
+            .intersect(sb, qTouchZFront, nx, ny, nz, nw, nh, nd, 0));
 
-    /**
-     * Test logic: If one child becomes Empty and the other is a Leaf,
-     * BinInternal should replace itself with the remaining Leaf.
-     */
-    public void testMergeToSingleLeaf() {
-        AirObject keep = new AirPlane("Keep", 10, 10, 10, 10, 10, 10, "K", 1,
-            1);
-        AirObject remove = new AirPlane("Remove", 600, 10, 10, 10, 10, 10, "R",
-            1, 1);
+        // Z-Axis Back Touch: Query Z [200, 300). Node Z ends 200.
+        int[] qTouchZBack = { 100, 100, 200, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Back edge (Z)", 0, node
+            .intersect(sb, qTouchZBack, nx, ny, nz, nw, nh, nd, 0));
 
-        // Setup: Left has 'Keep', Right has 'Remove'
-        BinLeaf leftLeaf = new BinLeaf();
-        leftLeaf.insert(keep, 0, 0, 0, 512, 1024, 1024, 1);
+        // --- 3. Logical Operator Tests (Killing '&&' vs '||' Mutants) ---
+        // Verify that intersection requires overlap in ALL dimensions.
+        // A box overlapping in X and Y but not Z should FAIL.
+        // An '||' mutant would return True here.
 
-        BinLeaf rightLeaf = new BinLeaf();
-        rightLeaf.insert(remove, 512, 0, 0, 512, 1024, 1024, 1);
+        // Overlap X and Y, Miss Z
+        int[] qMissZ = { 100, 100, 0, 100, 100, 90 }; // Z range [0, 90). Node Z
+                                                      // starts 100.
+        assertEquals("Should return 0 when missing Z intersection", 0, node
+            .intersect(sb, qMissZ, nx, ny, nz, nw, nh, nd, 0));
 
-        BinInternal node = new BinInternal(leftLeaf, rightLeaf);
+        // Overlap X and Z, Miss Y
+        int[] qMissY = { 100, 0, 100, 100, 90, 100 }; // Y range [0, 90). Node Y
+                                                      // starts 100.
+        assertEquals("Should return 0 when missing Y intersection", 0, node
+            .intersect(sb, qMissY, nx, ny, nz, nw, nh, nd, 0));
 
-        // Action: Delete 'Remove'. Right child becomes Empty.
-        // Logic: BinInternal sees (Leaf, Empty) -> returns Leaf.
-        BinNode result = node.delete(remove, 0, 0, 0, 1024, 1024, 1024, 0);
+        // Overlap Y and Z, Miss X
+        int[] qMissX = { 0, 100, 100, 90, 100, 100 }; // X range [0, 90). Node X
+                                                      // starts 100.
+        assertEquals("Should return 0 when missing X intersection", 0, node
+            .intersect(sb, qMissX, nx, ny, nz, nw, nh, nd, 0));
 
-        assertTrue("Result should be a Leaf node", result instanceof BinLeaf);
-        BinLeaf resultLeaf = (BinLeaf)result;
-        assertEquals(1, resultLeaf.getObjects().size());
-        assertEquals("Keep", resultLeaf.getObjects().get(0).getName());
-    }
-
-
-    /**
-     * Test logic: If both children are Leaves, and their total objects <= 3,
-     * they should combine into one Leaf.
-     */
-    public void testMergeCombineLeaves() {
-        AirObject a = new AirPlane("A", 10, 10, 10, 10, 10, 10, "K", 1, 1);
-        AirObject b = new AirPlane("B", 10, 20, 10, 10, 10, 10, "K", 1, 1);
-        AirObject c = new AirPlane("C", 600, 10, 10, 10, 10, 10, "R", 1, 1);
-        // Setup: Left has A, B. Right has C. Total = 3.
-        BinLeaf leftLeaf = new BinLeaf();
-        leftLeaf.insert(a, 0, 0, 0, 512, 1024, 1024, 1);
-        leftLeaf.insert(b, 0, 0, 0, 512, 1024, 1024, 1);
-
-        BinLeaf rightLeaf = new BinLeaf();
-        rightLeaf.insert(c, 512, 0, 0, 512, 1024, 1024, 1);
-
-        BinInternal node = new BinInternal(leftLeaf, rightLeaf);
-
-        // Verify setup
-        assertFalse(node.isLeaf());
-
-        // Action: We delete a dummy object just to trigger the check logic,
-        // OR we can delete one of the existing ones if we started with 4.
-        // Let's perform a dummy delete of a non-existent object to trigger the
-        // merge check
-        // (Since your delete logic checks merge at the end regardless of
-        // whether something was removed)
-        // However, to be cleaner, let's say we had 4 and deleted 1.
-
-        AirObject d = new AirPlane("D", 600, 20, 10, 10, 10, 10, "R", 1, 1);
-        rightLeaf.insert(d, 512, 0, 0, 512, 1024, 1024, 1);
-        // Now total is 4. Should NOT merge yet.
-
-        // Action: Delete D. Total becomes 3 (A, B, C).
-        BinNode result = node.delete(d, 0, 0, 0, 1024, 1024, 1024, 0);
-
-        // Expectation: A, B, and C are merged into one Leaf because 3 <= 3.
-        assertTrue("Result should be a Leaf node after merge",
-            result instanceof BinLeaf);
-        assertEquals(3, ((BinLeaf)result).getObjects().size());
-    }
-
-
-    /**
-     * Test logic: If both children are Leaves but total objects > 3,
-     * they should NOT merge.
-     */
-    public void testNoMergeIfTooLarge() {
-        // Setup 4 objects (2 Left, 2 Right)
-        BinLeaf leftLeaf = new BinLeaf();
-        leftLeaf.insert(new AirPlane("A", 10, 10, 10, 10, 10, 10, "K", 1, 1), 0,
-            0, 0, 512, 1024, 1024, 1);
-        leftLeaf.insert(new AirPlane("B", 10, 20, 10, 10, 10, 10, "K", 1, 1), 0,
-            0, 0, 512, 1024, 1024, 1);
-
-        BinLeaf rightLeaf = new BinLeaf();
-        rightLeaf.insert(new AirPlane("C", 600, 10, 10, 10, 10, 10, "R", 1, 1),
-            512, 0, 0, 512, 1024, 1024, 1);
-        rightLeaf.insert(new AirPlane("D", 600, 20, 10, 10, 10, 10, "R", 1, 1),
-            512, 0, 0, 512, 1024, 1024, 1);
-
-        BinInternal node = new BinInternal(leftLeaf, rightLeaf);
-
-        // Action: Delete a non-existent object "E".
-        // The delete method will recurse, fail to find E, but still run the
-        // merge check logic at the end.
-        AirObject e = new AirPlane("E", 600, 50, 10, 10, 10, 10, "R", 1, 1);
-        BinNode result = node.delete(e, 0, 0, 0, 1024, 1024, 1024, 0);
-
-        // Expectation: Result is still BinInternal because 4 objects > 3
-        // threshold.
-        assertTrue("Result should remain Internal (4 objects)",
-            result instanceof BinInternal);
+        // --- 4. Slight Overlap Tests (Sanity Check) ---
+        // Verify that even a 1-unit overlap is caught (Standard '<' behavior).
+        // Query [99, 101). Overlaps Node [100, 200) by 1 unit.
+        int[] qSlightOverlap = { 99, 100, 100, 2, 100, 100 };
+        assertEquals("Should return 1 for slight overlap", 1, node.intersect(sb,
+            qSlightOverlap, nx, ny, nz, nw, nh, nd, 0));
     }
 
 

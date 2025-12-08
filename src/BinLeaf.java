@@ -65,8 +65,8 @@ public class BinLeaf implements BinNode {
 
 
     private boolean allIntersect() {
-        if (objects.size() == 0)
-            return false;
+//        if (objects.size() == 0)
+//            return false;
         AirObject first = objects.get(0);
         int ix = first.getXorig(), iy = first.getYorig(), iz = first.getZorig();
         int iw = first.getXwidth(), ih = first.getYwidth(), id = first
@@ -86,7 +86,7 @@ public class BinLeaf implements BinNode {
             ih = nb - ny;
             id = nback - nz;
 
-            if (iw <= 0 || ih <= 0 || id <= 0)
+            if (nr - nx <= 0 || nb - ny <= 0 || nback - nz <= 0)
                 return false;
             ix = nx;
             iy = ny;
@@ -107,8 +107,8 @@ public class BinLeaf implements BinNode {
         int d,
         int level) {
         objects.remove(obj);
-        if (objects.size() == 0)
-            return BinEmpty.getInstance();
+//        if (objects.size() == 0)
+//            return BinEmpty.getInstance();
         return this;
     }
 

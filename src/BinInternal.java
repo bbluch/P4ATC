@@ -99,7 +99,7 @@ public class BinInternal implements BinNode {
 // + 1);
         }
         else { // Splitting Z
-               int half = d / 2;
+            int half = d / 2;
             if (oz < z + half)
                 left = left.insert(obj, x, y, z, w, h, half, level + 1);
             if (oz + od > z + half)
@@ -200,11 +200,11 @@ public class BinInternal implements BinNode {
 
         // Merge logic: If both children are leaves and their combined contents
         // are small
-//        if (left.isLeaf() && right.isLeaf()) {
-//            if (left == BinEmpty.getInstance() && right == BinEmpty
-//                .getInstance()) {
-//                return BinEmpty.getInstance();
-//            }
+        if (left.isLeaf() && right.isLeaf()) {
+            if (left == BinEmpty.getInstance() && right == BinEmpty
+                .getInstance()) {
+                return BinEmpty.getInstance();
+            }
 
             // Simple merges
             if (left instanceof BinLeaf && right == BinEmpty.getInstance())
@@ -235,6 +235,7 @@ public class BinInternal implements BinNode {
                     return newLeaf;
                 }
             }
+        }
         return this;
     }
 
@@ -248,7 +249,6 @@ public class BinInternal implements BinNode {
     public boolean isLeaf() {
         return false;
     }
-
 
     /**
      * Counts nodes in Bintree.

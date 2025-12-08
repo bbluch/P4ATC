@@ -45,9 +45,9 @@ public class LinkedList<E> {
      *            Element to insert
      */
     public void add(int index, E element) {
-//        if (index < 0 || index > size) {
-//            throw new IndexOutOfBoundsException();
-//        }
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         Link<E> curr = head;
         for (int i = 0; i < index; i++) {
             curr = curr.next();
@@ -95,9 +95,9 @@ public class LinkedList<E> {
      * @return Element
      */
     public E get(int index) {
-//        if (index < 0 || index >= size) {
-//            return null;
-//        }
+        if (index < 0 || index >= size) {
+            return null;
+        }
         Link<E> curr = head.next();
         for (int i = 0; i < index; i++) {
             curr = curr.next();

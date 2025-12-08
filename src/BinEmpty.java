@@ -13,6 +13,7 @@ public class BinEmpty implements BinNode {
     // ----------------------------------------------------------
     /**
      * Place a description of your method here.
+     * 
      * @return
      */
     public static BinEmpty getInstance() {
@@ -94,9 +95,9 @@ public class BinEmpty implements BinNode {
             query[3], query[4], query[5])) {
             return 0;
         }
-        sb.append("E (").append(x).append(", ").append(y).append(", ").append(z)
-            .append(", ").append(w).append(", ").append(h).append(", ").append(
-                d).append(") ").append(level).append("\n");
+// sb.append("E (").append(x).append(", ").append(y).append(", ").append(z)
+// .append(", ").append(w).append(", ").append(h).append(", ").append(
+// d).append(") ").append(level).append("\n");
         return 1;
     }
 

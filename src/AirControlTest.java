@@ -2088,7 +2088,8 @@ public class AirControlTest extends TestCase {
         assertTrue("Left side should have 1", output.contains(
             "Leaf with 1 objects"));
     }
-    
+
+
     /**
      * Test all boundary conditions for AirObject parameters (origin, width)
      * using the precise thresholds (0, 1, 1023, 1024, 1025).
@@ -2101,196 +2102,218 @@ public class AirControlTest extends TestCase {
         rnd.setSeed(0xCAFEBEEF);
         WorldDB w = new WorldDB(rnd);
 
-        final String C = "C";
-        final int F = 1;
-        final int E = 1;
+        final String c = "C";
+        final int f = 1;
+        final int e = 1;
 
         // --- VALID BOUNDARY CASES (Should all succeed) ---
 
         // 1. Minimum Valid: Origin=0, Width=1. (Max point is 1)
         assertTrue("Valid: Min origin, min width", w.add(new AirPlane("A0", 0,
-            0, 0, 1, 1, 1, C, F, E)));
+            0, 0, 1, 1, 1, c, f, e)));
 
         // 2. Maximum Valid: Origin=1023, Width=1. (Max point is 1024)
         assertTrue("Valid: Max origin (1023), min width (1)", w.add(
-            new AirPlane("A1023", 1023, 1023, 1023, 1, 1, 1, C, F, E)));
+            new AirPlane("A1023", 1023, 1023, 1023, 1, 1, 1, c, f, e)));
 
         // 3. Max Valid Width: Origin=0, Width=1024. (Max point is 1024)
         assertTrue("Valid: Max width (1024), min origin (0)", w.add(
-            new AirPlane("A1024W", 0, 0, 0, 1024, 1024, 1024, C, F, E)));
+            new AirPlane("A1024W", 0, 0, 0, 1024, 1024, 1024, c, f, e)));
 
         // --- INVALID BOUNDARY CASES (Should all fail) ---
 
         // 4. Invalid Origin (Negative)
-        assertFalse("Fail: x_orig = -1", w.add(new AirPlane("XNeg", -1, 0, 0, 1, 1, 1, C, F, E)));
+        assertFalse("Fail: x_orig = -1", w.add(new AirPlane("XNeg", -1, 0, 0, 1,
+            1, 1, c, f, e)));
 
         // 5. Invalid Origin (Beyond Max)
         // Assignment constraint: 0 to 1023[cite: 30]. Testing 1024 (invalid).
         assertFalse("Fail: x_orig = 1024", w.add(new AirPlane("X1024", 1024, 0,
-            0, 1, 1, 1, C, F, E)));
+            0, 1, 1, 1, c, f, e)));
         assertFalse("Fail: x_orig = 1025", w.add(new AirPlane("X1025", 1025, 0,
-            0, 1, 1, 1, C, F, E)));
+            0, 1, 1, 1, c, f, e)));
 
         // 6. Invalid Width (Zero or Negative)
         assertFalse("Fail: x_width = 0", w.add(new AirPlane("W0", 1, 1, 1, 0, 1,
-            1, C, F, E)));
+            1, c, f, e)));
         assertFalse("Fail: x_width = -1", w.add(new AirPlane("WNeg", 1, 1, 1,
-            -1, 1, 1, C, F, E)));
+            -1, 1, 1, c, f, e)));
 
         // 7. Invalid Width (Beyond Max of 1024)
         // Testing 1025 (invalid).
         assertFalse("Fail: x_width = 1025", w.add(new AirPlane("W1025", 0, 0, 0,
-            1025, 1, 1, C, F, E)));
+            1025, 1, 1, c, f, e)));
 
         // 8. Object Extends Beyond World (Origin + Width > 1024)
         // x_orig=1, x_width=1024. Max point is 1025. (Invalid)
         assertFalse("Fail: x_orig + x_width = 1025", w.add(new AirPlane("XOut",
-            1, 0, 0, 1024, 1, 1, C, F, E)));
-        
+            1, 0, 0, 1024, 1, 1, c, f, e)));
+
         // y_orig=1000, y_width=25. Max point is 1025. (Invalid)
         assertFalse("Fail: y_orig + y_width = 1025", w.add(new AirPlane("YOut",
-            0, 1000, 0, 1, 25, 1, C, F, E)));
+            0, 1000, 0, 1, 25, 1, c, f, e)));
     }
-    
- // AirControlTest.java
 
- // ... add this new method to the AirControlTest class ...
+    // AirControlTest.java
 
-     /**
-      * Tests the BinInternal deletion/merging logic when one child is a
-      * non-empty Leaf and the other is BinEmpty. The internal node must prune
-      * itself and return the remaining Leaf child (BinLeaf or BinEmpty) 
-      *.
-      * * @throws Exception
-      */
-     public void testBinInternalDeleteOneEmptyChild() throws Exception {
-         WorldDB w = new WorldDB(null);
+    // ... add this new method to the AirControlTest class ...
 
-         // --- Setup: Create a split tree (Level 0 split on X) ---
-         
-         // 1. Fill LEFT quadrant (0-512) with 3 objects (A, B, C)
-         // 2. Fill RIGHT quadrant (512-1024) with 1 object (R)
-         
-         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("B", 10, 20, 10, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("C", 10, 30, 10, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("R", 600, 10, 10, 10, 10, 10, "C", 1, 1));
 
-         // Sanity Check: Tree is split (Internal node at root)
-         assertTrue("Setup: Tree should be split initially.", w.printbintree().contains("I ("));
+    /**
+     * Tests the BinInternal deletion/merging logic when one child is a
+     * non-empty Leaf and the other is BinEmpty. The internal node must prune
+     * itself and return the remaining Leaf child (BinLeaf or BinEmpty)
+     * .
+     * * @throws Exception
+     */
+    public void testBinInternalDeleteOneEmptyChild() throws Exception {
+        WorldDB w = new WorldDB(null);
 
-         // --- Case 1: Right Child becomes Empty (Left remains) ---
-         // Delete 'R'. Right child's leaf becomes BinEmpty.
-         // Internal node at root sees (Leaf, Empty) -> should return Left Leaf.
-         w.delete("R");
+        // --- Setup: Create a split tree (Level 0 split on X) ---
 
-         String outputLeftRemains = w.printbintree();
+        // 1. Fill LEFT quadrant (0-512) with 3 objects (A, B, C)
+        // 2. Fill RIGHT quadrant (512-1024) with 1 object (R)
 
-         // Assert: The internal node is gone, and the output reflects a single Leaf with 3 objects.
-         assertFalse("Case 1: Internal node should be pruned.", outputLeftRemains.contains("I ("));
-         assertTrue("Case 1: Should be a single Leaf with 3 objects.", outputLeftRemains.contains("Leaf with 3 objects"));
-         
-         // --- Case 2: Left Child becomes Empty (Right remains) ---
-         w.clear(); // Start fresh
+        w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("B", 10, 20, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("C", 10, 30, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("R", 600, 10, 10, 10, 10, 10, "C", 1, 1));
 
-         // 1. Setup: Fill LEFT (A) and RIGHT (R1, R2, R3) quadrants
-         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("R1", 600, 10, 10, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("R2", 600, 20, 10, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("R3", 600, 30, 10, 10, 10, 10, "C", 1, 1));
+        // Sanity Check: Tree is split (Internal node at root)
+        assertTrue("Setup: Tree should be split initially.", w.printbintree()
+            .contains("I ("));
 
-         // Sanity Check: Tree is split (Internal node at root)
-         assertTrue("Setup: Tree should be split for Case 2.", w.printbintree().contains("I ("));
+        // --- Case 1: Right Child becomes Empty (Left remains) ---
+        // Delete 'R'. Right child's leaf becomes BinEmpty.
+        // Internal node at root sees (Leaf, Empty) -> should return Left Leaf.
+        w.delete("R");
 
-         // Delete 'A'. Left child's leaf becomes BinEmpty.
-         // Internal node at root sees (Empty, Leaf) -> should return Right Leaf.
-         w.delete("A");
-         
-         String outputRightRemains = w.printbintree();
+        String outputLeftRemains = w.printbintree();
 
-         // Assert: The internal node is gone, and the output reflects a single Leaf with 3 objects.
-         assertFalse("Case 2: Internal node should be pruned.", outputRightRemains.contains("I ("));
-         assertTrue("Case 2: Should be a single Leaf with 3 objects.", outputRightRemains.contains("Leaf with 3 objects"));
-         assertTrue("Case 2: Should contain object R1.", outputRightRemains.contains("R1"));
-     }
-     
-     /**
-      * Tests the BinInternal.insert() logic to ensure every routing branch
-      * (goLeft, goRight, goBoth) is covered across all three split axes (X, Y, Z).
-      * This hits the comparison logic (lines 131-158 in BinInternal.java).
-      *
-      * @throws Exception
-      */
-     public void testBinInternalInsertRouting() throws Exception {
-         WorldDB w = new WorldDB(null);
-         final int WS = 1024; // World Size
-         final int HALF = WS / 2; // 512
+        // Assert: The internal node is gone, and the output reflects a single
+        // Leaf with 3 objects.
+        assertFalse("Case 1: Internal node should be pruned.", outputLeftRemains
+            .contains("I ("));
+        assertTrue("Case 1: Should be a single Leaf with 3 objects.",
+            outputLeftRemains.contains("Leaf with 3 objects"));
 
-         // --- Setup: Objects positioned for specific routing ---
-         
-         // 1. Left-Only (LO): x < 512, x+w <= 512
-         AirPlane LO = new AirPlane("LO", 10, 10, 10, 10, 10, 10, "C", 1, 1);
-         
-         // 2. Right-Only (RO): x >= 512, x+w > 512
-         AirPlane RO = new AirPlane("RO", 600, 600, 600, 10, 10, 10, "C", 1, 1);
-         
-         // 3. Overlap (OL): x < 512, x+w > 512 (Spans the split plane)
-         AirPlane OL = new AirPlane("OL", 500, 500, 500, 50, 50, 50, "C", 1, 1);
+        // --- Case 2: Left Child becomes Empty (Right remains) ---
+        w.clear(); // Start fresh
 
-         // --- Execute: Insert objects in a specific order to isolate splits ---
-         
-         // To force Internal nodes at Levels 0, 1, and 2, we must insert 4 unique objects
-         // in the root leaf first. We'll use RO, LO, OL, and a helper object.
+        // 1. Setup: Fill LEFT (A) and RIGHT (R1, R2, R3) quadrants
+        w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("R1", 600, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("R2", 600, 20, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("R3", 600, 30, 10, 10, 10, 10, "C", 1, 1));
 
-         // Insert 4 objects to force the root to split (Level 0: X-axis split)
-         w.add(LO); w.add(RO); w.add(OL);
-         w.add(new AirPlane("H", 100, 100, 100, 10, 10, 10, "C", 1, 1)); // Helper
-         
-         // At this point, the root is an Internal Node (split on X).
+        // Sanity Check: Tree is split (Internal node at root)
+        assertTrue("Setup: Tree should be split for Case 2.", w.printbintree()
+            .contains("I ("));
 
-         // --- 1. X-AXIS ROUTING TEST (Level 0) ---
-         // Insert a new object that is entirely in the RIGHT half for the X-split
-         AirPlane X_RO = new AirPlane("XRO", 900, 10, 10, 10, 10, 10, "C", 1, 1);
-         w.add(X_RO); // Should route RIGHT-ONLY from the root.
-         
-         String output = w.printbintree();
-         assertTrue("XRO should be found in the Right child (512, 0, 0)", 
-                    output.contains("900 10 10 10 10 10"));
-         
-         // --- 2. Y-AXIS ROUTING TEST (Level 1) ---
-         // Find a Leaf node in the LOW-X range (0-512) that is *not* full.
-         // We will target the LEFT child of the root (X < 512), which is split on Y.
-         
-         // Insert an object that is entirely in the HIGH-Y half of the LEFT child (0-512 X, 512-1024 Y)
-         AirPlane Y_RO = new AirPlane("YRO", 10, 600, 10, 10, 10, 10, "C", 1, 1);
-         w.add(Y_RO); // Should route RIGHT-ONLY from the Internal Node at Level 1.
-         
-         // Assert: YRO is found in the Leaf node at (0, 512, 0)
-//         assertTrue("YRO should be found in the High-Y leaf (0, 512, 0)", 
-//                    output.contains("600 10 10 10 10")); 
+        // Delete 'A'. Left child's leaf becomes BinEmpty.
+        // Internal node at root sees (Empty, Leaf) -> should return Right Leaf.
+        w.delete("A");
 
-         // --- 3. Z-AXIS ROUTING TEST (Level 2) ---
-         // Find a Leaf node in the LOW-X, LOW-Y range (0-512 X, 0-512 Y)
-         // This is a Leaf node at (0, 0, 0) in the current structure.
-         
-         // Add 4 more objects to this leaf to force a Z-split (Level 2)
-         w.add(new AirPlane("Z1", 10, 10, 100, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("Z2", 10, 10, 200, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("Z3", 10, 10, 300, 10, 10, 10, "C", 1, 1));
-         w.add(new AirPlane("Z4", 10, 10, 400, 10, 10, 10, "C", 1, 1));
-         // This splits the (0, 0, 0) leaf into an Internal Node (split on Z).
+        String outputRightRemains = w.printbintree();
 
-         // Insert an object that overlaps the Z-split plane (z=512)
-         AirPlane Z_OL = new AirPlane("ZOL", 10, 10, 500, 10, 10, 30, "C", 1, 1);
-         w.add(Z_OL); // Should route to BOTH children of the Internal Node at Level 2.
-         
-         // Assert: ZOL appears in a Leaf node at (0, 0, 0) and one at (0, 0, 512)
-         int firstZOL = output.indexOf("ZOL");
-         int lastZOL = output.lastIndexOf("ZOL");
-//         assertTrue("ZOL should appear twice (in both Z-split children)", 
-//                    firstZOL != lastZOL);
-         
-         // This test ensures every 'if' condition (goLeft, goRight) is executed
-         // in isolation and in combination across all three axes (X, Y, Z).
-     }
+        // Assert: The internal node is gone, and the output reflects a single
+        // Leaf with 3 objects.
+        assertFalse("Case 2: Internal node should be pruned.",
+            outputRightRemains.contains("I ("));
+        assertTrue("Case 2: Should be a single Leaf with 3 objects.",
+            outputRightRemains.contains("Leaf with 3 objects"));
+        assertTrue("Case 2: Should contain object R1.", outputRightRemains
+            .contains("R1"));
+    }
+
+
+    /**
+     * Tests the BinInternal.insert() logic to ensure every routing branch
+     * (goLeft, goRight, goBoth) is covered across all three split axes (X, Y,
+     * Z).
+     * This hits the comparison logic (lines 131-158 in BinInternal.java).
+     *
+     * @throws Exception
+     */
+    public void testBinInternalInsertRouting() throws Exception {
+        WorldDB w = new WorldDB(null);
+        // final int ws = 1024; // World Size
+        // final int half = ws / 2; // 512
+
+        // --- Setup: Objects positioned for specific routing ---
+
+        // 1. Left-Only (LO): x < 512, x+w <= 512
+        AirPlane lo = new AirPlane("LO", 10, 10, 10, 10, 10, 10, "C", 1, 1);
+
+        // 2. Right-Only (RO): x >= 512, x+w > 512
+        AirPlane ro = new AirPlane("RO", 600, 600, 600, 10, 10, 10, "C", 1, 1);
+
+        // 3. Overlap (OL): x < 512, x+w > 512 (Spans the split plane)
+        AirPlane ol = new AirPlane("OL", 500, 500, 500, 50, 50, 50, "C", 1, 1);
+
+        // --- Execute: Insert objects in a specific order to isolate splits
+
+        // To force Internal nodes at Levels 0, 1, and 2, we must insert 4
+        // unique objects
+        // in the root leaf first. We'll use RO, LO, OL, and a helper object.
+
+        // Insert 4 objects to force the root to split (Level 0: X-axis split)
+        w.add(lo);
+        w.add(ro);
+        w.add(ol);
+        w.add(new AirPlane("H", 100, 100, 100, 10, 10, 10, "C", 1, 1));
+
+        // At this point, the root is an Internal Node (split on X).
+
+        // --- 1. X-AXIS ROUTING TEST (Level 0) ---
+        // Insert a new object that is entirely in the RIGHT half for the
+        // X-split
+        AirPlane X_RO = new AirPlane("XRO", 900, 10, 10, 10, 10, 10, "C", 1, 1);
+        w.add(X_RO); // Should route RIGHT-ONLY from the root.
+
+        String output = w.printbintree();
+        assertTrue("XRO should be found in the Right child (512, 0, 0)", output
+            .contains("900 10 10 10 10 10"));
+
+        // --- 2. Y-AXIS ROUTING TEST (Level 1) ---
+        // Find a Leaf node in the LOW-X range (0-512) that is *not* full.
+        // We will target the LEFT child of the root (X < 512), which is split
+        // on Y.
+
+        // Insert an object that is entirely in the HIGH-Y half of the LEFT
+        // child (0-512 X, 512-1024 Y)
+        AirPlane yRo = new AirPlane("YRO", 10, 600, 10, 10, 10, 10, "C", 1, 1);
+        w.add(yRo); // Should route RIGHT-ONLY from the Internal Node at Level
+                    // 1.
+
+        // Assert: YRO is found in the Leaf node at (0, 512, 0)
+// assertTrue("YRO should be found in the High-Y leaf (0, 512, 0)",
+// output.contains("600 10 10 10 10"));
+
+        // --- 3. Z-AXIS ROUTING TEST (Level 2) ---
+        // Find a Leaf node in the LOW-X, LOW-Y range (0-512 X, 0-512 Y)
+        // This is a Leaf node at (0, 0, 0) in the current structure.
+
+        // Add 4 more objects to this leaf to force a Z-split (Level 2)
+        w.add(new AirPlane("Z1", 10, 10, 100, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Z2", 10, 10, 200, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Z3", 10, 10, 300, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Z4", 10, 10, 400, 10, 10, 10, "C", 1, 1));
+        // This splits the (0, 0, 0) leaf into an Internal Node (split on Z).
+
+        // Insert an object that overlaps the Z-split plane (z=512)
+        AirPlane zOl = new AirPlane("ZOL", 10, 10, 500, 10, 10, 30, "C", 1, 1);
+        w.add(zOl); // Should route to BOTH children of the Internal Node at
+                    // Level 2.
+
+        // Assert: ZOL appears in a Leaf node at (0, 0, 0) and one at (0, 0,
+        // 512)
+        int firstZOL = output.indexOf("ZOL");
+        int lastZOL = output.lastIndexOf("ZOL");
+// assertTrue("ZOL should appear twice (in both Z-split children)",
+// firstZOL != lastZOL);
+
+        // This test ensures every 'if' condition (goLeft, goRight) is executed
+        // in isolation and in combination across all three axes (X, Y, Z).
+    }
 }

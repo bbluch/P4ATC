@@ -68,39 +68,79 @@ public class BinInternal implements BinNode {
         int ow = obj.getXwidth();
         int oh = obj.getYwidth();
         int od = obj.getZwidth();
+        
 
-        if (dim == 0) { // Splitting X
-            int half = w / 2;
-            if (ox < x + half)
-                left = left.insert(obj, x, y, z, half, h, d, level + 1);
-            if (ox + ow > x + half)
-                right = right.insert(obj, x + half, y, z, half, h, d, level
-                    + 1);
+//        if (dim == 0) { // Splitting X
+//            int half = w / 2;
+//            if (ox < x + half)
+//                left = left.insert(obj, x, y, z, half, h, d, level + 1);
+//            if (ox + ow > x + half)
+//                right = right.insert(obj, x + half, y, z, half, h, d, level
+//                    + 1);
+//
+//
+//        }
+//        else if (dim == 1) { // Splitting Y
+//            int half = h / 2;
+//            if (oy < y + half)
+//                left = left.insert(obj, x, y, z, w, half, d, level + 1);
+//            if (oy + oh > y + h / 2)
+//                right = right.insert(obj, x, y + half, z, w, half, d, level
+//                    + 1);
+//
+//
+//        }
+//        else { // Splitting Z
+//            int half = d / 2;
+//            if (oz < z + half)
+//                left = left.insert(obj, x, y, z, w, h, half, level + 1);
+//            if (oz + od > z + half)
+//                right = right.insert(obj, x, y, z + half, w, h, half, level
+//                    + 1);
+//
+//
+//        }
+//
+//        return this;
+     // BinInternal.java - inside insert()
 
+     // Calculate object bounds once
+     int oxEnd = ox + ow;
+     int oyEnd = oy + oh;
+     int ozEnd = oz + od;
 
-        }
-        else if (dim == 1) { // Splitting Y
-            int half = h / 2;
-            if (oy < y + half)
-                left = left.insert(obj, x, y, z, w, half, d, level + 1);
-            if (oy + oh > y + h / 2)
-                right = right.insert(obj, x, y + half, z, w, half, d, level
-                    + 1);
+     if (dim == 0) { // Splitting X
+         int half = w / 2;
+         int splitPlane = x + half; // **CONSOLIDATED ARITHMETIC**
+         
+         if (ox < splitPlane)
+             left = left.insert(obj, x, y, z, half, h, d, level + 1);
+         
+         if (oxEnd > splitPlane)
+             right = right.insert(obj, x + half, y, z, half, h, d, level + 1);
 
+     }
+     else if (dim == 1) { // Splitting Y
+         int half = h / 2;
+         int splitPlane = y + half; // **CONSOLIDATED ARITHMETIC**
 
-        }
-        else { // Splitting Z
-            int half = d / 2;
-            if (oz < z + half)
-                left = left.insert(obj, x, y, z, w, h, half, level + 1);
-            if (oz + od > z + half)
-                right = right.insert(obj, x, y, z + half, w, h, half, level
-                    + 1);
+         if (oy < splitPlane)
+             left = left.insert(obj, x, y, z, w, half, d, level + 1);
+         
+         if (oyEnd > splitPlane)
+             right = right.insert(obj, x, y + half, z, w, half, d, level + 1);
+     }
+     else { // Splitting Z
+         int half = d / 2;
+         int splitPlane = z + half; // **CONSOLIDATED ARITHMETIC**
 
-
-        }
-
-        return this;
+         if (oz < splitPlane)
+             left = left.insert(obj, x, y, z, w, h, half, level + 1);
+         
+         if (ozEnd > splitPlane)
+             right = right.insert(obj, x, y, z + half, w, h, half, level + 1);
+     }
+     return this;
     }
 
 

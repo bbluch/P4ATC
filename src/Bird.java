@@ -65,15 +65,15 @@ public class Bird extends AirObject {
 
 
     // ----------------------------------------------------------
-    /**
-     * Set the value of type for this object.
-     * 
-     * @param type
-     *            The new value for type.
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+//    /**
+//     * Set the value of type for this object.
+//     * 
+//     * @param type
+//     *            The new value for type.
+//     */
+//    public void setType(String type) {
+//        this.type = type;
+//    }
 
 
     // ----------------------------------------------------------
@@ -88,15 +88,15 @@ public class Bird extends AirObject {
 
 
     // ----------------------------------------------------------
-    /**
-     * Set the value of number for this object.
-     * 
-     * @param number
-     *            The new value for number.
-     */
-    public void setNumber(int number) {
-        this.number = number;
-    }
+//    /**
+//     * Set the value of number for this object.
+//     * 
+//     * @param number
+//     *            The new value for number.
+//     */
+//    public void setNumber(int number) {
+//        this.number = number;
+//    }
 
 
     /**

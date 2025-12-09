@@ -65,15 +65,15 @@ public class Balloon extends AirObject {
 
 
     // ----------------------------------------------------------
-    /**
-     * Set the value of type for this object.
-     * 
-     * @param type
-     *            The new value for type.
-     */
-    public void setType(String type) {
-        this.type = type;
-    }
+//    /**
+//     * Set the value of type for this object.
+//     * 
+//     * @param type
+//     *            The new value for type.
+//     */
+//    public void setType(String type) {
+//        this.type = type;
+//    }
 
 
     // ----------------------------------------------------------
@@ -88,15 +88,15 @@ public class Balloon extends AirObject {
 
 
     // ----------------------------------------------------------
-    /**
-     * Set the value of ascentRate for this object.
-     * 
-     * @param ascentRate
-     *            The new value for ascentRate.
-     */
-    public void setAscentRate(int ascentRate) {
-        this.ascentRate = ascentRate;
-    }
+//    /**
+//     * Set the value of ascentRate for this object.
+//     * 
+//     * @param ascentRate
+//     *            The new value for ascentRate.
+//     */
+//    public void setAscentRate(int ascentRate) {
+//        this.ascentRate = ascentRate;
+//    }
 
 
     /**

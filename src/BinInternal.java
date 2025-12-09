@@ -60,8 +60,7 @@ public class BinInternal implements BinNode {
         int level) {
         int dim = level % 3; // 0=x, 1=y, 2=z
 
-// boolean goLeft = false;
-// boolean goRight = false;
+
 
         int ox = obj.getXorig();
         int oy = obj.getYorig();
@@ -78,11 +77,7 @@ public class BinInternal implements BinNode {
                 right = right.insert(obj, x + half, y, z, half, h, d, level
                     + 1);
 
-// if (goLeft)
-// left = left.insert(obj, x, y, z, w / 2, h, d, level + 1);
-// if (goRight)
-// right = right.insert(obj, x + w / 2, y, z, w / 2, h, d, level
-// + 1);
+
         }
         else if (dim == 1) { // Splitting Y
             int half = h / 2;
@@ -92,11 +87,7 @@ public class BinInternal implements BinNode {
                 right = right.insert(obj, x, y + half, z, w, half, d, level
                     + 1);
 
-// if (goLeft)
-// left = left.insert(obj, x, y, z, w, h / 2, d, level + 1);
-// if (goRight)
-// right = right.insert(obj, x, y + h / 2, z, w, h / 2, d, level
-// + 1);
+
         }
         else { // Splitting Z
             int half = d / 2;
@@ -106,11 +97,7 @@ public class BinInternal implements BinNode {
                 right = right.insert(obj, x, y, z + half, w, h, half, level
                     + 1);
 
-// if (goLeft)
-// left = left.insert(obj, x, y, z, w, h, d / 2, level + 1);
-// if (goRight)
-// right = right.insert(obj, x, y, z + d / 2, w, h, d / 2, level
-// + 1);
+
         }
 
         return this;
@@ -165,11 +152,6 @@ public class BinInternal implements BinNode {
                 right = right.delete(obj, x + half, y, z, half, h, d, level
                     + 1);
 
-// if (goLeft)
-// left = left.delete(obj, x, y, z, w / 2, h, d, level + 1);
-// if (goRight)
-// right = right.delete(obj, x + w / 2, y, z, w / 2, h, d, level
-// + 1);
         }
         else if (dim == 1) { // Split Y
             int half = h / 2;
@@ -179,11 +161,6 @@ public class BinInternal implements BinNode {
                 right = right.delete(obj, x, y + half, z, w, half, d, level
                     + 1);
 
-// if (goLeft)
-// left = left.delete(obj, x, y, z, w, h / 2, d, level + 1);
-// if (goRight)
-// right = right.delete(obj, x, y + h / 2, z, w, h / 2, d, level
-// + 1);
         }
         else { // Split Z
             int half = d / 2;
@@ -193,10 +170,6 @@ public class BinInternal implements BinNode {
                 right = right.delete(obj, x, y, z + half, w, h, half, level
                     + 1);
 
-// if (goLeft)
-// left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);
-// if (goRight)
-// left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);
         }
 
         // Merge logic: If both children are leaves and their combined contents

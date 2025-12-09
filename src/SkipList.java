@@ -49,12 +49,7 @@ public class SkipList<K extends Comparable<K>> {
         while (Math.abs(ran.nextInt()) % 2 == 0) {
             lev++;
         }
-// for (lev = 0; Math.abs(ran.nextInt()) % 2 == 0; lev++) {
-// // ran is
-// // random
-// // generator
-// // Do nothing
-// }
+
         return lev;
     }
 

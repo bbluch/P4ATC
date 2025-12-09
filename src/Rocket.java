@@ -63,8 +63,6 @@ public class Rocket extends AirObject {
     }
 
 
-
-
     // ----------------------------------------------------------
     /**
      * Get the current value of trajectory.
@@ -74,8 +72,6 @@ public class Rocket extends AirObject {
     public double getTrajectory() {
         return trajectory;
     }
-
-
 
 
     /**

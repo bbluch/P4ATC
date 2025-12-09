@@ -128,9 +128,9 @@ public class Bintree {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Tracks any collisions in the bintree between objects.
      * 
-     * @return
+     * @return String output for all collisions.
      */
     public String collisions() {
         StringBuilder sb = new StringBuilder();

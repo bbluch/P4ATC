@@ -370,9 +370,13 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Bird-specific logic
-        final String name = "B1";
-        final int x = 1, y = 1, z = 1;
-        final int xWid = 1, yWid = 1, zWid = 1;
+        String name = "B1";
+        int x = 1;
+        int y = 1;
+        int z = 1;
+        int xWid = 1;
+        int yWid = 1;
+        int zWid = 1;
 
         // 1. Invalid type (null)
         assertFalse("Should fail for null type", w.add(new Bird(name, x, y, z,
@@ -405,9 +409,13 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Balloon-specific logic
-        final String name = "Ball1";
-        final int x = 1, y = 1, z = 1;
-        final int xWid = 1, yWid = 1, zWid = 1;
+        String name = "Ball1";
+        int x = 1;
+        int y = 1;
+        int z = 1;
+        int xWid = 1;
+        int yWid = 1;
+        int zWid = 1;
 
         // 1. Invalid type (null)
         assertFalse("Should fail for null type", w.add(new Balloon(name, x, y,
@@ -435,9 +443,13 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Drone-specific logic
-        final String name = "Drone1";
-        final int x = 1, y = 1, z = 1;
-        final int xWid = 1, yWid = 1, zWid = 1;
+        String name = "Drone1";
+        int x = 1;
+        int y = 1;
+        int z = 1;
+        int xWid = 1;
+        int yWid = 1;
+        int zWid = 1;
 
         // 1. Invalid brand (null)
         assertFalse("Should fail for null brand", w.add(new Drone(name, x, y, z,
@@ -467,9 +479,13 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Rocket-specific logic
-        final String name = "R1";
-        final int x = 1, y = 1, z = 1;
-        final int xWid = 1, yWid = 1, zWid = 1;
+        String name = "R1";
+        int x = 1;
+        int y = 1;
+        int z = 1;
+        int xWid = 1;
+        int yWid = 1;
+        int zWid = 1;
 
         // 1. Invalid ascentRate (must be >= 0)
         assertFalse("Should fail for negative ascentRate", w.add(new Rocket(

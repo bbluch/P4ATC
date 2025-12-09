@@ -54,7 +54,6 @@ public class AirObject {
 
 
     // ~Public Methods ........................................................
-    // ----------------------------------------------------------
     /**
      * Gets x value
      * 
@@ -181,5 +180,4 @@ public class AirObject {
         return name + " " + x + " " + y + " " + z + " " + xWidth + " " + yWidth
             + " " + zWidth;
     }
-
 }

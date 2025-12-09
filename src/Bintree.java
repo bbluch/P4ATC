@@ -70,6 +70,7 @@ public class Bintree {
         for (int i = 0; i < level; i++)
             sb.append("  ");
 
+        // formatting print correctly
         if (node instanceof BinEmpty) {
             sb.append("E (").append(x).append(", ").append(y).append(", ")
                 .append(z).append(", ").append(w).append(", ").append(h).append(

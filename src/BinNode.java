@@ -9,8 +9,6 @@
  */
 public interface BinNode {
 
-    // ... existing insert/delete/isLeaf/countNodes signatures ...
-
     // ----------------------------------------------------------
     /**
      * Insert method for bintree.

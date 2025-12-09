@@ -1,4 +1,3 @@
-// -------------------------------------------------------------------------
 /**
  * Leaf Node for Bintree.
  * 
@@ -67,7 +66,9 @@ public class BinLeaf implements BinNode {
 
 
     private boolean allIntersect() {
+
         AirObject first = objects.get(0);
+        // initial x
         int ix = first.getXorig();
         int iy = first.getYorig();
         int iz = first.getZorig();
@@ -77,10 +78,11 @@ public class BinLeaf implements BinNode {
 
         for (int i = 1; i < objects.size(); i++) {
             AirObject curr = objects.get(i);
+            // new x
             int nx = Math.max(ix, curr.getXorig());
             int ny = Math.max(iy, curr.getYorig());
             int nz = Math.max(iz, curr.getZorig());
-
+            // new box
             int nr = Math.min(ix + iw, curr.getXorig() + curr.getXwidth());
             int nb = Math.min(iy + ih, curr.getYorig() + curr.getYwidth());
             int nback = Math.min(iz + id, curr.getZorig() + curr.getZwidth());
@@ -117,11 +119,6 @@ public class BinLeaf implements BinNode {
         return true;
     }
 
-// @Override
-// public int countNodes() {
-// return 1;
-// }
-
 
     /**
      * Traverse for collisions.
@@ -155,9 +152,6 @@ public class BinLeaf implements BinNode {
         int d,
         int level) {
 
-        // FIX: Print the header unconditionally for every leaf node visited.
-        // This matches the reference output where leaves without collisions are
-        // listed.
         sb.append("In leaf node (").append(x).append(", ").append(y).append(
             ", ").append(z).append(", ").append(w).append(", ").append(h)
             .append(", ").append(d).append(") ").append(level).append("\n");

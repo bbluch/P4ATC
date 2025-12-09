@@ -337,9 +337,6 @@ public class AirControlTest extends TestCase {
                 numEngines)));
 
         // --- 6. Object extends beyond the world boundary (x_orig + x_width >
-        // 1024) ---
-        // x = 1024 (max allowed in the current code) + xWidth = 1 (min allowed)
-        // = 1025 > 1024
         assertFalse("Should fail for x + xWidth > 1024 (1024 + 1)", w.add(
             new AirPlane("A", 1024, 1, 1, 1, 1, 1, carrier, flightNum,
                 numEngines)));
@@ -540,13 +537,11 @@ public class AirControlTest extends TestCase {
             notFoundResult);
 
         // --- 3. Null Input Test (Covered by testBadInput, but good practice
-        // here) ---
         String nullResult = w.print(null);
         assertNull("Print should return null if the input name is null.",
             nullResult);
 
         // --- 4. Case Sensitivity Check (Skip List should be case sensitive)
-        // ---
         String caseResult = w.print("testplane");
         assertNull(
             "Print should return null if the name case does not match (Skip List is case-sensitive).",
@@ -692,7 +687,6 @@ public class AirControlTest extends TestCase {
      */
     public void testSkipListInsertPresence() throws Exception {
         // Use a fixed seed for consistency, although levels are not asserted
-        // here.
         Random rnd = new Random();
         rnd.setSeed(0xCAFEBABE);
         WorldDB w = new WorldDB(rnd);
@@ -800,7 +794,6 @@ public class AirControlTest extends TestCase {
             .print("BirdB"));
 
         // --- 4. Null Input Check (Already in testBadInput, but good practice)
-        // ---
         assertNull("Delete should return null if the input name is null.", w
             .delete(null));
     }
@@ -819,97 +812,6 @@ public class AirControlTest extends TestCase {
         // clarity
         assertFuzzyEquals("SkipList is empty", w.printskiplist());
     }
-
-    // ----------------------------------------------------------
-// /**
-// * Test the full set of SkipList operations (insert, find, delete)
-// * by manipulating AirObjects through the WorldDB interface.
-// * Uses a fixed seed to ensure repeatable SkipNode levels.
-// *
-// * @throws Exception
-// */
-// public void testSkipListOperationsIntegration() throws Exception {
-// // Seed 0xCAFEBABE is chosen to generate specific, repeatable SkipNode
-// // levels.
-// Random rnd = new Random();
-// rnd.setSeed(0xCAFEBABE);
-// WorldDB w = new WorldDB(rnd);
-//
-// // --- 1. Insertion Setup ---
-// // A. Rocket (R1) - Level 0
-// Rocket r1 = new Rocket("RocketA", 1, 1, 1, 10, 10, 10, 100, 45.0);
-// // B. AirPlane (P1) - Level 2
-// AirPlane p1 = new AirPlane("PlaneB", 50, 50, 50, 20, 20, 20, "UA", 400,
-// 4);
-// // C. Drone (D1) - Level 1
-// Drone d1 = new Drone("DroneC", 100, 100, 100, 5, 5, 5, "DJI", 2);
-// // D. Bird (B1) - Level 0
-// Bird b1 = new Bird("BirdD", 200, 200, 200, 1, 1, 1, "Eagle", 1);
-//
-// assertTrue("Insertion failed for RocketA.", w.add(r1));
-// assertTrue("Insertion failed for PlaneB.", w.add(p1));
-// assertTrue("Insertion failed for DroneC.", w.add(d1));
-// assertTrue("Insertion failed for BirdD.", w.add(b1));
-//
-// // --- 2. Find and Sorted Order Check ---
-// // Expected Sorted Order (Alphabetical by name): BirdD, DroneC, PlaneB,
-// // RocketA
-//
-// // Max list level = 2 (from PlaneB)
-// String expectedInitialPrint = "Node has depth 2, Value (null)\r\n"
-// + "Node has depth 0 Value (" + b1.toString() + ")\r\n" // BirdD
-// // (Level
-// // 0)
-// + "Node has depth 1 Value (" + d1.toString() + ")\r\n" // DroneC
-// // (Level
-// // 1)
-// + "Node has depth 2 Value (" + p1.toString() + ")\r\n" // PlaneB
-// // (Level
-// // 2)
-// + "Node has depth 0 Value (" + r1.toString() + ")\r\n" // RocketA
-// // (Level
-// // 0)
-// + "4 skiplist nodes printed\r\n";
-//
-// String actualInitialPrint = w.printskiplist();
-//
-// assertFuzzyEquals(
-// "Initial SkipList print failed (Order/Format/Levels).\n",
-// expectedInitialPrint, actualInitialPrint);
-//
-// // Check finding an item
-// assertNotNull("Find failed for PlaneB.", w.print("PlaneB"));
-// assertNull("Find incorrectly found non-existent item.", w.print(
-// "NotFound"));
-//
-// // --- 3. Deletion Test (Delete a node with a high level - PlaneB/Level
-// // 2) ---
-// // Deleting the highest level node forces adjustHead logic check.
-// String deletedItem = w.delete("PlaneB");
-// assertNotNull("Deletion failed for PlaneB.", deletedItem);
-// assertFuzzyEquals("Deleted string mismatch.", p1.toString(),
-// deletedItem);
-//
-// // Verify delete succeeded
-// assertNull("PlaneB should be deleted and not found.", w.print(
-// "PlaneB"));
-//
-// // --- 4. Final Sorted Order and Level Adjustment Check ---
-// // Remaining: BirdD, DroneC, RocketA
-// // New Max Level should be 1 (from DroneC)
-// String expectedFinalPrint = "Node has depth 1, Value (null)\r\n" // New
-// // Max
-// // Level
-// // = 1
-// + "Node has depth 0 Value (" + b1.toString() + ")\r\n"
-// + "Node has depth 1 Value (" + d1.toString() + ")\r\n"
-// + "Node has depth 0 Value (" + r1.toString() + ")\r\n"
-// + "3 skiplist nodes printed\r\n";
-//
-// assertFuzzyEquals(
-// "Final SkipList print failed after high-level deletion.",
-// expectedFinalPrint, w.printskiplist());
-// }
 
 
     // ----------------------------------------------------------
@@ -1127,206 +1029,6 @@ public class AirControlTest extends TestCase {
         String envelope = w.intersect(0, 0, 0, 100, 100, 100);
         assertTrue(envelope.contains("A"));
     }
-
-    /**
-     * Test logic: Verify BinInternal routes to LEFT child only
-     * when object is entirely in the low half of the split dimension.
-     */
-// public void testInternalRoutingLeft() {
-// // Setup: Mock-like structure manually
-// // We use empty nodes as children to see where the insert goes
-// // (BinEmpty returns a new BinLeaf when inserted into)
-// BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
-// .getInstance());
-//
-// // Object at 10,10,10 (Size 10) fits in 0-512 range for x, y, and z
-// AirObject obj = new AirPlane("LeftObj", 10, 10, 10, 10, 10, 10, "Test",
-// 1, 1);
-//
-// // Level 0 (Split x): Should go Left
-// node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-// assertTrue(node.getLeft().isLeaf()); // Left became a leaf (was
-// // inserted)
-// assertTrue(node.getRight() == BinEmpty.getInstance()); // Right stayed
-// // empty
-// }
-//
-//
-// /**
-// * Test logic: Verify BinInternal routes to RIGHT child only
-// * when object is entirely in the high half of the split dimension.
-// */
-// public void testInternalRoutingRight() {
-// BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
-// .getInstance());
-//
-// // Object at 600,10,10 starts past 512
-// AirObject obj = new AirPlane("RightObj", 600, 10, 10, 10, 10, 10,
-// "Test", 1, 1);
-//
-// // Level 0 (Split x): Should go Right (600 > 512)
-// node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-// assertTrue(node.getLeft() == BinEmpty.getInstance());
-// assertTrue(node.getRight().isLeaf());
-// }
-//
-//
-// /**
-// * Test logic: Verify BinInternal routes to BOTH children
-// * when object overlaps the split plane.
-// */
-// public void testInternalRoutingOverlap() {
-// BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
-// .getInstance());
-//
-// // Object at 500 with width 20 (Ends at 520)
-// // Split is at 512. Object spans 500 to 520.
-// AirObject obj = new AirPlane("OverlapObj", 500, 10, 10, 20, 10, 10,
-// "Test", 1, 1);
-//
-// // Level 0 (Split x): Should go Both
-// node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-// assertTrue(node.getLeft().isLeaf());
-// assertTrue(node.getRight().isLeaf());
-// }
-//
-//
-// /**
-// * Test logic: Verify dimension cycling (Level 0=x, Level 1=y, Level 2=z).
-// * We pass the same object but change the 'level' param to force different
-// * splits.
-// */
-// public void testInternalRoutingDimensions() {
-// AirObject obj = new AirPlane("y_Obj", 10, 600, 10, 10, 10, 10, "Test",
-// 1, 1);
-//
-// // Case A: Level 0 (Split x) -> Object x=10 is Left
-// BinInternal nodex = new BinInternal(BinEmpty.getInstance(), BinEmpty
-// .getInstance());
-// nodex.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-// assertTrue(nodex.getLeft().isLeaf());
-// assertTrue(nodex.getRight() == BinEmpty.getInstance());
-//
-// // Case B: Level 1 (Split y) -> Object y=600 is Right (600 > 512)
-// BinInternal nodey = new BinInternal(BinEmpty.getInstance(), BinEmpty
-// .getInstance());
-// nodey.insert(obj, 0, 0, 0, 1024, 1024, 1024, 1);
-// assertTrue(nodey.getLeft() == BinEmpty.getInstance());
-// assertTrue(nodey.getRight().isLeaf()); // Went Right because y > 512
-//
-// // Case C: Level 2 (Split z) -> Object z=10 is Left
-// BinInternal nodez = new BinInternal(BinEmpty.getInstance(), BinEmpty
-// .getInstance());
-// nodez.insert(obj, 0, 0, 0, 1024, 1024, 1024, 2);
-// assertTrue(nodez.getLeft().isLeaf());
-// assertTrue(nodez.getRight() == BinEmpty.getInstance());
-// }
-//
-//
-// /**
-// * Test logic: If one child becomes Empty and the other is a Leaf,
-// * BinInternal should replace itself with the remaining Leaf.
-// */
-// public void testMergeToSingleLeaf() {
-// AirObject keep = new AirPlane("Keep", 10, 10, 10, 10, 10, 10, "K", 1,
-// 1);
-// AirObject remove = new AirPlane("Remove", 600, 10, 10, 10, 10, 10, "R",
-// 1, 1);
-//
-// // Setup: Left has 'Keep', Right has 'Remove'
-// BinLeaf leftLeaf = new BinLeaf();
-// leftLeaf.insert(keep, 0, 0, 0, 512, 1024, 1024, 1);
-//
-// BinLeaf rightLeaf = new BinLeaf();
-// rightLeaf.insert(remove, 512, 0, 0, 512, 1024, 1024, 1);
-//
-// BinInternal node = new BinInternal(leftLeaf, rightLeaf);
-//
-// // Action: Delete 'Remove'. Right child becomes Empty.
-// // Logic: BinInternal sees (Leaf, Empty) -> returns Leaf.
-// BinNode result = node.delete(remove, 0, 0, 0, 1024, 1024, 1024, 0);
-//
-// assertTrue("Result should be a Leaf node", result instanceof BinLeaf);
-// BinLeaf resultLeaf = (BinLeaf)result;
-// assertEquals(1, resultLeaf.getObjects().size());
-// assertEquals("Keep", resultLeaf.getObjects().get(0).getname());
-// }
-//
-//
-// /**
-// * Test logic: If both children are Leaves, and their total objects <= 3,
-// * they should combine into one Leaf.
-// */
-// public void testMergeCombineLeaves() {
-// AirObject a = new AirPlane("A", 10, 10, 10, 10, 10, 10, "K", 1, 1);
-// AirObject b = new AirPlane("B", 10, 20, 10, 10, 10, 10, "K", 1, 1);
-// AirObject c = new AirPlane("C", 600, 10, 10, 10, 10, 10, "R", 1, 1);
-// // Setup: Left has A, B. Right has C. Total = 3.
-// BinLeaf leftLeaf = new BinLeaf();
-// leftLeaf.insert(a, 0, 0, 0, 512, 1024, 1024, 1);
-// leftLeaf.insert(b, 0, 0, 0, 512, 1024, 1024, 1);
-//
-// BinLeaf rightLeaf = new BinLeaf();
-// rightLeaf.insert(c, 512, 0, 0, 512, 1024, 1024, 1);
-//
-// BinInternal node = new BinInternal(leftLeaf, rightLeaf);
-//
-// // Verify setup
-// assertFalse(node.isLeaf());
-//
-// // Action: We delete a dummy object just to trigger the check logic,
-// // OR we can delete one of the existing ones if we started with 4.
-// // Let's perform a dummy delete of a non-existent object to trigger the
-// // merge check
-// // (Since your delete logic checks merge at the end regardless of
-// // whether something was removed)
-// // However, to be cleaner, let's say we had 4 and deleted 1.
-//
-// AirObject d = new AirPlane("D", 600, 20, 10, 10, 10, 10, "R", 1, 1);
-// rightLeaf.insert(d, 512, 0, 0, 512, 1024, 1024, 1);
-// // Now total is 4. Should NOT merge yet.
-//
-// // Action: Delete D. Total becomes 3 (A, B, C).
-// BinNode result = node.delete(d, 0, 0, 0, 1024, 1024, 1024, 0);
-//
-// // Expectation: A, B, and C are merged into one Leaf because 3 <= 3.
-// assertTrue("Result should be a Leaf node after merge",
-// result instanceof BinLeaf);
-// assertEquals(3, ((BinLeaf)result).getObjects().size());
-// }
-//
-//
-// /**
-// * Test logic: If both children are Leaves but total objects > 3,
-// * they should NOT merge.
-// */
-// public void testNoMergeIfTooLarge() {
-// // Setup 4 objects (2 Left, 2 Right)
-// BinLeaf leftLeaf = new BinLeaf();
-// leftLeaf.insert(new AirPlane("A", 10, 10, 10, 10, 10, 10, "K", 1, 1), 0,
-// 0, 0, 512, 1024, 1024, 1);
-// leftLeaf.insert(new AirPlane("B", 10, 20, 10, 10, 10, 10, "K", 1, 1), 0,
-// 0, 0, 512, 1024, 1024, 1);
-//
-// BinLeaf rightLeaf = new BinLeaf();
-// rightLeaf.insert(new AirPlane("C", 600, 10, 10, 10, 10, 10, "R", 1, 1),
-// 512, 0, 0, 512, 1024, 1024, 1);
-// rightLeaf.insert(new AirPlane("D", 600, 20, 10, 10, 10, 10, "R", 1, 1),
-// 512, 0, 0, 512, 1024, 1024, 1);
-//
-// BinInternal node = new BinInternal(leftLeaf, rightLeaf);
-//
-// // Action: Delete a non-existent object "E".
-// // The delete method will recurse, fail to find E, but still run the
-// // merge check logic at the end.
-// AirObject e = new AirPlane("E", 600, 50, 10, 10, 10, 10, "R", 1, 1);
-// BinNode result = node.delete(e, 0, 0, 0, 1024, 1024, 1024, 0);
-//
-// // Expectation: Result is still BinInternal because 4 objects > 3
-// // threshold.
-// assertTrue("Result should remain Internal (4 objects)",
-// result instanceof BinInternal);
-// }
 
 
     /**
@@ -1555,8 +1257,6 @@ public class AirControlTest extends TestCase {
 
         // Verify "Straddle" is in the Low-z leaf
         // Leaf (0,0,0)
-// assertTrue(output.contains(
-// "Leaf with 4 objects (0, 0, 0, 512, 512, 512) 3"));
 
         // Verify "Straddle" is ALSO in the High-z leaf
         // Leaf (0,0,512) containing only the straddler
@@ -1741,16 +1441,10 @@ public class AirControlTest extends TestCase {
 
         // Check Low z Leaf (0, 0, 0) - 512x512x512
         assertTrue(output.contains("In leaf node (0, 0, 0, 512, 512, 512) 3"));
-// assertTrue(output.contains(
-// "(AirPlane LowA 10 10 10 10 10 10 C 1 1) and "
-// + "(AirPlane LowB 10 10 15 10 10 10 C 1 1)"));
 
         // Check High z Leaf (0, 0, 512) - 512x512x512
         assertTrue(output.contains(
             "In leaf node (0, 0, 512, 512, 512, 512) 3"));
-// assertTrue(output.contains(
-// "(AirPlane HighA 10 10 600 10 10 10 C 1 1) and "
-// + "(AirPlane HighB 10 10 605 10 10 10 C 1 1)"));
     }
 
 
@@ -1776,17 +1470,7 @@ public class AirControlTest extends TestCase {
         // Obj B: z=505, H=30 -> Range 505-535 (Straddles 512)
         w.add(new AirPlane("B", 10, 10, 505, 10, 10, 30, "C", 1, 1));
 
-        // Intersection:
-        // Max(zorig) = 505.
-        // Intersection box starts at z=505.
-
         String output = w.collisions();
-
-        // 1. z=505 is inside the Low z node (0-512).
-        // So we expect the collision to be reported there.
-// assertTrue(output.contains("In leaf node (0, 0, 0, 512, 512, 512) 3"));
-// assertTrue(output.contains("(AirPlane A 10 10 500 10 10 30 C 1 1) and "
-// + "(AirPlane B 10 10 505 10 10 30 C 1 1)"));
 
         // 2. Both objects ALSO exist in the High z node (0, 0, 512).
         // But the intersection origin (505) is NOT in range [512, 1024].
@@ -1835,9 +1519,6 @@ public class AirControlTest extends TestCase {
         // Should be reported in High z leaf
         assertTrue(output.contains(
             "In leaf node (0, 0, 512, 512, 512, 512) 3"));
-// assertTrue(output.contains(
-// "(AirPlane High 10 10 520 10 10 10 C 1 1) and "
-// + "(AirPlane Straddle 10 10 500 10 10 50 C 1 1)"));
 
         // Should NOT be reported in Low z leaf (Origin 520 is outside 0-512)
         // Even though Straddle is present in Low z, High is NOT present in Low
@@ -1911,12 +1592,6 @@ public class AirControlTest extends TestCase {
         // The Internal node at level 2 should merge the children and return a
         // Leaf node.
         w.delete("D");
-
-        String output = w.printbintree();
-// assertFalse("Internal node at level 2 should have collapsed", output
-// .contains("I (0, 0, 0, 512, 512, 1024) 2"));
-// assertTrue("Should be back to a leaf with 3 objects", output.contains(
-// "Leaf with 3 objects"));
     }
 
 
@@ -1938,18 +1613,6 @@ public class AirControlTest extends TestCase {
         // Obj B: z=505, height=30 (ends 535)
         w.add(new AirPlane("B", 10, 10, 505, 10, 10, 30, "C", 1, 1));
 
-        // Intersection Origin: Max(500, 505) = 505.
-        // Origin 505 is in the LOW z node (0-511).
-        String output = w.collisions();
-
-// assertTrue("Collision should be reported in Low z node", output
-// .contains("In leaf node (0, 0, 0, 512, 512, 512) 3"));
-// assertTrue(output.contains(
-// "(AirPlane A 10 10 500 10 10 30 C 1 1) and (AirPlane B 10 10 505 10 10 30 C 1
-// 1)"));
-
-        // Logic verification: It should NOT appear under High z (512-1024)
-        // header if the origin is correctly tracked.
     }
 
 
@@ -2063,10 +1726,6 @@ public class AirControlTest extends TestCase {
         // Since all remaining objects are in Low x/Low y/Low z, the whole tree
         // might collapse
         // if the recursive unwind checks merge at every level.
-// assertFalse("Level 2 I-node should be gone", output.contains(
-// "I (0, 0, 0, 512, 512, 1024) 2"));
-// assertTrue("Should be collapsed to leaf", output.contains(
-// "Leaf with 3 objects"));
 
         // --- CASE 4: No Merge (Count > 3) ---
         w.clear();
@@ -2286,10 +1945,6 @@ public class AirControlTest extends TestCase {
         w.add(yRo); // Should route RIGHT-ONLY from the Internal Node at Level
                     // 1.
 
-        // Assert: YRO is found in the Leaf node at (0, 512, 0)
-// assertTrue("YRO should be found in the High-Y leaf (0, 512, 0)",
-// output.contains("600 10 10 10 10"));
-
         // --- 3. Z-AXIS ROUTING TEST (Level 2) ---
         // Find a Leaf node in the LOW-X, LOW-Y range (0-512 X, 0-512 Y)
         // This is a Leaf node at (0, 0, 0) in the current structure.
@@ -2305,15 +1960,5 @@ public class AirControlTest extends TestCase {
         AirPlane zOl = new AirPlane("ZOL", 10, 10, 500, 10, 10, 30, "C", 1, 1);
         w.add(zOl); // Should route to BOTH children of the Internal Node at
                     // Level 2.
-
-        // Assert: ZOL appears in a Leaf node at (0, 0, 0) and one at (0, 0,
-        // 512)
-        int firstZOL = output.indexOf("ZOL");
-        int lastZOL = output.lastIndexOf("ZOL");
-// assertTrue("ZOL should appear twice (in both Z-split children)",
-// firstZOL != lastZOL);
-
-        // This test ensures every 'if' condition (goLeft, goRight) is executed
-        // in isolation and in combination across all three axes (X, Y, Z).
     }
 }

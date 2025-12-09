@@ -1,4 +1,3 @@
-// -------------------------------------------------------------------------
 /**
  * Balloon object class.
  * 
@@ -12,7 +11,6 @@ public class Balloon extends AirObject {
     private int ascentRate;
 
     // ~ Constructors ..........................................................
-    // ----------------------------------------------------------
     /**
      * Create a new Balloon object.
      * 
@@ -53,7 +51,6 @@ public class Balloon extends AirObject {
     // ~Public Methods ........................................................
 
 
-    // ----------------------------------------------------------
     /**
      * Get the current value of type.
      * 
@@ -65,18 +62,6 @@ public class Balloon extends AirObject {
 
 
     // ----------------------------------------------------------
-//    /**
-//     * Set the value of type for this object.
-//     * 
-//     * @param type
-//     *            The new value for type.
-//     */
-//    public void setType(String type) {
-//        this.type = type;
-//    }
-
-
-    // ----------------------------------------------------------
     /**
      * Get the current value of ascentRate.
      * 
@@ -85,18 +70,6 @@ public class Balloon extends AirObject {
     public int getAscentRate() {
         return ascentRate;
     }
-
-
-    // ----------------------------------------------------------
-//    /**
-//     * Set the value of ascentRate for this object.
-//     * 
-//     * @param ascentRate
-//     *            The new value for ascentRate.
-//     */
-//    public void setAscentRate(int ascentRate) {
-//        this.ascentRate = ascentRate;
-//    }
 
 
     /**

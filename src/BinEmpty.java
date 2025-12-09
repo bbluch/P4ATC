@@ -8,7 +8,7 @@
  * @version Nov 20, 2025
  */
 public class BinEmpty implements BinNode {
-
+    // the current binempty object
     private static BinEmpty instance = new BinEmpty();
 
     // ----------------------------------------------------------
@@ -59,11 +59,6 @@ public class BinEmpty implements BinNode {
     public boolean isLeaf() {
         return true;
     }
-
-// @Override
-// public int countNodes() {
-// return 1;
-// }
 
 
     @Override

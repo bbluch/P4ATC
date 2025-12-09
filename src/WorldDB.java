@@ -215,16 +215,20 @@ public class WorldDB implements ATC {
      *         Return null if any input parameters are bad
      */
     public String intersect(int x, int y, int z, int xwid, int ywid, int zwid) {
-        if (x < 0 || y < 0 || z < 0 || xwid < 1 || ywid < 1 || zwid < 1) {
+        AirObject a = new AirObject("test", x, y, z, xwid, ywid, zwid);
+        if(a.isNotValid()) {
             return null;
         }
-        if (x > 1024 || y > 1024 || z > 1024 || xwid > 1025 || ywid > 1025
-            || zwid > 1025) {
-            return null;
-        }
-        if (x + xwid > 1024 || y + ywid > 1024 || z + zwid > 1024) {
-            return null;
-        }
+//        if (x < 0 || y < 0 || z < 0 || xwid < 1 || ywid < 1 || zwid < 1) {
+//            return null;
+//        }
+//        if (x > 1024 || y > 1024 || z > 1024 || xwid > 1025 || ywid > 1025
+//            || zwid > 1025) {
+//            return null;
+//        }
+//        if (x + xwid > 1024 || y + ywid > 1024 || z + zwid > 1024) {
+//            return null;
+//        }
         return bintree.intersect(x, y, z, xwid, ywid, zwid);
     }
 }

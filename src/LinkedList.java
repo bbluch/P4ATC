@@ -1,7 +1,8 @@
 // -------------------------------------------------------------------------
 /**
  * A simple linked list implementation.
- * * @author benblucher
+ * 
+ * @author benblucher
  * 
  * @author austink23
  * @version Nov 20, 2025
@@ -23,8 +24,9 @@ public class LinkedList<E> {
 
     /**
      * Add element to end
-     * * @param element
-     * Element to add
+     * 
+     * @param element
+     *            Element to add
      */
     public void append(E element) {
         Link<E> curr = head;
@@ -38,8 +40,9 @@ public class LinkedList<E> {
 
     /**
      * Add element at specific index
-     * * @param index
-     * Index to insert at
+     * 
+     * @param index
+     *            Index to insert at
      * 
      * @param element
      *            Element to insert
@@ -59,8 +62,9 @@ public class LinkedList<E> {
 
     /**
      * Remove specific object instance
-     * * @param element
-     * Element to remove
+     * 
+     * @param element
+     *            Element to remove
      * 
      * @return true if removed
      */
@@ -80,7 +84,8 @@ public class LinkedList<E> {
 
     /**
      * Get size
-     * * @return size
+     * 
+     * @return size
      */
     public int size() {
         return size;
@@ -89,8 +94,9 @@ public class LinkedList<E> {
 
     /**
      * Get element at index
-     * * @param index
-     * Index
+     * 
+     * @param index
+     *            Index
      * 
      * @return Element
      */
@@ -108,8 +114,9 @@ public class LinkedList<E> {
 
     /**
      * Check if list contains element
-     * * @param element
-     * Element to check
+     * 
+     * @param element
+     *            Element to check
      * 
      * @return true if found
      */

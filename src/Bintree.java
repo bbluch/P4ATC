@@ -1,7 +1,8 @@
 // -------------------------------------------------------------------------
 /**
  * Bintree Wrapper Class.
- * * @author benblucher
+ * 
+ * @author benblucher
  * 
  * @author austink23
  * @version Nov 20, 2025
@@ -21,7 +22,7 @@ public class Bintree {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Insert a new object into the bintree.
      * 
      * @param obj
      */
@@ -32,7 +33,7 @@ public class Bintree {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Delete an object from the bintree.
      * 
      * @param obj
      */
@@ -43,9 +44,9 @@ public class Bintree {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Print the bintree.
      * 
-     * @return
+     * @return String with the bintree output.
      */
     public String print() {
         StringBuilder sb = new StringBuilder();
@@ -141,15 +142,21 @@ public class Bintree {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Checks which objects intersect with each other and prints them out.
      * 
      * @param x
+     *            X coordinate
      * @param y
+     *            Y coordinate
      * @param z
+     *            Z coordinate
      * @param w
+     *            Width
      * @param h
+     *            Height
      * @param d
-     * @return
+     *            Depth
+     * @return string with objects that intersect
      */
     public String intersect(int x, int y, int z, int w, int h, int d) {
         StringBuilder sb = new StringBuilder();
@@ -160,7 +167,6 @@ public class Bintree {
         int[] query = { x, y, z, w, h, d };
         int count = root.intersect(sb, query, 0, 0, 0, worldSize, worldSize,
             worldSize, 0);
-        
 
         sb.append(count).append(" nodes were visited in the bintree\n");
         return sb.toString();

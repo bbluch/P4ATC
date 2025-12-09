@@ -81,7 +81,7 @@ public class SkipNode<K extends Comparable<K>> {
     // ----------------------------------------------------------
     /**
      * Converts the node's record to its string representation.
-     * * @return The String representation of the record.
+     * @return The String representation of the record.
      */
     @Override
     public String toString() {

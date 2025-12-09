@@ -1,10 +1,9 @@
 // -------------------------------------------------------------------------
 /**
- * Write a one-sentence summary of your class here.
- * Follow it with additional details about its purpose, what abstraction
- * it represents, and how to use it.
+ * Balloon object class.
  * 
- * @author bluch
+ * @author benblucher
+ * @author austink23
  * @version Nov 14, 2025
  */
 public class Balloon extends AirObject {

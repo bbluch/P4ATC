@@ -190,7 +190,8 @@ public class BinInternal implements BinNode {
             if (oz < z + half)
                 left = left.delete(obj, x, y, z, w, h, half, level + 1);
             if (oz + od > z + half)
-                right = right.delete(obj, x, y, z + half, w, h, half, level + 1);
+                right = right.delete(obj, x, y, z + half, w, h, half, level
+                    + 1);
 
 // if (goLeft)
 // left = left.delete(obj, x, y, z, w, h, d / 2, level + 1);
@@ -229,8 +230,11 @@ public class BinInternal implements BinNode {
 
                 if (union.size() <= 3) {
                     BinLeaf newLeaf = new BinLeaf();
+                    // FIX: Use insert() to ensure objects are added in sorted
+                    // order
+                    // instead of appending unsorted union objects.
                     for (int i = 0; i < union.size(); i++) {
-                        newLeaf.getObjects().append(union.get(i));
+                        newLeaf.insert(union.get(i), x, y, z, w, h, d, level);
                     }
                     return newLeaf;
                 }

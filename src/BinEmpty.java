@@ -1,7 +1,8 @@
 // -------------------------------------------------------------------------
 /**
  * Flyweight Empty Node for Bintree.
- * * @author benblucher
+ * 
+ * @author benblucher
  * 
  * @author austink23
  * @version Nov 20, 2025
@@ -12,9 +13,9 @@ public class BinEmpty implements BinNode {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Returns instance of this object.
      * 
-     * @return
+     * @return instance of object
      */
     public static BinEmpty getInstance() {
         return instance;
@@ -58,7 +59,6 @@ public class BinEmpty implements BinNode {
     public boolean isLeaf() {
         return true;
     }
-
 
 // @Override
 // public int countNodes() {

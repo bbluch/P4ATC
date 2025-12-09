@@ -1,8 +1,9 @@
 // -------------------------------------------------------------------------
 /**
  * Leaf Node for Bintree.
- * * @author benblucher
- * * @author austink23
+ * 
+ * @author benblucher
+ * @author austink23
  * 
  * @version Nov 20, 2025
  */
@@ -21,8 +22,9 @@ public class BinLeaf implements BinNode {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
-     * @return
+     * Returns the linkedlist of objects.
+     * 
+     * @return LinkedList of objects
      */
     public LinkedList<AirObject> getObjects() {
         return objects;
@@ -65,12 +67,15 @@ public class BinLeaf implements BinNode {
 
 
     private boolean allIntersect() {
-//        if (objects.size() == 0)
-//            return false;
+// if (objects.size() == 0)
+// return false;
         AirObject first = objects.get(0);
-        int ix = first.getXorig(), iy = first.getYorig(), iz = first.getZorig();
-        int iw = first.getXwidth(), ih = first.getYwidth(), id = first
-            .getZwidth();
+        int ix = first.getXorig();
+        int iy = first.getYorig();
+        int iz = first.getZorig();
+        int iw = first.getXwidth();
+        int ih = first.getYwidth();
+        int id = first.getZwidth();
 
         for (int i = 1; i < objects.size(); i++) {
             AirObject curr = objects.get(i);
@@ -117,7 +122,6 @@ public class BinLeaf implements BinNode {
     public boolean isLeaf() {
         return true;
     }
-
 
 // @Override
 // public int countNodes() {

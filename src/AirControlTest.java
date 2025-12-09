@@ -217,7 +217,7 @@ public class AirControlTest extends TestCase {
 
         // --- Invalid AirObject Parameters (from AirObject.isNotValid()) ---
 
-        // 1. Invalid Name (null)
+        // 1. Invalid name (null)
         assertFalse("Should fail for null name", w.add(new AirPlane(null, 1, 1,
             1, 1, 1, 1, "C", 1, 1)));
 
@@ -229,23 +229,23 @@ public class AirControlTest extends TestCase {
         assertFalse("Should fail for z < 0", w.add(new AirPlane("A", 1, 1, 1027,
             1, 1, 1, "C", 1, 1)));
 
-        // 3. Invalid Widths (xwid, ywid, or zwid < 1)
-        assertFalse("Should fail for xwid < 1", w.add(new AirPlane("A", 1, 1, 1,
+        // 3. Invalid Widths (xWid, yWid, or zWid < 1)
+        assertFalse("Should fail for xWid < 1", w.add(new AirPlane("A", 1, 1, 1,
             1030, 1, 1, "C", 1, 1)));
-        assertFalse("Should fail for ywid < 1", w.add(new AirPlane("A", 1, 1, 1,
+        assertFalse("Should fail for yWid < 1", w.add(new AirPlane("A", 1, 1, 1,
             1, 10000, 1, "C", 1, 1)));
-        assertFalse("Should fail for zwid < 1", w.add(new AirPlane("A", 1, 1, 1,
+        assertFalse("Should fail for zWid < 1", w.add(new AirPlane("A", 1, 1, 1,
             1, 1, 10000, "C", 1, 1)));
 
         // 4. Object extends beyond the world boundary (1024 units)
         // x_orig + x_width > 1024
-        assertFalse("Should fail for x + xwid > 1024", w.add(new AirPlane("A",
+        assertFalse("Should fail for x + xWid > 1024", w.add(new AirPlane("A",
             1024, 1, 1, 1, 1, 1, "C", 1, 1)));
         // y_orig + y_width > 1024
-        assertFalse("Should fail for y + ywid > 1024", w.add(new AirPlane("A",
+        assertFalse("Should fail for y + yWid > 1024", w.add(new AirPlane("A",
             1, 1024, 1, 1, 1, 1, "C", 1, 1)));
         // z_orig + z_width > 1024
-        assertFalse("Should fail for z + zwid > 1024", w.add(new AirPlane("A",
+        assertFalse("Should fail for z + zWid > 1024", w.add(new AirPlane("A",
             1, 1, 1024, 1, 1, 1, "C", 1, 1)));
 
         // --- Invalid AirPlane Specific Parameters ---
@@ -292,69 +292,69 @@ public class AirControlTest extends TestCase {
 
         // Use valid AirPlane-specific parameters for testing the base AirObject
         // logic
-        final String CARRIER = "C";
-        final int FLIGHT_NUM = 1;
-        final int NUM_ENGINES = 1;
+        final String carrier = "C";
+        final int flightNum = 1;
+        final int numEngines = 1;
 
-        // --- 1. Invalid Name (name == null) ---
+        // --- 1. Invalid name (name == null) ---
         assertFalse("Should fail for null name", w.add(new AirPlane(null, 1, 1,
-            1, 1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 1, 1, carrier, flightNum, numEngines)));
 
         // --- 2. Invalid Origin Coordinates (x, y, or z < 0) ---
         assertFalse("Should fail for x < 0", w.add(new AirPlane("A", -1, 1, 1,
-            1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 1, carrier, flightNum, numEngines)));
         assertFalse("Should fail for y < 0", w.add(new AirPlane("A", 1, -1, 1,
-            1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 1, carrier, flightNum, numEngines)));
         assertFalse("Should fail for z < 0", w.add(new AirPlane("A", 1, 1, -1,
-            1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 1, carrier, flightNum, numEngines)));
 
         // --- 3. Invalid Origin Coordinates (x, y, or z > 1024 based on
         // *current* code) ---
         assertFalse("Should fail for x > 1024 (using 1025)", w.add(new AirPlane(
-            "A", 1025, 1, 1, 1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            "A", 1025, 1, 1, 1, 1, 1, carrier, flightNum, numEngines)));
         assertFalse("Should fail for y > 1024 (using 1025)", w.add(new AirPlane(
-            "A", 1, 1025, 1, 1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            "A", 1, 1025, 1, 1, 1, 1, carrier, flightNum, numEngines)));
         assertFalse("Should fail for z > 1024 (using 1025)", w.add(new AirPlane(
-            "A", 1, 1, 1025, 1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            "A", 1, 1, 1025, 1, 1, 1, carrier, flightNum, numEngines)));
 
         // --- 4. Invalid Widths (width < 1) ---
         assertFalse("Should fail for xWidth < 1", w.add(new AirPlane("A", 1, 1,
-            1, 0, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 0, 1, 1, carrier, flightNum, numEngines)));
         assertFalse("Should fail for yWidth < 1", w.add(new AirPlane("A", 1, 1,
-            1, 1, 0, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 0, 1, carrier, flightNum, numEngines)));
         assertFalse("Should fail for zWidth < 1", w.add(new AirPlane("A", 1, 1,
-            1, 1, 1, 0, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 1, 0, carrier, flightNum, numEngines)));
 
         // --- 5. Invalid Widths (width > 1025 based on *current* code) ---
         assertFalse("Should fail for xWidth > 1025 (using 1026)", w.add(
-            new AirPlane("A", 1, 1, 1, 1026, 1, 1, CARRIER, FLIGHT_NUM,
-                NUM_ENGINES)));
+            new AirPlane("A", 1, 1, 1, 1026, 1, 1, carrier, flightNum,
+                numEngines)));
         assertFalse("Should fail for yWidth > 1025 (using 1026)", w.add(
-            new AirPlane("A", 1, 1, 1, 1, 1026, 1, CARRIER, FLIGHT_NUM,
-                NUM_ENGINES)));
+            new AirPlane("A", 1, 1, 1, 1, 1026, 1, carrier, flightNum,
+                numEngines)));
         assertFalse("Should fail for zWidth > 1025 (using 1026)", w.add(
-            new AirPlane("A", 1, 1, 1, 1, 1, 1026, CARRIER, FLIGHT_NUM,
-                NUM_ENGINES)));
+            new AirPlane("A", 1, 1, 1, 1, 1, 1026, carrier, flightNum,
+                numEngines)));
 
         // --- 6. Object extends beyond the world boundary (x_orig + x_width >
         // 1024) ---
         // x = 1024 (max allowed in the current code) + xWidth = 1 (min allowed)
         // = 1025 > 1024
         assertFalse("Should fail for x + xWidth > 1024 (1024 + 1)", w.add(
-            new AirPlane("A", 1024, 1, 1, 1, 1, 1, CARRIER, FLIGHT_NUM,
-                NUM_ENGINES)));
+            new AirPlane("A", 1024, 1, 1, 1, 1, 1, carrier, flightNum,
+                numEngines)));
         // Test a valid origin and width that exceeds the boundary
         assertFalse("Should fail for x + xWidth > 1024 (500 + 525)", w.add(
-            new AirPlane("A", 500, 1, 1, 525, 1, 1, CARRIER, FLIGHT_NUM,
-                NUM_ENGINES)));
+            new AirPlane("A", 500, 1, 1, 525, 1, 1, carrier, flightNum,
+                numEngines)));
 
         // y_orig + y_width > 1024
         assertFalse("Should fail for y + yWidth > 1024", w.add(new AirPlane("A",
-            1, 1024, 1, 1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1024, 1, 1, 1, 1, carrier, flightNum, numEngines)));
 
         // z_orig + z_width > 1024
         assertFalse("Should fail for z + zWidth > 1024", w.add(new AirPlane("A",
-            1, 1, 1024, 1, 1, 1, CARRIER, FLIGHT_NUM, NUM_ENGINES)));
+            1, 1, 1024, 1, 1, 1, carrier, flightNum, numEngines)));
     }
 
 
@@ -370,25 +370,25 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Bird-specific logic
-        final String NAME = "B1";
-        final int X = 1, Y = 1, Z = 1;
-        final int XWID = 1, YWID = 1, ZWID = 1;
+        final String name = "B1";
+        final int x = 1, y = 1, z = 1;
+        final int xWid = 1, yWid = 1, zWid = 1;
 
         // 1. Invalid type (null)
-        assertFalse("Should fail for null type", w.add(new Bird(NAME, X, Y, Z,
-            XWID, YWID, ZWID, null, -1)));
+        assertFalse("Should fail for null type", w.add(new Bird(name, x, y, z,
+            xWid, yWid, zWid, null, -1)));
 
         // 2. Invalid number (must be >= 1)
-        assertFalse("Should fail for number = 0", w.add(new Bird(NAME, X, Y, Z,
-            XWID, YWID, ZWID, "Sparrow", 0)));
-        assertFalse("Should fail for negative number", w.add(new Bird(NAME, X,
-            Y, Z, XWID, YWID, ZWID, "Sparrow", -5)));
+        assertFalse("Should fail for number = 0", w.add(new Bird(name, x, y, z,
+            xWid, yWid, zWid, "Sparrow", 0)));
+        assertFalse("Should fail for negative number", w.add(new Bird(name, x,
+            y, z, xWid, yWid, zWid, "Sparrow", -5)));
 
         // 3. Test a valid Bird (to ensure a successful add works)
         assertTrue("Should succeed for valid Bird parameters", w.add(new Bird(
-            NAME, X, Y, Z, XWID, YWID, ZWID, "Sparrow", 1)));
+            name, x, y, z, xWid, yWid, zWid, "Sparrow", 1)));
 
-        assertTrue(w.add(new Bird("J", X + 1, Y, Z, XWID, YWID, ZWID, "Jack",
+        assertTrue(w.add(new Bird("J", x + 1, y, z, xWid, yWid, zWid, "Jack",
             1)));
     }
 
@@ -405,21 +405,21 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Balloon-specific logic
-        final String NAME = "Ball1";
-        final int X = 1, Y = 1, Z = 1;
-        final int XWID = 1, YWID = 1, ZWID = 1;
+        final String name = "Ball1";
+        final int x = 1, y = 1, z = 1;
+        final int xWid = 1, yWid = 1, zWid = 1;
 
         // 1. Invalid type (null)
-        assertFalse("Should fail for null type", w.add(new Balloon(NAME, X, Y,
-            Z, XWID, YWID, ZWID, null, 10)));
+        assertFalse("Should fail for null type", w.add(new Balloon(name, x, y,
+            z, xWid, yWid, zWid, null, 10)));
 
         // 2. Invalid ascentRate (must be >= 0)
         assertFalse("Should fail for negative ascentRate", w.add(new Balloon(
-            NAME, X, Y, Z, XWID, YWID, ZWID, "hot_air", -5)));
+            name, x, y, z, xWid, yWid, zWid, "hot_air", -5)));
 
         // 3. Test a valid Balloon (to ensure a successful add works)
         assertTrue("Should succeed for valid Balloon parameters", w.add(
-            new Balloon(NAME, X, Y, Z, XWID, YWID, ZWID, "weather", 0)));
+            new Balloon(name, x, y, z, xWid, yWid, zWid, "weather", 0)));
     }
 
 
@@ -435,23 +435,23 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Drone-specific logic
-        final String NAME = "Drone1";
-        final int X = 1, Y = 1, Z = 1;
-        final int XWID = 1, YWID = 1, ZWID = 1;
+        final String name = "Drone1";
+        final int x = 1, y = 1, z = 1;
+        final int xWid = 1, yWid = 1, zWid = 1;
 
         // 1. Invalid brand (null)
-        assertFalse("Should fail for null brand", w.add(new Drone(NAME, X, Y, Z,
-            XWID, YWID, ZWID, null, 4)));
+        assertFalse("Should fail for null brand", w.add(new Drone(name, x, y, z,
+            xWid, yWid, zWid, null, 4)));
 
         // 2. Invalid numEngines (must be >= 1)
-        assertFalse("Should fail for numEngines = 0", w.add(new Drone(NAME, X,
-            Y, Z, XWID, YWID, ZWID, "DJI", 0)));
-        assertFalse("Should fail for negative numEngines", w.add(new Drone(NAME,
-            X, Y, Z, XWID, YWID, ZWID, "DJI", -1)));
+        assertFalse("Should fail for numEngines = 0", w.add(new Drone(name, x,
+            y, z, xWid, yWid, zWid, "DJI", 0)));
+        assertFalse("Should fail for negative numEngines", w.add(new Drone(name,
+            x, y, z, xWid, yWid, zWid, "DJI", -1)));
 
         // 3. Test a valid Drone (to ensure a successful add works)
         assertTrue("Should succeed for valid Drone parameters", w.add(new Drone(
-            NAME, X, Y, Z, XWID, YWID, ZWID, "DJI", 4)));
+            name, x, y, z, xWid, yWid, zWid, "DJI", 4)));
     }
 
 
@@ -467,21 +467,21 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // Use valid AirObject parameters for testing Rocket-specific logic
-        final String NAME = "R1";
-        final int X = 1, Y = 1, Z = 1;
-        final int XWID = 1, YWID = 1, ZWID = 1;
+        final String name = "R1";
+        final int x = 1, y = 1, z = 1;
+        final int xWid = 1, yWid = 1, zWid = 1;
 
         // 1. Invalid ascentRate (must be >= 0)
         assertFalse("Should fail for negative ascentRate", w.add(new Rocket(
-            NAME, X, Y, Z, XWID, YWID, ZWID, -100, 45.0)));
+            name, x, y, z, xWid, yWid, zWid, -100, 45.0)));
 
         // 2. Invalid trajectory (must be >= 0)
         assertFalse("Should fail for negative trajectory", w.add(new Rocket(
-            NAME, X, Y, Z, XWID, YWID, ZWID, 100, -1.0)));
+            name, x, y, z, xWid, yWid, zWid, 100, -1.0)));
 
         // 3. Test a valid Rocket (to ensure a successful add works)
         assertTrue("Should succeed for valid Rocket parameters", w.add(
-            new Rocket(NAME, X, Y, Z, XWID, YWID, ZWID, 100, 0.0)));
+            new Rocket(name, x, y, z, xWid, yWid, zWid, 100, 0.0)));
     }
 
 
@@ -497,8 +497,8 @@ public class AirControlTest extends TestCase {
         WorldDB w = new WorldDB(rnd);
 
         // --- Setup: Insert a test object (AirPlane) ---
-        final String TEST_NAME = "TestPlane";
-        AirPlane plane = new AirPlane(TEST_NAME, 10, 10, 10, 5, 5, 5, "Delta",
+        final String testName = "TestPlane";
+        AirPlane plane = new AirPlane(testName, 10, 10, 10, 5, 5, 5, "Delta",
             123, 2);
 
         // Ensure insertion succeeds
@@ -510,15 +510,15 @@ public class AirControlTest extends TestCase {
         // toString is informative)
         String expectedOutput = plane.toString();
 
-        String result = w.print(TEST_NAME);
+        String result = w.print(testName);
 
         assertNotNull("Print should find the object by name.", result);
         assertFuzzyEquals(
             "The retrieved object's string should match the inserted object.",
             expectedOutput, result);
 
-        // --- 2. Name Not Found Test ---
-        String notFoundResult = w.print("NonExistentName");
+        // --- 2. name Not Found Test ---
+        String notFoundResult = w.print("NonExistentname");
         assertNull(
             "Print should return null for a name that was never inserted.",
             notFoundResult);
@@ -561,7 +561,7 @@ public class AirControlTest extends TestCase {
         assertNotNull("The added object should be found in the database.", w
             .print("Air1"));
 
-        // --- 2. Duplicate Name Insertion Test (Rejection) ---
+        // --- 2. Duplicate name Insertion Test (Rejection) ---
         AirPlane plane2 = new AirPlane("Air1", // Duplicate name
             50, 50, 50, 1, 1, 1, "United", 456, 4);
 
@@ -687,7 +687,7 @@ public class AirControlTest extends TestCase {
         Rocket rocketC = new Rocket("Charlie", 3, 3, 3, 1, 1, 1, 10, 1.0);
         Drone droneD = new Drone("Delta", 4, 4, 4, 1, 1, 1, "DJI", 4);
 
-        // Names inserted in mixed order: C, B, D, A
+        // names inserted in mixed order: C, B, D, A
 
         // --- 1. Insertion ---
         assertTrue("Insert failed for Charlie (Rocket).", w.add(rocketC));
@@ -911,16 +911,16 @@ public class AirControlTest extends TestCase {
         // 1. Setup: Insert 4 objects (all overlap the root node)
 
         // Coordinates for objects (from testSampleInput):
-        // B1: (10, 11, 11) wid (21, 12, 31) -> Mostly in Quadrant 1 (X < 512,
-        // Y < 512)
+        // B1: (10, 11, 11) wid (21, 12, 31) -> Mostly in Quadrant 1 (x < 512,
+        // y < 512)
         Balloon b1 = new Balloon("B1", 10, 11, 11, 21, 12, 31, "hot_air", 15);
 
         // Air1: (0, 10, 1) wid (20, 2, 30) -> Mostly in Quadrant 1
         AirPlane air1 = new AirPlane("Air1", 0, 10, 1, 20, 2, 30, "USAir", 717,
             4);
 
-        // Air2: (100, 1010, 101) wid (924, 2, 900) -> Spans all X, Y in Q4 (Y
-        // >= 512), Z in Q1 (Z < 512)
+        // Air2: (100, 1010, 101) wid (924, 2, 900) -> Spans all x, y in Q4 (y
+        // >= 512), z in Q1 (z < 512)
         // Note: Air2 (100+924=1024) extends exactly to the boundary.
         Drone air2 = new Drone("Air2", 100, 1010, 101, 924, 2, 900, "Droners",
             3);
@@ -944,19 +944,19 @@ public class AirControlTest extends TestCase {
         // --- 2. Verification (Tree Structure and Formatting) ---
         // Expected structure is taken directly from the successful
         // testSampleInput() output.
-        // Node splitting sequence: X-axis (Level 0), Y-axis (Level 1), Z-axis
+        // Node splitting sequence: x-axis (Level 0), y-axis (Level 1), z-axis
         // (Level 2)
 
         String expectedBintree = "I (0, 0, 0, 1024, 1024, 1024) 0\n" // Root
                                                                      // split
-                                                                     // on X
-            + "  I (0, 0, 0, 512, 1024, 1024) 1\n" // Left child split on Y
+                                                                     // on x
+            + "  I (0, 0, 0, 512, 1024, 1024) 1\n" // Left child split on y
             + "    Leaf with 3 objects (0, 0, 0, 512, 512, 1024) 2\n" // Leaf
                                                                       // for Q1
-                                                                      // (X<512,
-                                                                      // Y<512)
+                                                                      // (x<512,
+                                                                      // y<512)
                                                                       // split
-                                                                      // on Z
+                                                                      // on z
                                                                       // is
                                                                       // skipped
             + "      (Airplane Air1 0 10 1 20 2 30 USAir 717 4)\n"
@@ -965,14 +965,14 @@ public class AirControlTest extends TestCase {
             + "    Leaf with 1 objects (0, 512, 0, 512, 512, 1024) 2\n" // Leaf
                                                                         // for
                                                                         // Q4
-                                                                        // (X<512,
-                                                                        // Y>=512)
+                                                                        // (x<512,
+                                                                        // y>=512)
             + "      (Drone Air2 100 1010 101 924 2 900 Droners 3)\n"
             + "  Leaf with 1 objects (512, 0, 0, 512, 1024, 1024) 1\n" // Right
                                                                        // child
                                                                        // of
                                                                        // Root
-                                                                       // (X>=512)
+                                                                       // (x>=512)
             + "    (Drone Air2 100 1010 101 924 2 900 Droners 3)\n"
             + "5 Bintree nodes printed\n";
 
@@ -1001,11 +1001,11 @@ public class AirControlTest extends TestCase {
         // 1. Insert 3 non-overlapping objects (Threshold is 3, so no split yet)
         // Placing them in different quadrants to ensure they separate when
         // split happens
-        assertTrue(w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "Carrier", 1,
+        assertTrue(w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "carrier", 1,
             1)));
-        assertTrue(w.add(new AirPlane("B", 600, 10, 10, 10, 10, 10, "Carrier",
+        assertTrue(w.add(new AirPlane("B", 600, 10, 10, 10, 10, 10, "carrier",
             1, 1)));
-        assertTrue(w.add(new AirPlane("C", 10, 600, 10, 10, 10, 10, "Carrier",
+        assertTrue(w.add(new AirPlane("C", 10, 600, 10, 10, 10, 10, "carrier",
             1, 1)));
 
         // Assert it is still a single Leaf node
@@ -1015,7 +1015,7 @@ public class AirControlTest extends TestCase {
                                               // yet
 
         // 2. Insert 4th object to force a split
-        assertTrue(w.add(new AirPlane("D", 600, 600, 10, 10, 10, 10, "Carrier",
+        assertTrue(w.add(new AirPlane("D", 600, 600, 10, 10, 10, 10, "carrier",
             1, 1)));
 
         // Assert the tree has split into Internal nodes
@@ -1123,11 +1123,11 @@ public class AirControlTest extends TestCase {
 // BinInternal node = new BinInternal(BinEmpty.getInstance(), BinEmpty
 // .getInstance());
 //
-// // Object at 10,10,10 (Size 10) fits in 0-512 range for X, Y, and Z
+// // Object at 10,10,10 (Size 10) fits in 0-512 range for x, y, and z
 // AirObject obj = new AirPlane("LeftObj", 10, 10, 10, 10, 10, 10, "Test",
 // 1, 1);
 //
-// // Level 0 (Split X): Should go Left
+// // Level 0 (Split x): Should go Left
 // node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
 // assertTrue(node.getLeft().isLeaf()); // Left became a leaf (was
 // // inserted)
@@ -1148,7 +1148,7 @@ public class AirControlTest extends TestCase {
 // AirObject obj = new AirPlane("RightObj", 600, 10, 10, 10, 10, 10,
 // "Test", 1, 1);
 //
-// // Level 0 (Split X): Should go Right (600 > 512)
+// // Level 0 (Split x): Should go Right (600 > 512)
 // node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
 // assertTrue(node.getLeft() == BinEmpty.getInstance());
 // assertTrue(node.getRight().isLeaf());
@@ -1168,7 +1168,7 @@ public class AirControlTest extends TestCase {
 // AirObject obj = new AirPlane("OverlapObj", 500, 10, 10, 20, 10, 10,
 // "Test", 1, 1);
 //
-// // Level 0 (Split X): Should go Both
+// // Level 0 (Split x): Should go Both
 // node.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
 // assertTrue(node.getLeft().isLeaf());
 // assertTrue(node.getRight().isLeaf());
@@ -1176,34 +1176,34 @@ public class AirControlTest extends TestCase {
 //
 //
 // /**
-// * Test logic: Verify dimension cycling (Level 0=X, Level 1=Y, Level 2=Z).
+// * Test logic: Verify dimension cycling (Level 0=x, Level 1=y, Level 2=z).
 // * We pass the same object but change the 'level' param to force different
 // * splits.
 // */
 // public void testInternalRoutingDimensions() {
-// AirObject obj = new AirPlane("Y_Obj", 10, 600, 10, 10, 10, 10, "Test",
+// AirObject obj = new AirPlane("y_Obj", 10, 600, 10, 10, 10, 10, "Test",
 // 1, 1);
 //
-// // Case A: Level 0 (Split X) -> Object X=10 is Left
-// BinInternal nodeX = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// // Case A: Level 0 (Split x) -> Object x=10 is Left
+// BinInternal nodex = new BinInternal(BinEmpty.getInstance(), BinEmpty
 // .getInstance());
-// nodeX.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
-// assertTrue(nodeX.getLeft().isLeaf());
-// assertTrue(nodeX.getRight() == BinEmpty.getInstance());
+// nodex.insert(obj, 0, 0, 0, 1024, 1024, 1024, 0);
+// assertTrue(nodex.getLeft().isLeaf());
+// assertTrue(nodex.getRight() == BinEmpty.getInstance());
 //
-// // Case B: Level 1 (Split Y) -> Object Y=600 is Right (600 > 512)
-// BinInternal nodeY = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// // Case B: Level 1 (Split y) -> Object y=600 is Right (600 > 512)
+// BinInternal nodey = new BinInternal(BinEmpty.getInstance(), BinEmpty
 // .getInstance());
-// nodeY.insert(obj, 0, 0, 0, 1024, 1024, 1024, 1);
-// assertTrue(nodeY.getLeft() == BinEmpty.getInstance());
-// assertTrue(nodeY.getRight().isLeaf()); // Went Right because Y > 512
+// nodey.insert(obj, 0, 0, 0, 1024, 1024, 1024, 1);
+// assertTrue(nodey.getLeft() == BinEmpty.getInstance());
+// assertTrue(nodey.getRight().isLeaf()); // Went Right because y > 512
 //
-// // Case C: Level 2 (Split Z) -> Object Z=10 is Left
-// BinInternal nodeZ = new BinInternal(BinEmpty.getInstance(), BinEmpty
+// // Case C: Level 2 (Split z) -> Object z=10 is Left
+// BinInternal nodez = new BinInternal(BinEmpty.getInstance(), BinEmpty
 // .getInstance());
-// nodeZ.insert(obj, 0, 0, 0, 1024, 1024, 1024, 2);
-// assertTrue(nodeZ.getLeft().isLeaf());
-// assertTrue(nodeZ.getRight() == BinEmpty.getInstance());
+// nodez.insert(obj, 0, 0, 0, 1024, 1024, 1024, 2);
+// assertTrue(nodez.getLeft().isLeaf());
+// assertTrue(nodez.getRight() == BinEmpty.getInstance());
 // }
 //
 //
@@ -1233,7 +1233,7 @@ public class AirControlTest extends TestCase {
 // assertTrue("Result should be a Leaf node", result instanceof BinLeaf);
 // BinLeaf resultLeaf = (BinLeaf)result;
 // assertEquals(1, resultLeaf.getObjects().size());
-// assertEquals("Keep", resultLeaf.getObjects().get(0).getName());
+// assertEquals("Keep", resultLeaf.getObjects().get(0).getname());
 // }
 //
 //
@@ -1360,15 +1360,15 @@ public class AirControlTest extends TestCase {
             10, 10));
 
         // Invalid case: 1000 + 25 = 1025 (> 1024)
-        assertNull("Should be null if box extends past X=1024", w.intersect(
+        assertNull("Should be null if box extends past x=1024", w.intersect(
             1000, 0, 0, 25, 10, 10));
 
-        // Invalid case: Y extends out
-        assertNull("Should be null if box extends past Y=1024", w.intersect(0,
+        // Invalid case: y extends out
+        assertNull("Should be null if box extends past y=1024", w.intersect(0,
             1000, 0, 10, 25, 10));
 
-        // Invalid case: Z extends out
-        assertNull("Should be null if box extends past Z=1024", w.intersect(0,
+        // Invalid case: z extends out
+        assertNull("Should be null if box extends past z=1024", w.intersect(0,
             0, 1000, 10, 10, 25));
     }
 
@@ -1377,7 +1377,7 @@ public class AirControlTest extends TestCase {
     /**
      * Extensive mutation testing for the BinEmpty.intersect logic.
      * Targets boundary conditions (touching vs overlapping) and
-     * dimensional logic (checking X, Y, and Z independently).
+     * dimensional logic (checking x, y, and z independently).
      * * Logic being tested:
      * x1 < x2 + w2 && x1 + w1 > x2 &&
      * y1 < y2 + h2 && y1 + h1 > y2 &&
@@ -1389,10 +1389,13 @@ public class AirControlTest extends TestCase {
 
         // --- Setup Node ---
         // Node Region: Origin (100, 100, 100), Size (100, 100, 100)
-        // Occupies space: [100, 200) on X, Y, and Z axes.
-        int nx = 100, ny = 100, nz = 100;
-        int nw = 100, nh = 100, nd = 100;
-
+        // Occupies space: [100, 200) on x, y, and z axes.
+        int nx = 100;
+        int ny = 100;
+        int nz = 100;
+        int nw = 100;
+        int nh = 100;
+        int nd = 100;
         // --- 1. Base Case: Full Intersection ---
         // Query exactly matches Node.
         // [100, 200) overlaps [100, 200).
@@ -1403,62 +1406,62 @@ public class AirControlTest extends TestCase {
         // --- 2. Boundary Tests (Killing '<' vs '<=' Mutants) ---
         // Verify that touching edges are NOT considered intersections.
 
-        // X-Axis Left Touch: Query [0, 100). Node starts 100.
-        // Logic: NodeX (100) < QueryX(0) + QueryW(100) -> 100 < 100 -> False.
+        // x-Axis Left Touch: Query [0, 100). Node starts 100.
+        // Logic: Nodex (100) < Queryx(0) + QueryW(100) -> 100 < 100 -> False.
         // Mutant Check: 100 <= 100 -> True.
-        int[] qTouchXLeft = { 0, 100, 100, 100, 100, 100 };
-        assertEquals("Should return 0 when touching Left edge (X)", 0, node
-            .intersect(sb, qTouchXLeft, nx, ny, nz, nw, nh, nd, 0));
+        int[] qTouchxLeft = { 0, 100, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Left edge (x)", 0, node
+            .intersect(sb, qTouchxLeft, nx, ny, nz, nw, nh, nd, 0));
 
-        // X-Axis Right Touch: Query [200, 300). Node ends 200.
-        // Logic: NodeX(100) + NodeW(100) > QueryX(200) -> 200 > 200 -> False.
+        // x-Axis Right Touch: Query [200, 300). Node ends 200.
+        // Logic: Nodex(100) + NodeW(100) > Queryx(200) -> 200 > 200 -> False.
         // Mutant Check: 200 >= 200 -> True.
-        int[] qTouchXRight = { 200, 100, 100, 100, 100, 100 };
-        assertEquals("Should return 0 when touching Right edge (X)", 0, node
-            .intersect(sb, qTouchXRight, nx, ny, nz, nw, nh, nd, 0));
+        int[] qTouchxRight = { 200, 100, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Right edge (x)", 0, node
+            .intersect(sb, qTouchxRight, nx, ny, nz, nw, nh, nd, 0));
 
-        // Y-Axis Top Touch: Query Y [0, 100). Node Y starts 100.
-        int[] qTouchYTop = { 100, 0, 100, 100, 100, 100 };
-        assertEquals("Should return 0 when touching Top edge (Y)", 0, node
-            .intersect(sb, qTouchYTop, nx, ny, nz, nw, nh, nd, 0));
+        // y-Axis Top Touch: Query y [0, 100). Node y starts 100.
+        int[] qTouchyTop = { 100, 0, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Top edge (y)", 0, node
+            .intersect(sb, qTouchyTop, nx, ny, nz, nw, nh, nd, 0));
 
-        // Y-Axis Bottom Touch: Query Y [200, 300). Node Y ends 200.
-        int[] qTouchYBot = { 100, 200, 100, 100, 100, 100 };
-        assertEquals("Should return 0 when touching Bottom edge (Y)", 0, node
-            .intersect(sb, qTouchYBot, nx, ny, nz, nw, nh, nd, 0));
+        // y-Axis Bottom Touch: Query y [200, 300). Node y ends 200.
+        int[] qTouchyBot = { 100, 200, 100, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Bottom edge (y)", 0, node
+            .intersect(sb, qTouchyBot, nx, ny, nz, nw, nh, nd, 0));
 
-        // Z-Axis Front Touch: Query Z [0, 100). Node Z starts 100.
-        int[] qTouchZFront = { 100, 100, 0, 100, 100, 100 };
-        assertEquals("Should return 0 when touching Front edge (Z)", 0, node
-            .intersect(sb, qTouchZFront, nx, ny, nz, nw, nh, nd, 0));
+        // z-Axis Front Touch: Query z [0, 100). Node z starts 100.
+        int[] qTouchzFront = { 100, 100, 0, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Front edge (z)", 0, node
+            .intersect(sb, qTouchzFront, nx, ny, nz, nw, nh, nd, 0));
 
-        // Z-Axis Back Touch: Query Z [200, 300). Node Z ends 200.
-        int[] qTouchZBack = { 100, 100, 200, 100, 100, 100 };
-        assertEquals("Should return 0 when touching Back edge (Z)", 0, node
-            .intersect(sb, qTouchZBack, nx, ny, nz, nw, nh, nd, 0));
+        // z-Axis Back Touch: Query z [200, 300). Node z ends 200.
+        int[] qTouchzBack = { 100, 100, 200, 100, 100, 100 };
+        assertEquals("Should return 0 when touching Back edge (z)", 0, node
+            .intersect(sb, qTouchzBack, nx, ny, nz, nw, nh, nd, 0));
 
         // --- 3. Logical Operator Tests (Killing '&&' vs '||' Mutants) ---
         // Verify that intersection requires overlap in ALL dimensions.
-        // A box overlapping in X and Y but not Z should FAIL.
+        // A box overlapping in x and y but not z should FAIL.
         // An '||' mutant would return True here.
 
-        // Overlap X and Y, Miss Z
-        int[] qMissZ = { 100, 100, 0, 100, 100, 90 }; // Z range [0, 90). Node Z
+        // Overlap x and y, Miss z
+        int[] qMissz = { 100, 100, 0, 100, 100, 90 }; // z range [0, 90). Node z
                                                       // starts 100.
-        assertEquals("Should return 0 when missing Z intersection", 0, node
-            .intersect(sb, qMissZ, nx, ny, nz, nw, nh, nd, 0));
+        assertEquals("Should return 0 when missing z intersection", 0, node
+            .intersect(sb, qMissz, nx, ny, nz, nw, nh, nd, 0));
 
-        // Overlap X and Z, Miss Y
-        int[] qMissY = { 100, 0, 100, 100, 90, 100 }; // Y range [0, 90). Node Y
+        // Overlap x and z, Miss y
+        int[] qMissy = { 100, 0, 100, 100, 90, 100 }; // y range [0, 90). Node y
                                                       // starts 100.
-        assertEquals("Should return 0 when missing Y intersection", 0, node
-            .intersect(sb, qMissY, nx, ny, nz, nw, nh, nd, 0));
+        assertEquals("Should return 0 when missing y intersection", 0, node
+            .intersect(sb, qMissy, nx, ny, nz, nw, nh, nd, 0));
 
-        // Overlap Y and Z, Miss X
-        int[] qMissX = { 0, 100, 100, 90, 100, 100 }; // X range [0, 90). Node X
+        // Overlap y and z, Miss x
+        int[] qMissx = { 0, 100, 100, 90, 100, 100 }; // x range [0, 90). Node x
                                                       // starts 100.
-        assertEquals("Should return 0 when missing X intersection", 0, node
-            .intersect(sb, qMissX, nx, ny, nz, nw, nh, nd, 0));
+        assertEquals("Should return 0 when missing x intersection", 0, node
+            .intersect(sb, qMissx, nx, ny, nz, nw, nh, nd, 0));
 
         // --- 4. Slight Overlap Tests (Sanity Check) ---
         // Verify that even a 1-unit overlap is caught (Standard '<' behavior).
@@ -1470,76 +1473,76 @@ public class AirControlTest extends TestCase {
 
 
     /**
-     * Tests that the Bintree splits correctly on the Z-axis (Level 2).
-     * We insert 4 objects that are in the same X and Y range (0-512)
-     * but separated by the Z split line (512).
+     * Tests that the Bintree splits correctly on the z-axis (Level 2).
+     * We insert 4 objects that are in the same x and y range (0-512)
+     * but separated by the z split line (512).
      */
-    public void testSplitZ() {
+    public void testSplitz() {
         WorldDB w = new WorldDB(null);
 
-        // All objects are at X=10, Y=10 (Low X, Low Y)
-        // This forces them into the Left-Left branch until Level 2 (Z split).
+        // All objects are at x=10, y=10 (Low x, Low y)
+        // This forces them into the Left-Left branch until Level 2 (z split).
 
-        // Z < 512 (Should end up in Left child of Z-split)
-        w.add(new AirPlane("LowZ1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
-        w.add(new AirPlane("LowZ2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
+        // z < 512 (Should end up in Left child of z-split)
+        w.add(new AirPlane("Lowz1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Lowz2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
 
-        // Z > 512 (Should end up in Right child of Z-split)
-        w.add(new AirPlane("HighZ1", 10, 10, 600, 10, 10, 10, "C", 1, 1));
-        w.add(new AirPlane("HighZ2", 10, 10, 700, 10, 10, 10, "C", 1, 1));
+        // z > 512 (Should end up in Right child of z-split)
+        w.add(new AirPlane("Highz1", 10, 10, 600, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Highz2", 10, 10, 700, 10, 10, 10, "C", 1, 1));
 
         String output = w.printbintree();
 
-        // 1. Verify Level 0 (X split) exists
+        // 1. Verify Level 0 (x split) exists
         // Internal node at (0,0,0)
         assertTrue(output.contains("I (0, 0, 0, 1024, 1024, 1024) 0"));
 
-        // 2. Verify Level 1 (Y split) exists inside the first branch
+        // 2. Verify Level 1 (y split) exists inside the first branch
         // Internal node at (0,0,0) with size 512x1024x1024
         assertTrue(output.contains("I (0, 0, 0, 512, 1024, 1024) 1"));
 
-        // 3. Verify Level 2 (Z split) exists
+        // 3. Verify Level 2 (z split) exists
         // Internal node at (0,0,0) with size 512x512x1024
         assertTrue(output.contains("I (0, 0, 0, 512, 512, 1024) 2"));
 
-        // 4. Verify Leaves at Level 3 (Result of Z split)
-        // Left Leaf (Z low): (0,0,0) Size 512x512x512
+        // 4. Verify Leaves at Level 3 (Result of z split)
+        // Left Leaf (z low): (0,0,0) Size 512x512x512
         assertTrue(output.contains(
             "Leaf with 2 objects (0, 0, 0, 512, 512, 512) 3"));
-        // Right Leaf (Z high): (0,0,512) Size 512x512x512
+        // Right Leaf (z high): (0,0,512) Size 512x512x512
         assertTrue(output.contains(
             "Leaf with 2 objects (0, 0, 512, 512, 512, 512) 3"));
     }
 
 
     /**
-     * Tests Z-axis splitting when an object straddles the Z=512 boundary.
+     * Tests z-axis splitting when an object straddles the z=512 boundary.
      * The straddling object should appear in both leaves.
      */
-    public void testSplitZOverlap() {
+    public void testSplitzOverlap() {
         WorldDB w = new WorldDB(null);
 
         // 3 Spacer objects to fill the node and force a split
-        // All in Low X, Low Y, Low Z
+        // All in Low x, Low y, Low z
         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("B", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("C", 10, 10, 30, 10, 10, 10, "C", 1, 1));
 
-        // Straddling object: Z=500, Depth=20 -> Ends at 520.
+        // Straddling object: z=500, Depth=20 -> Ends at 520.
         // It crosses the 512 split line.
         w.add(new AirPlane("Straddle", 10, 10, 500, 10, 10, 20, "C", 1, 1));
 
         String output = w.printbintree();
 
-        // Verify Z-split occurred (Internal node at level 2)
+        // Verify z-split occurred (Internal node at level 2)
         assertTrue(output.contains("I (0, 0, 0, 512, 512, 1024) 2"));
 
-        // Verify "Straddle" is in the Low-Z leaf
+        // Verify "Straddle" is in the Low-z leaf
         // Leaf (0,0,0)
 // assertTrue(output.contains(
 // "Leaf with 4 objects (0, 0, 0, 512, 512, 512) 3"));
 
-        // Verify "Straddle" is ALSO in the High-Z leaf
+        // Verify "Straddle" is ALSO in the High-z leaf
         // Leaf (0,0,512) containing only the straddler
         assertTrue(output.contains(
             "Leaf with 1 objects (0, 0, 512, 512, 512, 512) 3"));
@@ -1547,28 +1550,28 @@ public class AirControlTest extends TestCase {
 
 
     /**
-     * Tests intersection query deep in the tree (Level 3/Z-split leaves).
+     * Tests intersection query deep in the tree (Level 3/z-split leaves).
      */
     public void testIntersectDeep() {
         WorldDB w = new WorldDB(null);
 
-        // Setup Z-split tree
+        // Setup z-split tree
         w.add(new AirPlane("DeepObj", 10, 10, 600, 10, 10, 10, "C", 1, 1)); // High
-                                                                            // Z
+                                                                            // z
         w.add(new AirPlane("Filler1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Filler2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Filler3", 10, 10, 30, 10, 10, 10, "C", 1, 1));
 
-        // Query box that only overlaps the High Z area: (0,0,550) to
+        // Query box that only overlaps the High z area: (0,0,550) to
         // (100,100,650)
         String res = w.intersect(0, 0, 550, 100, 100, 100);
 
         assertTrue(res.contains("DeepObj"));
-        assertFalse(res.contains("Filler1")); // Should prune the Low-Z branch
+        assertFalse(res.contains("Filler1")); // Should prune the Low-z branch
 
-        // Verify traversal log shows visiting the Z-internal node and the
-        // High-Z leaf
-        // "I (0, 0, 0, 512, 512, 1024) 2" -> The Z split node
+        // Verify traversal log shows visiting the z-internal node and the
+        // High-z leaf
+        // "I (0, 0, 0, 512, 512, 1024) 2" -> The z split node
         assertTrue(res.contains(" (0, 0, 0, 512, 512, 1024) 2"));
     }
 
@@ -1577,7 +1580,7 @@ public class AirControlTest extends TestCase {
      * Comprehensive test for Bintree Insertion logic.
      * Covers:
      * 1. Leaf Threshold (<= 3)
-     * 2. Splitting (X, Y, Z axes)
+     * 2. Splitting (x, y, z axes)
      * 3. Straddling objects (appearing in multiple nodes)
      * 4. "All Intersect" edge case (preventing split)
      * 5. Sorted insertion in Leaves
@@ -1588,8 +1591,8 @@ public class AirControlTest extends TestCase {
         // --- CASE 1: Leaf Capacity & Sorting ---
         // Insert 3 objects. Even if spread out, they should remain in 1 Leaf
         // because the threshold is > 3.
-        // We also pick names to test alphabetical sorting: Zebra, Apple, Bear.
-        w.add(new AirPlane("Zebra", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        // We also pick names to test alphabetical sorting: zebra, Apple, Bear.
+        w.add(new AirPlane("zebra", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Apple", 200, 200, 200, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Bear", 400, 400, 400, 10, 10, 10, "C", 1, 1));
 
@@ -1597,51 +1600,51 @@ public class AirControlTest extends TestCase {
         // Assert structure: Single Leaf
         assertFalse(output.contains("I ("));
         assertTrue(output.contains("Leaf with 3 objects"));
-        // Assert Sorting: Apple -> Bear -> Zebra
+        // Assert Sorting: Apple -> Bear -> zebra
         int idxA = output.indexOf("Apple");
         int idxB = output.indexOf("Bear");
-        int idxZ = output.indexOf("Zebra");
+        int idxz = output.indexOf("zebra");
         assertTrue(idxA < idxB);
-        assertTrue(idxB < idxZ);
+        assertTrue(idxB < idxz);
 
-        // --- CASE 2: X-Axis Split & Routing ---
+        // --- CASE 2: x-Axis Split & Routing ---
         // Add 4th object to force split.
         // Locations:
-        // Zebra (10, 10, 10) -> Low X
-        // Apple (200, 200, 200) -> Low X
-        // Bear (400, 400, 400) -> Low X
-        // Delta (800, 800, 800) -> High X (Adds this one)
+        // zebra (10, 10, 10) -> Low x
+        // Apple (200, 200, 200) -> Low x
+        // Bear (400, 400, 400) -> Low x
+        // Delta (800, 800, 800) -> High x (Adds this one)
         w.add(new AirPlane("Delta", 800, 800, 800, 10, 10, 10, "C", 1, 1));
 
         output = w.printbintree();
         // Assert Split: Root should now be Internal (I)
         assertTrue(output.contains("I (0, 0, 0, 1024, 1024, 1024) 0"));
-        // Left Child (Low X): Apple, Bear, Zebra (3 objects)
-        // Right Child (High X): Delta (1 object)
+        // Left Child (Low x): Apple, Bear, zebra (3 objects)
+        // Right Child (High x): Delta (1 object)
         // Note: Check roughly for these counts/groupings
         assertTrue(output.contains("Leaf with 3 objects")); // Left child
         assertTrue(output.contains("Leaf with 1 objects")); // Right child
 
         // --- CASE 3: Straddling (Split Overlap) ---
-        // Add an object that straddles the X=512 split line.
-        // X=500, Width=30 -> Ends at 530.
+        // Add an object that straddles the x=512 split line.
+        // x=500, Width=30 -> Ends at 530.
         // This object should be inserted into BOTH Left and Right children.
         w.add(new AirPlane("Straddle", 500, 10, 10, 30, 10, 10, "C", 1, 1));
 
         output = w.printbintree();
         // Left Child was 3, now +1 (Straddle) = 4 objects.
         // Wait! If Left Child gets 4 objects, it might split again (Level 1 /
-        // Y-axis).
+        // y-axis).
         // Let's check if Left Child split:
-        // Apple(200,200), Bear(400,400), Zebra(10,10), Straddle(500,10).
-        // They do NOT all intersect. So Left child MUST split on Y (Level 1).
+        // Apple(200,200), Bear(400,400), zebra(10,10), Straddle(500,10).
+        // They do NOT all intersect. So Left child MUST split on y (Level 1).
 
-        // Assert Level 1 split (Y-axis) exists in the output
+        // Assert Level 1 split (y-axis) exists in the output
         // Internal node at 0,0,0 sized 512x1024x1024
         assertTrue(output.contains("I (0, 0, 0, 512, 1024, 1024) 1"));
 
-        // Verify "Straddle" appears twice in the tree output (once in low X
-        // branch, once in high X branch)
+        // Verify "Straddle" appears twice in the tree output (once in low x
+        // branch, once in high x branch)
         int firstStraddle = output.indexOf("Straddle");
         int lastStraddle = output.lastIndexOf("Straddle");
         assertTrue("Straddle object should appear multiple times",
@@ -1665,29 +1668,29 @@ public class AirControlTest extends TestCase {
         assertTrue("Should be a leaf with 5 objects", output.contains(
             "Leaf with 5 objects"));
 
-        // --- CASE 5: Z-Axis Split (Deep Tree) ---
+        // --- CASE 5: z-Axis Split (Deep Tree) ---
         w.clear();
-        // Force objects down to Level 2 (Z split).
-        // We need 4 objects in the same X (0-512) and Y (0-512) bucket, but
-        // different Z.
-        // X,Y are all 10,10.
-        // Z values: 10, 20, 600, 700.
-        w.add(new AirPlane("LowZ1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
-        w.add(new AirPlane("LowZ2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
-        w.add(new AirPlane("HighZ1", 10, 10, 600, 10, 10, 10, "C", 1, 1));
-        w.add(new AirPlane("HighZ2", 10, 10, 700, 10, 10, 10, "C", 1, 1));
+        // Force objects down to Level 2 (z split).
+        // We need 4 objects in the same x (0-512) and y (0-512) bucket, but
+        // different z.
+        // x,y are all 10,10.
+        // z values: 10, 20, 600, 700.
+        w.add(new AirPlane("Lowz1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Lowz2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Highz1", 10, 10, 600, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Highz2", 10, 10, 700, 10, 10, 10, "C", 1, 1));
 
         output = w.printbintree();
-        // Check for Level 2 Internal Node (Z split)
-        // Dimensions for Level 2 should be 512, 512, 1024 (Split X, then Split
-        // Y, Z is full)
+        // Check for Level 2 Internal Node (z split)
+        // Dimensions for Level 2 should be 512, 512, 1024 (Split x, then Split
+        // y, z is full)
         assertTrue("Should contain Level 2 split", output.contains(
             "I (0, 0, 0, 512, 512, 1024) 2"));
 
-        // Check that Low Z objects are in a leaf at 0,0,0
+        // Check that Low z objects are in a leaf at 0,0,0
         assertTrue(output.contains(
             "Leaf with 2 objects (0, 0, 0, 512, 512, 512)"));
-        // Check that High Z objects are in a leaf at 0,0,512
+        // Check that High z objects are in a leaf at 0,0,512
         assertTrue(output.contains(
             "Leaf with 2 objects (0, 0, 512, 512, 512, 512)"));
     }
@@ -1695,23 +1698,23 @@ public class AirControlTest extends TestCase {
 
     /**
      * Tests collision detection deep in the tree (Level 3 Leaves)
-     * where objects are separated only by Z-coordinates or collide in Z.
+     * where objects are separated only by z-coordinates or collide in z.
      * * Scenario:
-     * - Force a split down to Z (Level 2) by adding >3 objects in the same X/Y
+     * - Force a split down to z (Level 2) by adding >3 objects in the same x/y
      * quadrant.
-     * - Verify collisions happen correctly in the "Low Z" leaf.
-     * - Verify collisions happen correctly in the "High Z" leaf.
+     * - Verify collisions happen correctly in the "Low z" leaf.
+     * - Verify collisions happen correctly in the "High z" leaf.
      */
-    public void testCollisionsDeepZ() {
+    public void testCollisionsDeepz() {
         WorldDB w = new WorldDB(null);
 
-        // 1. Setup: Fill the Low X / Low Y quadrant to force Z-splitting.
+        // 1. Setup: Fill the Low x / Low y quadrant to force z-splitting.
         // We need >3 objects.
-        // Pair 1: Low Z Collision (10, 10, 10) and (10, 10, 15)
+        // Pair 1: Low z Collision (10, 10, 10) and (10, 10, 15)
         w.add(new AirPlane("LowA", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("LowB", 10, 10, 15, 10, 10, 10, "C", 1, 1));
 
-        // Pair 2: High Z Collision (10, 10, 600) and (10, 10, 605)
+        // Pair 2: High z Collision (10, 10, 600) and (10, 10, 605)
         w.add(new AirPlane("HighA", 10, 10, 600, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("HighB", 10, 10, 605, 10, 10, 10, "C", 1, 1));
 
@@ -1720,13 +1723,13 @@ public class AirControlTest extends TestCase {
         // Verify output contains the specific leaf node headers and the
         // collision pairs
 
-        // Check Low Z Leaf (0, 0, 0) - 512x512x512
+        // Check Low z Leaf (0, 0, 0) - 512x512x512
         assertTrue(output.contains("In leaf node (0, 0, 0, 512, 512, 512) 3"));
 // assertTrue(output.contains(
 // "(AirPlane LowA 10 10 10 10 10 10 C 1 1) and "
 // + "(AirPlane LowB 10 10 15 10 10 10 C 1 1)"));
 
-        // Check High Z Leaf (0, 0, 512) - 512x512x512
+        // Check High z Leaf (0, 0, 512) - 512x512x512
         assertTrue(output.contains(
             "In leaf node (0, 0, 512, 512, 512, 512) 3"));
 // assertTrue(output.contains(
@@ -1736,53 +1739,53 @@ public class AirControlTest extends TestCase {
 
 
     /**
-     * Tests a collision between two objects that BOTH straddle the Z-split
+     * Tests a collision between two objects that BOTH straddle the z-split
      * boundary (512).
      * * Logic Check:
-     * - Both objects exist in Low Z Leaf and High Z Leaf.
+     * - Both objects exist in Low z Leaf and High z Leaf.
      * - Collision intersection is calculated.
-     * - The collision should ONLY be reported in the node containing the
+     * - The collision should ONLy be reported in the node containing the
      * intersection origin.
      */
-    public void testCollisionStraddlingZSplit() {
+    public void testCollisionStraddlingzSplit() {
         WorldDB w = new WorldDB(null);
 
-        // Fill tree to force Z split
+        // Fill tree to force z split
         w.add(new AirPlane("F1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("F2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("F3", 10, 10, 30, 10, 10, 10, "C", 1, 1));
 
-        // Obj A: Z=500, H=30 -> Range 500-530 (Straddles 512)
+        // Obj A: z=500, H=30 -> Range 500-530 (Straddles 512)
         w.add(new AirPlane("A", 10, 10, 500, 10, 10, 30, "C", 1, 1));
-        // Obj B: Z=505, H=30 -> Range 505-535 (Straddles 512)
+        // Obj B: z=505, H=30 -> Range 505-535 (Straddles 512)
         w.add(new AirPlane("B", 10, 10, 505, 10, 10, 30, "C", 1, 1));
 
         // Intersection:
-        // Max(Zorig) = 505.
-        // Intersection box starts at Z=505.
+        // Max(zorig) = 505.
+        // Intersection box starts at z=505.
 
         String output = w.collisions();
 
-        // 1. Z=505 is inside the Low Z node (0-512).
+        // 1. z=505 is inside the Low z node (0-512).
         // So we expect the collision to be reported there.
 // assertTrue(output.contains("In leaf node (0, 0, 0, 512, 512, 512) 3"));
 // assertTrue(output.contains("(AirPlane A 10 10 500 10 10 30 C 1 1) and "
 // + "(AirPlane B 10 10 505 10 10 30 C 1 1)"));
 
-        // 2. Both objects ALSO exist in the High Z node (0, 0, 512).
+        // 2. Both objects ALSO exist in the High z node (0, 0, 512).
         // But the intersection origin (505) is NOT in range [512, 1024].
-        // So it should NOT be reported under the High Z header.
+        // So it should NOT be reported under the High z header.
         // Note: The header itself might print if there are other objects or
         // just empty traversal,
         // but the specific pair (A and B) should NOT appear under that header.
 
-        // We split the output by the High Z header to isolate that section
+        // We split the output by the High z header to isolate that section
         String[] parts = output.split(
             "In leaf node \\(0, 0, 512, 512, 512, 512\\) 3");
         if (parts.length > 1) {
-            String highZSection = parts[1];
+            String highzSection = parts[1];
             // Ensure A and B collision is NOT repeated here
-            assertFalse(highZSection.contains(
+            assertFalse(highzSection.contains(
                 "(AirPlane A 10 10 500 10 10 30 C 1 1) and "
                     + "(AirPlane B 10 10 505 10 10 30 C 1 1)"));
         }
@@ -1790,10 +1793,10 @@ public class AirControlTest extends TestCase {
 
 
     /**
-     * Edge case: One object is fully in High Z, one straddles.
-     * They collide in the High Z region.
+     * Edge case: One object is fully in High z, one straddles.
+     * They collide in the High z region.
      */
-    public void testCollisionZBoundaryEdge() {
+    public void testCollisionzBoundaryEdge() {
         WorldDB w = new WorldDB(null);
 
         // Fillers
@@ -1801,73 +1804,73 @@ public class AirControlTest extends TestCase {
         w.add(new AirPlane("F2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("F3", 10, 10, 30, 10, 10, 10, "C", 1, 1));
 
-        // Straddler: Z=500, H=50 -> 500-550
+        // Straddler: z=500, H=50 -> 500-550
         w.add(new AirPlane("Straddle", 10, 10, 500, 10, 10, 50, "C", 1, 1));
 
-        // High Object: Z=520, H=10 -> 520-530
-        // Fully inside High Z (512+)
+        // High Object: z=520, H=10 -> 520-530
+        // Fully inside High z (512+)
         w.add(new AirPlane("High", 10, 10, 520, 10, 10, 10, "C", 1, 1));
 
         // Intersection Origin: Max(500, 520) = 520.
-        // 520 is > 512. The collision origin is in the HIGH Z node.
+        // 520 is > 512. The collision origin is in the HIGH z node.
 
         String output = w.collisions();
 
-        // Should be reported in High Z leaf
+        // Should be reported in High z leaf
         assertTrue(output.contains(
             "In leaf node (0, 0, 512, 512, 512, 512) 3"));
 // assertTrue(output.contains(
 // "(AirPlane High 10 10 520 10 10 10 C 1 1) and "
 // + "(AirPlane Straddle 10 10 500 10 10 50 C 1 1)"));
 
-        // Should NOT be reported in Low Z leaf (Origin 520 is outside 0-512)
-        // Even though Straddle is present in Low Z, High is NOT present in Low
-        // Z (starts at 520),
-        // so the pair doesn't even exist in Low Z to be checked.
+        // Should NOT be reported in Low z leaf (Origin 520 is outside 0-512)
+        // Even though Straddle is present in Low z, High is NOT present in Low
+        // z (starts at 520),
+        // so the pair doesn't even exist in Low z to be checked.
     }
 
 
     /**
-     * Verifies that BinInternal correctly routes objects along the Z-axis
+     * Verifies that BinInternal correctly routes objects along the z-axis
      * when depth is level 2.
      */
-    public void testZAxisRouting() {
-        // Manually create an internal node set to level 2 (Z-split)
+    public void testzAxisRouting() {
+        // Manually create an internal node set to level 2 (z-split)
         // Nodes are at (0,0,0) with size 1024x1024x1024
         BinInternal zNode = new BinInternal(BinEmpty.getInstance(), BinEmpty
             .getInstance());
 
-        // Object A: Fully in Low Z (0-511)
-        AirObject lowZ = new AirPlane("LowZ", 10, 10, 100, 10, 10, 10, "Delta",
+        // Object A: Fully in Low z (0-511)
+        AirObject lowz = new AirPlane("Lowz", 10, 10, 100, 10, 10, 10, "Delta",
             1, 1);
-        // Object B: Fully in High Z (512-1024)
-        AirObject highZ = new AirPlane("HighZ", 10, 10, 700, 10, 10, 10,
+        // Object B: Fully in High z (512-1024)
+        AirObject highz = new AirPlane("Highz", 10, 10, 700, 10, 10, 10,
             "Delta", 2, 1);
         // Object C: Straddling the boundary (512)
-        AirObject straddleZ = new AirPlane("Straddle", 10, 10, 500, 10, 10, 30,
+        AirObject straddlez = new AirPlane("Straddle", 10, 10, 500, 10, 10, 30,
             "Delta", 3, 1);
 
-        // 1. Insert LowZ -> Expect Left child
-        zNode.insert(lowZ, 0, 0, 0, 1024, 1024, 1024, 2);
+        // 1. Insert Lowz -> Expect Left child
+        zNode.insert(lowz, 0, 0, 0, 1024, 1024, 1024, 2);
         assertTrue(zNode.getLeft() instanceof BinLeaf);
         assertTrue(zNode.getRight() == BinEmpty.getInstance());
 
-        // 2. Insert HighZ -> Expect Right child
-        zNode.insert(highZ, 0, 0, 0, 1024, 1024, 1024, 2);
+        // 2. Insert Highz -> Expect Right child
+        zNode.insert(highz, 0, 0, 0, 1024, 1024, 1024, 2);
         assertTrue(zNode.getRight() instanceof BinLeaf);
 
         // 3. Insert Straddle -> Expect BOTH children to contain the object
-        zNode.insert(straddleZ, 0, 0, 0, 1024, 1024, 1024, 2);
+        zNode.insert(straddlez, 0, 0, 0, 1024, 1024, 1024, 2);
 
         // Check Left sibling list
         BinLeaf left = (BinLeaf)zNode.getLeft();
-        assertTrue(left.getObjects().contains(lowZ));
-        assertTrue(left.getObjects().contains(straddleZ));
+        assertTrue(left.getObjects().contains(lowz));
+        assertTrue(left.getObjects().contains(straddlez));
 
         // Check Right sibling list
         BinLeaf right = (BinLeaf)zNode.getRight();
-        assertTrue(right.getObjects().contains(highZ));
-        assertTrue(right.getObjects().contains(straddleZ));
+        assertTrue(right.getObjects().contains(highz));
+        assertTrue(right.getObjects().contains(straddlez));
     }
 
 
@@ -1875,10 +1878,10 @@ public class AirControlTest extends TestCase {
      * Verifies that siblings merge into a single leaf node after deletion
      * reduces the total object count to the threshold (3 or fewer).
      */
-    public void testZAxisMergeMutation() {
+    public void testzAxisMergeMutation() {
         WorldDB w = new WorldDB(null);
 
-        // Force a split on Z by making X,Y Low and using different Zs
+        // Force a split on z by making x,y Low and using different zs
         // Initial 4 objects forcing the Internal node at Level 2
         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1)); // Left
         w.add(new AirPlane("B", 10, 10, 20, 10, 10, 10, "C", 1, 1)); // Left
@@ -1902,57 +1905,57 @@ public class AirControlTest extends TestCase {
 
 
     /**
-     * Tests collisions specifically straddling the Z-split boundary.
+     * Tests collisions specifically straddling the z-split boundary.
      * Collision origin rule must report it in the node of origin (512 split).
      */
-    public void testZPlaneCollisions() {
+    public void testzPlaneCollisions() {
         WorldDB w = new WorldDB(null);
 
-        // Force Z split setup (Fill quadrants)
+        // Force z split setup (Fill quadrants)
         w.add(new AirPlane("Filler1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Filler2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Filler3", 10, 10, 30, 10, 10, 10, "C", 1, 1));
 
-        // Collision pair across Z split boundary:
-        // Obj A: Z=500, height=30 (ends 530)
+        // Collision pair across z split boundary:
+        // Obj A: z=500, height=30 (ends 530)
         w.add(new AirPlane("A", 10, 10, 500, 10, 10, 30, "C", 1, 1));
-        // Obj B: Z=505, height=30 (ends 535)
+        // Obj B: z=505, height=30 (ends 535)
         w.add(new AirPlane("B", 10, 10, 505, 10, 10, 30, "C", 1, 1));
 
         // Intersection Origin: Max(500, 505) = 505.
-        // Origin 505 is in the LOW Z node (0-511).
+        // Origin 505 is in the LOW z node (0-511).
         String output = w.collisions();
 
-// assertTrue("Collision should be reported in Low Z node", output
+// assertTrue("Collision should be reported in Low z node", output
 // .contains("In leaf node (0, 0, 0, 512, 512, 512) 3"));
 // assertTrue(output.contains(
 // "(AirPlane A 10 10 500 10 10 30 C 1 1) and (AirPlane B 10 10 505 10 10 30 C 1
 // 1)"));
 
-        // Logic verification: It should NOT appear under High Z (512-1024)
+        // Logic verification: It should NOT appear under High z (512-1024)
         // header if the origin is correctly tracked.
     }
 
 
     /**
-     * Tests pruning mutation in intersect traversal for the Z-axis.
+     * Tests pruning mutation in intersect traversal for the z-axis.
      */
-    public void testZBoundaryIntersectPruning() {
+    public void testzBoundaryIntersectPruning() {
         WorldDB w = new WorldDB(null);
 
-        // Add 4 objects forced down to Z-split (Level 2)
-        w.add(new AirPlane("LowZ", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+        // Add 4 objects forced down to z-split (Level 2)
+        w.add(new AirPlane("Lowz", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("F1", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("F2", 10, 10, 30, 10, 10, 10, "C", 1, 1));
-        w.add(new AirPlane("HighZ", 10, 10, 700, 10, 10, 10, "C", 1, 1));
+        w.add(new AirPlane("Highz", 10, 10, 700, 10, 10, 10, "C", 1, 1));
 
-        // Query box targeting ONLY HighZ: [0-100], [0-100], [600-1000]
+        // Query box targeting ONLy Highz: [0-100], [0-100], [600-1000]
         String result = w.intersect(0, 0, 600, 100, 100, 400);
 
-        // Assert that HighZ is found
-        assertTrue(result.contains("HighZ"));
-        // Assert that LowZ is pruned (Not visited in its leaf)
-        assertFalse(result.contains("LowZ"));
+        // Assert that Highz is found
+        assertTrue(result.contains("Highz"));
+        // Assert that Lowz is pruned (Not visited in its leaf)
+        assertFalse(result.contains("Lowz"));
         // Count visited nodes logic check
         assertTrue(result.contains("nodes were visited"));
     }
@@ -1963,7 +1966,7 @@ public class AirControlTest extends TestCase {
      * Covers:
      * 1. Merging two leaves into one when count drops to <= 3.
      * 2. Pruning an Internal node when one child becomes Empty.
-     * 3. Merging logic specifically on the Z-axis (Level 2).
+     * 3. Merging logic specifically on the z-axis (Level 2).
      * 4. Ensuring merge does NOT happen if count remains > 3.
      */
     public void testBintreeDeleteAndMerge() {
@@ -1971,7 +1974,7 @@ public class AirControlTest extends TestCase {
 
         // --- CASE 1: Standard Merge (4 -> 3 objects) ---
         // Setup: 4 objects forcing a split.
-        // Locations selected to ensure they split X (Level 0).
+        // Locations selected to ensure they split x (Level 0).
         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1)); // Left
         w.add(new AirPlane("B", 10, 10, 20, 10, 10, 10, "C", 1, 1)); // Left
         w.add(new AirPlane("C", 600, 10, 10, 10, 10, 10, "C", 1, 1)); // Right
@@ -2018,17 +2021,17 @@ public class AirControlTest extends TestCase {
         assertTrue("Should be Leaf with 2 objects", output.contains(
             "Leaf with 2 objects"));
 
-        // --- CASE 3: Z-Axis Merge (Deep Tree) ---
+        // --- CASE 3: z-Axis Merge (Deep Tree) ---
         w.clear();
-        // Force Z-split (Level 2). Need >3 objects in same X/Y quadrant.
-        // A, B, C in Low Z (0-512). D in High Z (512+).
+        // Force z-split (Level 2). Need >3 objects in same x/y quadrant.
+        // A, B, C in Low z (0-512). D in High z (512+).
         w.add(new AirPlane("Low1", 10, 10, 10, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Low2", 10, 10, 20, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("Low3", 10, 10, 30, 10, 10, 10, "C", 1, 1));
         w.add(new AirPlane("High1", 10, 10, 700, 10, 10, 10, "C", 1, 1));
 
         output = w.printbintree();
-        // Verify Z-split (Level 2 internal node)
+        // Verify z-split (Level 2 internal node)
         assertTrue("Should have Level 2 split", output.contains(
             "I (0, 0, 0, 512, 512, 1024) 2"));
 
@@ -2039,9 +2042,9 @@ public class AirControlTest extends TestCase {
 
         output = w.printbintree();
         // Verify Level 2 Internal node is GONE.
-        // It might still have X or Y splits depending on the logic,
-        // but specifically the Z-split node should be gone.
-        // Since all remaining objects are in Low X/Low Y/Low Z, the whole tree
+        // It might still have x or y splits depending on the logic,
+        // but specifically the z-split node should be gone.
+        // Since all remaining objects are in Low x/Low y/Low z, the whole tree
         // might collapse
         // if the recursive unwind checks merge at every level.
 // assertFalse("Level 2 I-node should be gone", output.contains(

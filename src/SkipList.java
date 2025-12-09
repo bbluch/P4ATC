@@ -169,8 +169,9 @@ public class SkipList<K extends Comparable<K>> {
 
     /**
      * Searches for elements within the range [start, end] inclusive.
-     * * @param start
-     * The start key
+     * 
+     * @param start
+     *            The start key
      * 
      * @param end
      *            The end key
@@ -215,13 +216,17 @@ public class SkipList<K extends Comparable<K>> {
     // ----------------------------------------------------------
     /**
      * Deletes the node associated with the given key from the skip list.
-     * * @param key The comparable key to delete.
+     * 
+     * @param key
+     *            The comparable key to delete.
      * 
      * @return The element (AirObject) of the deleted node, or null if not
      *         found.
      */
     @SuppressWarnings("unchecked")
     public Object delete(K key) {
+        if (key == null)
+            return null;
         // Array to store the nodes preceding the node to be deleted at each
         // level
         SkipNode<K>[] update = new SkipNode[level + 1];

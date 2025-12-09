@@ -79,20 +79,11 @@ public interface BinNode {
 
     // ----------------------------------------------------------
     /**
-     * Place a description of your method here.
+     * Checks if the node is a leaf, true if yes, false if not.
      * 
      * @return result of check
      */
     boolean isLeaf();
-
-
-    // ----------------------------------------------------------
-    /**
-     * Place a description of your method here.
-     * 
-     * @return count of nodes
-     */
-// int countNodes();
 
 
     /**

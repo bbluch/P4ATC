@@ -2151,4 +2151,66 @@ public class AirControlTest extends TestCase {
         assertFalse("Fail: y_orig + y_width = 1025", w.add(new AirPlane("YOut",
             0, 1000, 0, 1, 25, 1, C, F, E)));
     }
+    
+ // AirControlTest.java
+
+ // ... add this new method to the AirControlTest class ...
+
+     /**
+      * Tests the BinInternal deletion/merging logic when one child is a
+      * non-empty Leaf and the other is BinEmpty. The internal node must prune
+      * itself and return the remaining Leaf child (BinLeaf or BinEmpty) 
+      *.
+      * * @throws Exception
+      */
+     public void testBinInternalDeleteOneEmptyChild() throws Exception {
+         WorldDB w = new WorldDB(null);
+
+         // --- Setup: Create a split tree (Level 0 split on X) ---
+         
+         // 1. Fill LEFT quadrant (0-512) with 3 objects (A, B, C)
+         // 2. Fill RIGHT quadrant (512-1024) with 1 object (R)
+         
+         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+         w.add(new AirPlane("B", 10, 20, 10, 10, 10, 10, "C", 1, 1));
+         w.add(new AirPlane("C", 10, 30, 10, 10, 10, 10, "C", 1, 1));
+         w.add(new AirPlane("R", 600, 10, 10, 10, 10, 10, "C", 1, 1));
+
+         // Sanity Check: Tree is split (Internal node at root)
+         assertTrue("Setup: Tree should be split initially.", w.printbintree().contains("I ("));
+
+         // --- Case 1: Right Child becomes Empty (Left remains) ---
+         // Delete 'R'. Right child's leaf becomes BinEmpty.
+         // Internal node at root sees (Leaf, Empty) -> should return Left Leaf.
+         w.delete("R");
+
+         String outputLeftRemains = w.printbintree();
+
+         // Assert: The internal node is gone, and the output reflects a single Leaf with 3 objects.
+         assertFalse("Case 1: Internal node should be pruned.", outputLeftRemains.contains("I ("));
+         assertTrue("Case 1: Should be a single Leaf with 3 objects.", outputLeftRemains.contains("Leaf with 3 objects"));
+         
+         // --- Case 2: Left Child becomes Empty (Right remains) ---
+         w.clear(); // Start fresh
+
+         // 1. Setup: Fill LEFT (A) and RIGHT (R1, R2, R3) quadrants
+         w.add(new AirPlane("A", 10, 10, 10, 10, 10, 10, "C", 1, 1));
+         w.add(new AirPlane("R1", 600, 10, 10, 10, 10, 10, "C", 1, 1));
+         w.add(new AirPlane("R2", 600, 20, 10, 10, 10, 10, "C", 1, 1));
+         w.add(new AirPlane("R3", 600, 30, 10, 10, 10, 10, "C", 1, 1));
+
+         // Sanity Check: Tree is split (Internal node at root)
+         assertTrue("Setup: Tree should be split for Case 2.", w.printbintree().contains("I ("));
+
+         // Delete 'A'. Left child's leaf becomes BinEmpty.
+         // Internal node at root sees (Empty, Leaf) -> should return Right Leaf.
+         w.delete("A");
+         
+         String outputRightRemains = w.printbintree();
+
+         // Assert: The internal node is gone, and the output reflects a single Leaf with 3 objects.
+         assertFalse("Case 2: Internal node should be pruned.", outputRightRemains.contains("I ("));
+         assertTrue("Case 2: Should be a single Leaf with 3 objects.", outputRightRemains.contains("Leaf with 3 objects"));
+         assertTrue("Case 2: Should contain object R1.", outputRightRemains.contains("R1"));
+     }
 }

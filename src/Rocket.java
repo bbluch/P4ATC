@@ -63,16 +63,6 @@ public class Rocket extends AirObject {
     }
 
 
-    // ----------------------------------------------------------
-//    /**
-//     * Set the value of ascentRate for this object.
-//     * 
-//     * @param ascentRate
-//     *            The new value for ascentRate.
-//     */
-//    public void setAscentRate(int ascentRate) {
-//        this.ascentRate = ascentRate;
-//    }
 
 
     // ----------------------------------------------------------
@@ -86,16 +76,6 @@ public class Rocket extends AirObject {
     }
 
 
-    // ----------------------------------------------------------
-//    /**
-//     * Set the value of trajectory for this object.
-//     * 
-//     * @param trajectory
-//     *            The new value for trajectory.
-//     */
-//    public void setTrajectory(float trajectory) {
-//        this.trajectory = trajectory;
-//    }
 
 
     /**

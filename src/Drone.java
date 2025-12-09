@@ -11,7 +11,6 @@ public class Drone extends AirObject {
     private int numEngines;
 
     // ~ Constructors ..........................................................
-    // ----------------------------------------------------------
     /**
      * Create a new Drone object.
      * 
@@ -64,18 +63,6 @@ public class Drone extends AirObject {
 
 
     // ----------------------------------------------------------
-//    /**
-//     * Set the value of brand for this object.
-//     * 
-//     * @param brand
-//     *            The new value for brand.
-//     */
-//    public void setBrand(String brand) {
-//        this.brand = brand;
-//    }
-
-
-    // ----------------------------------------------------------
     /**
      * Get the current value of numEngines.
      * 
@@ -85,17 +72,7 @@ public class Drone extends AirObject {
         return numEngines;
     }
 
-
-    // ----------------------------------------------------------
-//    /**
-//     * Set the value of numEngines for this object.
-//     * 
-//     * @param numEngines
-//     *            The new value for numEngines.
-//     */
-//    public void setNumEngines(int numEngines) {
-//        this.numEngines = numEngines;
-//    }
+    // -------------------------------------------------------
 
 
     /**

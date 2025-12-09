@@ -1,4 +1,3 @@
-// KVPair.java (You will need to implement this class)
 // -------------------------------------------------------------------------
 /**
  * KVPair class to handle implemntation.

@@ -12,14 +12,9 @@ import java.util.Random;
  *            object being compared
  */
 public class SkipList<K extends Comparable<K>> {
-    // Implement
-    // Dictionary/appropriate
-    // interface
-
     private SkipNode<K> head;
     private int level;
     private int size;
-    // ran needs to be static if used this way, as shown in the snippet
     private Random ran;
 
     // ----------------------------------------------------------
@@ -244,7 +239,7 @@ public class SkipList<K extends Comparable<K>> {
         x = x.getForward()[0];
 
         // 2. Check if a match was found and proceed with deletion
-        //x != null &&
+        // x != null &&
         if (x != null && x.key().compareTo(key) == 0) {
             // Match found. Rewire pointers from level 0 up to the node's level
             for (int i = 0; i <= level; i++) {

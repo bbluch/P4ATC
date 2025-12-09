@@ -1927,8 +1927,8 @@ public class AirControlTest extends TestCase {
         // --- 1. X-AXIS ROUTING TEST (Level 0) ---
         // Insert a new object that is entirely in the RIGHT half for the
         // X-split
-        AirPlane X_RO = new AirPlane("XRO", 900, 10, 10, 10, 10, 10, "C", 1, 1);
-        w.add(X_RO); // Should route RIGHT-ONLY from the root.
+        AirPlane xRo = new AirPlane("XRO", 900, 10, 10, 10, 10, 10, "C", 1, 1);
+        w.add(xRo); // Should route RIGHT-ONLY from the root.
 
         String output = w.printbintree();
         assertTrue("XRO should be found in the Right child (512, 0, 0)", output

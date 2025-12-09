@@ -2088,4 +2088,67 @@ public class AirControlTest extends TestCase {
         assertTrue("Left side should have 1", output.contains(
             "Leaf with 1 objects"));
     }
+    
+    /**
+     * Test all boundary conditions for AirObject parameters (origin, width)
+     * using the precise thresholds (0, 1, 1023, 1024, 1025).
+     * This targets ROR (Relational Operator Replacement) mutants.
+     *
+     * @throws Exception
+     */
+    public void testAirObjectBoundaryConditions() throws Exception {
+        Random rnd = new Random();
+        rnd.setSeed(0xCAFEBEEF);
+        WorldDB w = new WorldDB(rnd);
+
+        final String C = "C";
+        final int F = 1;
+        final int E = 1;
+
+        // --- VALID BOUNDARY CASES (Should all succeed) ---
+
+        // 1. Minimum Valid: Origin=0, Width=1. (Max point is 1)
+        assertTrue("Valid: Min origin, min width", w.add(new AirPlane("A0", 0,
+            0, 0, 1, 1, 1, C, F, E)));
+
+        // 2. Maximum Valid: Origin=1023, Width=1. (Max point is 1024)
+        assertTrue("Valid: Max origin (1023), min width (1)", w.add(
+            new AirPlane("A1023", 1023, 1023, 1023, 1, 1, 1, C, F, E)));
+
+        // 3. Max Valid Width: Origin=0, Width=1024. (Max point is 1024)
+        assertTrue("Valid: Max width (1024), min origin (0)", w.add(
+            new AirPlane("A1024W", 0, 0, 0, 1024, 1024, 1024, C, F, E)));
+
+        // --- INVALID BOUNDARY CASES (Should all fail) ---
+
+        // 4. Invalid Origin (Negative)
+        assertFalse("Fail: x_orig = -1", w.add(new AirPlane("XNeg", -1, 0, 0, 1, 1, 1, C, F, E)));
+
+        // 5. Invalid Origin (Beyond Max)
+        // Assignment constraint: 0 to 1023[cite: 30]. Testing 1024 (invalid).
+        assertFalse("Fail: x_orig = 1024", w.add(new AirPlane("X1024", 1024, 0,
+            0, 1, 1, 1, C, F, E)));
+        assertFalse("Fail: x_orig = 1025", w.add(new AirPlane("X1025", 1025, 0,
+            0, 1, 1, 1, C, F, E)));
+
+        // 6. Invalid Width (Zero or Negative)
+        assertFalse("Fail: x_width = 0", w.add(new AirPlane("W0", 1, 1, 1, 0, 1,
+            1, C, F, E)));
+        assertFalse("Fail: x_width = -1", w.add(new AirPlane("WNeg", 1, 1, 1,
+            -1, 1, 1, C, F, E)));
+
+        // 7. Invalid Width (Beyond Max of 1024)
+        // Testing 1025 (invalid).
+        assertFalse("Fail: x_width = 1025", w.add(new AirPlane("W1025", 0, 0, 0,
+            1025, 1, 1, C, F, E)));
+
+        // 8. Object Extends Beyond World (Origin + Width > 1024)
+        // x_orig=1, x_width=1024. Max point is 1025. (Invalid)
+        assertFalse("Fail: x_orig + x_width = 1025", w.add(new AirPlane("XOut",
+            1, 0, 0, 1024, 1, 1, C, F, E)));
+        
+        // y_orig=1000, y_width=25. Max point is 1025. (Invalid)
+        assertFalse("Fail: y_orig + y_width = 1025", w.add(new AirPlane("YOut",
+            0, 1000, 0, 1, 25, 1, C, F, E)));
+    }
 }
